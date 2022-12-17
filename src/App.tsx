@@ -5,17 +5,20 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider as PaperProvider} from 'react-native-paper';
+import Navigations from './navigation/Navigations';
 import {SnackbarProvider} from './shared/components';
-import {LightTheme, PaperTheme} from './theme';
+import {LightTheme} from './theme';
 
 const App = () => {
   return (
-    <PaperProvider theme={PaperTheme}>
+    <PaperProvider>
       <ThemeProvider theme={LightTheme}>
         <SnackbarProvider>
           <GestureHandlerRootView style={styles.ghRoot}>
             <BottomSheetModalProvider>
-              <NavigationContainer theme={LightTheme}></NavigationContainer>
+              <NavigationContainer theme={LightTheme}>
+                <Navigations />
+              </NavigationContainer>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </SnackbarProvider>
