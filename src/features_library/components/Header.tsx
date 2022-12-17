@@ -12,6 +12,7 @@ const Header = () => {
       onPress={() => {}}
       borderRadius="hg"
       marginHorizontal="m"
+      marginBottom="s"
       borderless>
       <Row
         alignItems="center"

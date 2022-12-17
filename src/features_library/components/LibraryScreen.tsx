@@ -1,7 +1,12 @@
 import React from 'react';
+import LibraryTabs from './LibraryTabs';
 
 const LibraryScreen = () => {
-  return <></>;
+  return (
+    <>
+      <LibraryTabs />
+    </>
+  );
 };
 
 export default LibraryScreen;

@@ -1,3 +1,4 @@
+import Appbar from './atoms/Appbar';
 import BottomSheet from './atoms/BottomSheet';
 import Box from './atoms/Box';
 import Button from './atoms/Button';
@@ -6,6 +7,7 @@ import Column from './atoms/Column';
 import Icon from './atoms/Icon';
 import Image from './atoms/Image';
 import Row from './atoms/Row';
+import ScrollView from './atoms/ScrollView';
 import Searchbar from './atoms/Searchbar';
 import Text from './atoms/Text';
 import TextInput from './atoms/TextInput';
@@ -28,4 +30,6 @@ export {
   Searchbar,
   TouchableRipple,
   Icon,
+  Appbar,
+  ScrollView,
 };

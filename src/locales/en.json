@@ -1,5 +1,9 @@
 {
   "common": {
     "search": "Search author, title, isbn, ..."
+  },
+  "library": {
+    "books": "Books",
+    "collections": "Collections"
   }
 }
