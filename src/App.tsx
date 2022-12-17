@@ -2,7 +2,7 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from '@shopify/restyle';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider as PaperProvider} from 'react-native-paper';
 import Navigations from './navigation/Navigations';
@@ -17,6 +17,11 @@ const App = () => {
           <GestureHandlerRootView style={styles.ghRoot}>
             <BottomSheetModalProvider>
               <NavigationContainer theme={LightTheme}>
+                <StatusBar
+                  backgroundColor={'transparent'}
+                  barStyle="dark-content"
+                  translucent={true}
+                />
                 <Navigations />
               </NavigationContainer>
             </BottomSheetModalProvider>
