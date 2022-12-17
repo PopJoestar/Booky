@@ -8,13 +8,7 @@ const LibraryScreen = (props: Props) => {
 
   const onChangeSearch = query => setSearchQuery(query);
 
-  return (
-    <Searchbar
-      placeholder="Search"
-      onChangeText={onChangeSearch}
-      value={searchQuery}
-    />
-  );
+  return <></>;
 };
 
 export default LibraryScreen;

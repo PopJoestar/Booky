@@ -6,6 +6,7 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import {Typography} from './typography';
+import {StatusBar} from 'react-native';
 
 const {LightTheme: NavigationLightTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
@@ -27,6 +28,7 @@ const LightTheme = createTheme({
     bottomSheetHandleVertical: 11,
     bottomSheetLargeScreenMargin: 56,
     scaffoldBottom: 48,
+    searchbarHeader: (StatusBar.currentHeight ?? 0) + 8,
   },
   sizes: {
     s: 8,

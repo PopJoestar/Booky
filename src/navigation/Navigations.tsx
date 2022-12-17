@@ -1,7 +1,7 @@
 import React from 'react';
 import {RootStackParamList} from './types';
 import {createStackNavigator} from '@react-navigation/stack';
-import {LibraryScreen} from '../features_library';
+import {Header, LibraryScreen} from '../features_library';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -11,7 +11,7 @@ const Navigations = () => {
       initialRouteName="library"
       screenOptions={{
         headerShadowVisible: false,
-        headerShown: false,
+        header: () => <Header />,
       }}>
       <Stack.Screen
         name="library"
