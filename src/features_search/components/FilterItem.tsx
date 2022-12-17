@@ -3,8 +3,6 @@ import {Chip} from '../../shared/components';
 import {useAppTheme} from '../../shared/hooks';
 import {FilterType} from '../constants';
 
-const onClose = () => {};
-
 type Props = {
   data: FilterType;
   onPress?: (item: FilterType) => void;
@@ -24,11 +22,12 @@ const FilterItem = ({data, onPress, value}: Props) => {
 
   return (
     <Chip
+      mode="outlined"
       closeIcon="menu-down"
       height={sizes.chip}
       marginRight="s"
       onPress={_onPress}
-      onClose={onClose}>
+      onClose={_onPress}>
       {value}
     </Chip>
   );
