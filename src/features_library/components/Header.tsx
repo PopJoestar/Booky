@@ -1,9 +1,11 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {IconButton} from 'react-native-paper';
 import {Box, Icon, Row, Text, TouchableRipple} from '../../shared/components';
 import {useAppTheme} from '../../shared/hooks';
 const Header = () => {
   const {colors, sizes} = useAppTheme();
+  const {t} = useTranslation();
   return (
     <TouchableRipple
       marginTop="searchbarHeader"
@@ -24,7 +26,7 @@ const Header = () => {
         />
         <Box flex={1}>
           <Text textAlign="left" color="onSurfaceVariant" variant="bodyLarge">
-            Search title, author
+            {t('search')}
           </Text>
         </Box>
 
