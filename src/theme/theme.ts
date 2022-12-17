@@ -42,6 +42,7 @@ const LightTheme = createTheme({
     inputHeight: 56,
     radioButtonTarget: 40,
     buttonHeight: 40,
+    searchbar: 50,
   },
   breakpoints: {
     base: 0,
