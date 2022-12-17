@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {IconButton} from 'react-native-paper';
@@ -6,10 +7,17 @@ import {useAppTheme} from '../../shared/hooks';
 const Header = () => {
   const {colors, sizes} = useAppTheme();
   const {t} = useTranslation();
+
+  const navigation = useNavigation();
+
+  const goToSearchScreen = () => {
+    navigation.navigate('search');
+  };
+
   return (
     <TouchableRipple
       marginTop="searchbarHeader"
-      onPress={() => {}}
+      onPress={goToSearchScreen}
       borderRadius="hg"
       marginHorizontal="m"
       marginBottom="s"

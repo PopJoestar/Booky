@@ -2,6 +2,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 
 export type RootStackParamList = {
   library: undefined;
+  search: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

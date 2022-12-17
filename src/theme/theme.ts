@@ -38,6 +38,7 @@ const LightTheme = createTheme({
     xs: 4,
     xxs: 2,
     bottomSheetHandle: 32,
+    chip: 32,
     listItem_one_line: 56,
     inputHeight: 56,
     radioButtonTarget: 40,

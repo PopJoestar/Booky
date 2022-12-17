@@ -3,6 +3,7 @@ import BottomSheet from './atoms/BottomSheet';
 import Box from './atoms/Box';
 import Button from './atoms/Button';
 import Center from './atoms/Center';
+import Chip from './atoms/Chip';
 import Column from './atoms/Column';
 import Icon from './atoms/Icon';
 import Image from './atoms/Image';
@@ -32,4 +33,5 @@ export {
   Icon,
   Appbar,
   ScrollView,
+  Chip,
 };

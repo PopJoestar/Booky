@@ -1,9 +1,53 @@
 {
   "common": {
-    "search": "Search author, title, isbn, ..."
+    "search": "Search author, title, isbn, ...",
+    "all": "All"
   },
   "library": {
     "books": "Books",
     "collections": "Collections"
+  },
+  "search": {
+    "filter": {
+      "category": "Categorie",
+      "language": "Language",
+      "extension": "Extension"
+    },
+    "languages": {
+      "all": "Language",
+      "croatian": "Croatian",
+      "romanian": "Romanian",
+      "français": "French",
+      "turkish": "Turkish",
+      "english": "English",
+      "french": "French",
+      "malagasy": "Malagasy",
+      "swedish": "Swedish",
+      "spanish": "Spanish",
+      "german": "German",
+      "italian": "Italian",
+      "dutch": "Dutch",
+      "russian": "Russian",
+      "portuguese": "Portuguese",
+      "lithuanian": "Lithuanian",
+      "slovak": "Slovak",
+      "czech": "Czech",
+      "chinese": "Chinese",
+      "japanese": "Japanese",
+      "bengali": "Bengali",
+      "greek": "Greek",
+      "polish": "Polish"
+    },
+    "categories": {
+      "all": "Category",
+      "fiction": "Fiction",
+      "non_fiction": "Non-fiction"
+    },
+    "extensions": {
+      "all": "Extension",
+      "pdf": "PDF",
+      "epub": "EPUB",
+      "djvu": "DJVU"
+    }
   }
 }
