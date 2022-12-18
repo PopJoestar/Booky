@@ -45,6 +45,10 @@ const LightTheme = createTheme({
     buttonHeight: 40,
     searchbar: 50,
     tabIndicator: 3,
+    book_card_image_height: 105,
+    book_card_image_width: 70,
+    book_poster_image_height: 165,
+    book_poster_image_width: 120,
   },
   breakpoints: {
     base: 0,

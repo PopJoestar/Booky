@@ -1,7 +1,9 @@
 {
   "common": {
     "search": "Search author, title, isbn, ...",
-    "all": "All"
+    "all": "All",
+    "save": "Save",
+    "download": "Download"
   },
   "library": {
     "books": "Books",

@@ -3,14 +3,18 @@ import {StackScreenProps} from '@react-navigation/stack';
 export type RootStackParamList = {
   library: undefined;
   search: undefined;
+  book_details: {
+    md5: string;
+  };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   StackScreenProps<RootStackParamList, T>;
 
 export enum Routes {
-  choose_infra,
-  add_infra,
+  library,
+  search,
+  book_details,
 }
 
 declare global {

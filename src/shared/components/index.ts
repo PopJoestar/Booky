@@ -7,6 +7,7 @@ import Chip from './atoms/Chip';
 import Column from './atoms/Column';
 import Icon from './atoms/Icon';
 import Image from './atoms/Image';
+import RenderHTML from './atoms/RenderHTML';
 import Row from './atoms/Row';
 import ScrollView from './atoms/ScrollView';
 import Searchbar from './atoms/Searchbar';
@@ -34,4 +35,5 @@ export {
   Appbar,
   ScrollView,
   Chip,
+  RenderHTML,
 };
