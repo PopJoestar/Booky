@@ -1,4 +1,4 @@
-export interface Root {
+export interface LibgenResponse {
   totalItem: number;
   totalPages: number;
   items: BookRemote[];
