@@ -1,3 +1,4 @@
+import {RouteProp} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 
 export type RootStackParamList = {
@@ -11,11 +12,10 @@ export type RootStackParamList = {
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   StackScreenProps<RootStackParamList, T>;
 
-export enum Routes {
-  library,
-  search,
-  book_details,
-}
+export type BookDetailsScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'book_details'
+>;
 
 declare global {
   namespace ReactNavigation {

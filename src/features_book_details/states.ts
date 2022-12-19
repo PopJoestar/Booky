@@ -7,25 +7,28 @@ type useCurrentBookStore = {
   setDownloadLinksAndDescription: (
     value: Pick<BookRemote, 'description' | 'downloadLinks'>,
   ) => void;
+  clear: () => void;
+};
+
+const initialCurrentBook: BookRemote = {
+  libgenID: '',
+  title: '',
+  size: '',
+  extension: '',
+  md5: '',
+  image: '',
+  nbrOfPages: '',
+  series: '',
+  authors: [],
+  publisher: '',
+  isbns: [],
+  year: '',
+  language: '',
+  type: '',
 };
 
 const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
-  currentBook: {
-    libgenID: '',
-    title: '',
-    size: '',
-    extension: '',
-    md5: '',
-    image: '',
-    nbrOfPages: '',
-    series: '',
-    authors: [],
-    publisher: '',
-    isbns: [],
-    year: '',
-    language: '',
-    type: '',
-  },
+  currentBook: initialCurrentBook,
   setCurrentBook: value =>
     set(state => ({
       ...state,
@@ -56,6 +59,7 @@ const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
         downloadLinks: value.downloadLinks,
       },
     })),
+  clear: () => set(state => ({...state, currentBook: initialCurrentBook})),
 }));
 
 export {useCurrentBookStore};

@@ -1,3 +1,4 @@
+import AnimatedBox from './atoms/AnimatedBox';
 import Appbar from './atoms/Appbar';
 import BottomSheet from './atoms/BottomSheet';
 import Box from './atoms/Box';
@@ -36,4 +37,5 @@ export {
   ScrollView,
   Chip,
   RenderHTML,
+  AnimatedBox,
 };

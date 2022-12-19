@@ -7,36 +7,60 @@ import {
   RenderHTML,
   ScrollView,
   Button,
+  AnimatedBox,
 } from '../../shared/components';
 import {useAppTheme} from '../../shared/hooks';
 import {useCurrentBookStore} from '../states';
-import fakeData from '../data.json';
 import {List} from 'react-native-paper';
 import {StringUtils} from '../../shared/utils';
 import {useTranslation} from 'react-i18next';
+import useSWR from 'swr';
+import {useRoute} from '@react-navigation/native';
+import {BookDetailsScreenRouteProp} from '../../navigation/types';
+import {Libgen} from '../../features_libgen';
+import Animated, {
+  FadeIn,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 const BookDetailsScreen = () => {
   const currentBook = useCurrentBookStore(state => state.currentBook);
+
   const setDownloadLinksAndDescription = useCurrentBookStore(
     state => state.setDownloadLinksAndDescription,
   );
+  const clearCurrentBook = useCurrentBookStore(state => state.clear);
+
+  const {params} = useRoute<BookDetailsScreenRouteProp>();
+
+  const {isLoading, error} = useSWR(
+    `http://library.lol/main/${params.md5}`,
+    detailsUrl => Libgen.getDetails(detailsUrl),
+    {
+      onSuccess: data => {
+        setDownloadLinksAndDescription({
+          description: data.description,
+          downloadLinks: data.downloadLinks,
+        });
+      },
+    },
+  );
+  useEffect(() => clearCurrentBook, [clearCurrentBook]);
 
   const {sizes} = useAppTheme();
   const {t} = useTranslation();
-
-  useEffect(() => {
-    setDownloadLinksAndDescription({
-      description: fakeData.description,
-      downloadLinks: fakeData.downloadLinks,
-    });
-  }, [setDownloadLinksAndDescription]);
 
   const description = useMemo(() => {
     return {html: `<p>${currentBook.description}</p>`};
   }, [currentBook.description]);
 
+  const style = useAnimatedStyle(() => ({
+    opacity: withTiming(isLoading ? 0.4 : 1),
+  }));
+
   return (
-    <Box flex={1}>
+    <AnimatedBox flex={1} style={style}>
       <ScrollView paddingTop="l" showsVerticalScrollIndicator={false}>
         <Box paddingHorizontal="m">
           <Row>
@@ -55,7 +79,11 @@ const BookDetailsScreen = () => {
               </Text>
             </Box>
           </Row>
-          {currentBook.description ? <RenderHTML source={description} /> : null}
+          {currentBook.description ? (
+            <Animated.View entering={FadeIn}>
+              <RenderHTML source={description} />
+            </Animated.View>
+          ) : null}
         </Box>
         <List.Item
           title={'Publisher et date de publication'}
@@ -88,12 +116,14 @@ const BookDetailsScreen = () => {
         paddingRight={'m'}
         justifyContent={'space-around'}
         alignSelf="flex-end">
-        <Button mode="outlined" marginRight="m">
+        <Button mode="outlined" marginRight="m" disabled={isLoading || !!error}>
           {t('common:save')}
         </Button>
-        <Button mode="contained">{t('common:download')}</Button>
+        <Button mode="contained" disabled={isLoading || !!error}>
+          {t('common:download')}
+        </Button>
       </Row>
-    </Box>
+    </AnimatedBox>
   );
 };
 

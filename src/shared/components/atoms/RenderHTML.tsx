@@ -7,7 +7,7 @@ const RenderHTML = ({source, ...rest}: RenderHTMLProps) => {
   const {width} = useWindowDimensions();
 
   const {textVariants, colors} = useAppTheme();
-  const tagStyle = {...textVariants.bodyLarge, color: colors.onSurface};
+  const tagStyle = {...textVariants.bodyMedium, color: colors.onSurface};
   return (
     <RNRenderHTML
       source={source}
