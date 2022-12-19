@@ -1,10 +1,10 @@
 import React from 'react';
-import LibraryTabs from './LibraryTabs';
+import BooksTab from './BooksTab';
 
 const LibraryScreen = () => {
   return (
     <>
-      <LibraryTabs />
+      <BooksTab />
     </>
   );
 };
