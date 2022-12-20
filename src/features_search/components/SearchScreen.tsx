@@ -1,9 +1,7 @@
 import React from 'react';
 import Header from './Header';
 
-type Props = {};
-
-const SearchScreen = (props: Props) => {
+const SearchScreen = () => {
   return (
     <>
       <Header />

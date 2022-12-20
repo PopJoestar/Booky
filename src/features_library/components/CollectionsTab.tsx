@@ -1,9 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-type Props = {};
-
-const CollectionsTab = (props: Props) => {
+const CollectionsTab = () => {
   return (
     <View>
       <Text>CollectionsTab</Text>

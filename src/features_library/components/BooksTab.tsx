@@ -3,7 +3,7 @@ import {Box, Image, Row, Text, TouchableRipple} from '../../shared/components';
 import {BookRemote} from '../../types';
 import {FlashList, ListRenderItem} from '@shopify/flash-list';
 import mockData from '../data.json';
-import {Divider} from 'react-native-paper';
+import {Divider, Surface} from 'react-native-paper';
 import {useAppTheme} from '../../shared/hooks';
 import {useNavigation} from '@react-navigation/native';
 import {useCurrentBookStore} from '../../features_book_details';
@@ -26,11 +26,14 @@ const BooksTab = () => {
         }}
         paddingRight="l">
         <Row>
-          <Image
-            source={{uri: item.image}}
-            height={sizes.book_card_image_height}
-            width={sizes.book_card_image_width}
-          />
+          <Surface elevation={4}>
+            <Image
+              source={{uri: item.image}}
+              height={sizes.book_card_image_height}
+              width={sizes.book_card_image_width}
+            />
+          </Surface>
+
           <Box flex={1} paddingLeft="m">
             <Text variant="bodyLarge" color="onSurface" numberOfLines={2}>
               {item.title}

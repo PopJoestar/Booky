@@ -1414,6 +1414,13 @@
   resolved "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.3.12.tgz"
   integrity sha512-iVcLIYg/XJk1p6X1rSFhNhCjAJ3ORqNT2/bJqw7I/liujeJAoz1oZ5JDoEcZaA0wMDts1txxLuqAYJmhCgU2aA==
 
+"@react-navigation/material-bottom-tabs@^6.2.10":
+  version "6.2.10"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-6.2.10.tgz#45e49af31b703e4e30ec43f91d150d224c1aa0dc"
+  integrity sha512-AAD235PssGeB4lVk/rFTnVLPn7huWgkeoEuDewGyBdrYqn6btcvv2um1qiscJiVwcP0ICl3GyiXRpzAaipha4Q==
+  dependencies:
+    "@react-navigation/elements" "^1.3.12"
+
 "@react-navigation/material-top-tabs@^6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-6.5.1.tgz#45fb467d3397bde6cfe72409159dd5a56ea85f07"

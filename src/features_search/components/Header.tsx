@@ -6,9 +6,7 @@ import {Searchbar} from '../../shared/components';
 import {useAppTheme} from '../../shared/hooks';
 import Filters from './Filters';
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   const {colors, textVariants} = useAppTheme();
   const {t} = useTranslation();
   const navigation = useNavigation();

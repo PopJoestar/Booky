@@ -1,8 +1,9 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
+import {NavigatorScreenParams} from '@react-navigation/native';
 
 export type RootStackParamList = {
-  library: undefined;
+  main_tab: NavigatorScreenParams<MainTabParamList>;
   search: undefined;
   book_details: {
     md5: string;
@@ -22,3 +23,9 @@ declare global {
     interface RootParamList extends RootStackParamList {}
   }
 }
+
+export type MainTabParamList = {
+  library: undefined;
+  settings: undefined;
+  collections: undefined;
+};

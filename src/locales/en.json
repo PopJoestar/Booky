@@ -52,5 +52,11 @@
       "epub": "EPUB",
       "djvu": "DJVU"
     }
+  },
+  "collection": {
+    "title": "Collection"
+  },
+  "more": {
+    "title": "More"
   }
 }
