@@ -38,45 +38,45 @@ class LibgenModule(reactContext: ReactApplicationContext) :
         category: BookType?,
         promise: Promise
     ) {
-        try {
-            lateinit var response: Response
-            when (category) {
-                BookType.NON_FICTION -> {
-                    response = nonFictionScraper.fetch {
-                        nonFictionScraper.generateSearchBooksConnection(
-                            query = query,
-                            page = page,
-                            language = language,
-                            format = format,
-                            connection = this
-                        )
+        CoroutineScope(Dispatchers.IO).launch {
+            kotlin.runCatching {
+                lateinit var response: Response
+                when (category) {
+                    BookType.NON_FICTION -> {
+                        response = nonFictionScraper.fetch {
+                            nonFictionScraper.generateSearchBooksConnection(
+                                query = query,
+                                page = page,
+                                language = language,
+                                format = format,
+                                connection = this
+                            )
+                        }
+                    }
+                    BookType.FICTION -> {
+                        response = fictionScraper.fetch {
+                            fictionScraper.generateSearchBooksConnection(
+                                query = query,
+                                page = page,
+                                language = language,
+                                format = format,
+                                connection = this
+                            )
+                        }
+                    }
+                    null -> {
+                        response = libgenLCScraper.fetch {
+                            libgenLCScraper.generateSearchBooksConnection(
+                                query = query,
+                                page = page,
+                                language = language,
+                                connection = this
+                            )
+                        }
                     }
                 }
-                BookType.FICTION -> {
-                    response = fictionScraper.fetch {
-                        fictionScraper.generateSearchBooksConnection(
-                            query = query,
-                            page = page,
-                            language = language,
-                            format = format,
-                            connection = this
-                        )
-                    }
-                }
-                null -> {
-                    response = libgenLCScraper.fetch {
-                        libgenLCScraper.generateSearchBooksConnection(
-                            query = query,
-                            page = page,
-                            language = language,
-                            connection = this
-                        )
-                    }
-                }
-            }
-            promise.resolve(gson.toJson(response))
-        } catch (e: Throwable) {
-            promise.reject("search", e)
+                promise.resolve(gson.toJson(response))
+            }.onFailure { handleError(it, promise, "SEARCH") }
         }
     }
 
@@ -88,28 +88,29 @@ class LibgenModule(reactContext: ReactApplicationContext) :
                     downloadLinksScraper.generateGetDownloadLinksConnection(this)
                 }
                 promise.resolve(gson.toJson(response))
-            }.onFailure {
-                val error = WritableNativeMap()
-                when(it) {
-                    is UnknownHostException -> {
-                       error.putString("code", "UNKNOWN_HOST")
-                        error.putString("status", "UNKNOWN_HOST")
-                        error.putString("message", it.message)
-                        promise.reject("getDetails",error)
-                    }
-                    is HttpStatusException -> {
-                        error.putString("code", "HTTP_STATUS")
-                        error.putInt("status", it.statusCode)
-                        error.putString("message", it.message)
-                        promise.reject("getDetails",error)
-                    }
-                    else -> {
-                        promise.reject("getDetails", it)
-                    }
-                }
-            }
-
+            }.onFailure { handleError(it, promise, "GET_DETAILS") }
         }
 
+    }
+
+    private fun handleError(error: Throwable, promise: Promise, s: String? = "") {
+        val localError = WritableNativeMap()
+        when (error) {
+            is UnknownHostException -> {
+                localError.putString("code", "UNKNOWN_HOST")
+                localError.putString("status", "UNKNOWN_HOST")
+                localError.putString("message", error.message)
+                promise.reject(s, error)
+            }
+            is HttpStatusException -> {
+                localError.putString("code", "HTTP_STATUS")
+                localError.putInt("status", error.statusCode)
+                localError.putString("message", error.message)
+                promise.reject(s, error)
+            }
+            else -> {
+                promise.reject(s, error)
+            }
+        }
     }
 }
