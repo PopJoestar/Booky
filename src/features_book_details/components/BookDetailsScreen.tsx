@@ -27,25 +27,25 @@ import Animated, {
 const BookDetailsScreen = () => {
   const currentBook = useCurrentBookStore(state => state.currentBook);
 
-  const setDownloadLinksAndDescription = useCurrentBookStore(
-    state => state.setDownloadLinksAndDescription,
-  );
+  const setDetails = useCurrentBookStore(state => state.setDetails);
   const clearCurrentBook = useCurrentBookStore(state => state.clear);
 
   const {params} = useRoute<BookDetailsScreenRouteProp>();
 
   const {isLoading, error} = useSWR(
-    `http://library.lol/main/${params.md5}`,
-    detailsUrl => Libgen.getDetails(detailsUrl),
+    `http://library.lol/${
+      params.book_type === 'FICTION' ? 'fiction' : 'main'
+    }/${params.md5}`,
+    (detailsUrl: string) => Libgen.getDetails(detailsUrl),
     {
       onSuccess: data => {
-        setDownloadLinksAndDescription({
-          description: data.description,
-          downloadLinks: data.downloadLinks,
-        });
+        setDetails(data);
       },
     },
   );
+
+  console.log(currentBook.image);
+
   useEffect(() => clearCurrentBook, [clearCurrentBook]);
 
   const {sizes} = useAppTheme();
@@ -87,14 +87,17 @@ const BookDetailsScreen = () => {
         </Box>
         <List.Item
           title={'Publisher et date de publication'}
-          description={StringUtils.merge([
-            currentBook.publisher,
-            currentBook.year,
-          ])}
+          description={
+            currentBook.publisher || currentBook.year
+              ? StringUtils.merge([currentBook.publisher, currentBook.year])
+              : t('unkown')
+          }
         />
         <List.Item
           title={'Nombre de pages'}
-          description={currentBook.nbrOfPages}
+          description={
+            currentBook.nbrOfPages ? currentBook.nbrOfPages : t('unkown')
+          }
         />
         <List.Item
           title={'Isbn'}

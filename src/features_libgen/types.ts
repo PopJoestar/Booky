@@ -18,6 +18,8 @@ export type SearchParams = {
   page?: number;
 };
 
+export type BookRemoteType = 'FICTION' | 'NON_FICTION';
+
 export interface BookRemote {
   title: string;
   size: string;
@@ -34,7 +36,7 @@ export interface BookRemote {
   publisher?: string;
   description?: string;
   downloadLinks?: {host: string; link?: string}[];
-  type: 'FICTION' | 'NON_FICTION';
+  type: BookRemoteType;
 }
 
 export interface GetDetailsResponse {

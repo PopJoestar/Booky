@@ -1,12 +1,10 @@
 import create from 'zustand';
-import {BookRemote} from '../features_libgen/types';
+import {BookRemote, GetDetailsResponse} from '../features_libgen/types';
 
 type useCurrentBookStore = {
   currentBook: BookRemote;
   setCurrentBook: (value: BookRemote) => void;
-  setDownloadLinksAndDescription: (
-    value: Pick<BookRemote, 'description' | 'downloadLinks'>,
-  ) => void;
+  setDetails: (value: GetDetailsResponse) => void;
   clear: () => void;
 };
 
@@ -50,13 +48,17 @@ const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
         type: value.type,
       },
     })),
-  setDownloadLinksAndDescription: value =>
+  setDetails: value =>
     set(state => ({
       ...state,
       currentBook: {
         ...state.currentBook,
         description: value.description,
         downloadLinks: value.downloadLinks,
+        image: value.image ?? state.currentBook.image,
+        year: value.year ?? state.currentBook.year,
+        publisher: value.publisher ?? state.currentBook.publisher,
+        isbns: value.isbns ?? state.currentBook.isbns,
       },
     })),
   clear: () => set(state => ({...state, currentBook: initialCurrentBook})),

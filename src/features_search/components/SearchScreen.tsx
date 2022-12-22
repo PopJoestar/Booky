@@ -25,7 +25,10 @@ const SearchScreen = () => {
         return;
       }
       setCurrentBook(item);
-      navigation.navigate('book_details', {md5: item.md5});
+      navigation.navigate('book_details', {
+        md5: item.md5,
+        book_type: item.type,
+      });
     },
     [navigation, setCurrentBook],
   );
