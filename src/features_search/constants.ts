@@ -1,9 +1,9 @@
 export const FILTERS_TYPES = ['category', 'language', 'extension'] as const;
 
 export const CATEGORIES_OPTIONS_MAP = {
-  all: 'common:all',
-  fiction: 'search:categories.fiction',
-  non_fiction: 'search:categories.non_fiction',
+  ALL: 'common:all',
+  FICTION: 'search:categories.fiction',
+  NON_FICTION: 'search:categories.non_fiction',
 } as const;
 
 export const CATEGORIES_OPTIONS = Object.keys(CATEGORIES_OPTIONS_MAP).map(
@@ -14,7 +14,7 @@ export const CATEGORIES_OPTIONS = Object.keys(CATEGORIES_OPTIONS_MAP).map(
 );
 
 export const LANGUAGES_OPTIONS_MAP = {
-  all: 'common:all',
+  ALL: 'common:all',
   fr: 'search:languages.french',
   en: 'search:languages.english',
   de: 'search:languages.french',
@@ -29,7 +29,7 @@ export const LANGUAGES_OPTIONS = Object.keys(LANGUAGES_OPTIONS_MAP).map(
 );
 
 export const EXTENSION_OPTIONS_MAP = {
-  all: 'common:all',
+  ALL: 'common:all',
   pdf: 'search:extensions.pdf',
   epub: 'search:extensions.epub',
   djvu: 'search:extensions.djvu',

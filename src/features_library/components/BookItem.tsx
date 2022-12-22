@@ -1,32 +1,39 @@
 import React from 'react';
-import {Box, Image, Row, Text, TouchableRipple} from '../../shared/components';
-import {BookRemote} from '../../types';
-import {FlashList, ListRenderItem} from '@shopify/flash-list';
-import mockData from '../data.json';
-import {Divider, Surface} from 'react-native-paper';
+import {BaseBook} from '../../types';
+import {Surface} from 'react-native-paper';
+import {Row, Box, TouchableRipple, Text, Image} from '../../shared/components';
 import {useAppTheme} from '../../shared/hooks';
-import {useNavigation} from '@react-navigation/native';
-import {useCurrentBookStore} from '../../features_book_details';
+import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
-const BooksTab = () => {
+type Props<T extends BaseBook> = {
+  item: T;
+  onPress?: (item: T) => void;
+};
+
+function BookItem<T extends BaseBook>({item, onPress}: Props<T>) {
   const {sizes} = useAppTheme();
-  const navigation = useNavigation();
+  const {t} = useTranslation('common');
+  const _onPress = () => {
+    if (onPress === undefined) {
+      return;
+    }
 
-  const setCurrentBook = useCurrentBookStore(state => state.setCurrentBook);
+    onPress(item);
+  };
 
-  const renderBook: ListRenderItem<BookRemote> = ({item}) => {
-    return (
+  console.log(item.authors);
+
+  return (
+    <Animated.View entering={FadeIn} exiting={FadeOut}>
       <TouchableRipple
         backgroundColor="surface"
         paddingLeft="m"
         paddingVertical="m"
-        onPress={() => {
-          setCurrentBook(item);
-          navigation.navigate('book_details', {md5: item.md5});
-        }}
+        onPress={_onPress}
         paddingRight="l">
         <Row>
-          <Surface elevation={4}>
+          <Surface elevation={2}>
             <Image
               source={{uri: item.image}}
               height={sizes.book_card_image_height}
@@ -42,7 +49,9 @@ const BooksTab = () => {
               variant="bodySmall"
               color="onSurfaceVariant"
               numberOfLines={1}>
-              {item.authors.join(', ')}
+              {item.authors.length > 0
+                ? item.authors.join(', ')
+                : t('unkown_author')}
             </Text>
             <Text
               variant="bodySmall"
@@ -54,17 +63,8 @@ const BooksTab = () => {
           </Box>
         </Row>
       </TouchableRipple>
-    );
-  };
-
-  return (
-    <FlashList
-      data={mockData.items}
-      renderItem={renderBook}
-      estimatedItemSize={121 + 16}
-      ItemSeparatorComponent={Divider}
-    />
+    </Animated.View>
   );
-};
+}
 
-export default BooksTab;
+export default BookItem;

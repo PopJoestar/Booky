@@ -25,7 +25,7 @@ class FictionScraper {
             extension = sizeExtension.first(),
             md5 = sections[5].select("ul > li > a").attr("href").split("/").last(),
             authors = sections[0].text().split(","),
-            type = BookType.FICTION
+            type = "FICTION"
         )
     }
 
@@ -72,7 +72,7 @@ class FictionScraper {
         timeout(Constants.DEFAULT_TIMEOUT)
         data("q", query)
         data("wildcard", "1")
-        data("language", language)
+        Constants.FICTION_LANGUAGES[language]?.let { data("language", it) }
         data("format", format)
         data("page", page.toString())
         data("view", view)

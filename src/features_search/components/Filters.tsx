@@ -16,7 +16,7 @@ import {
   CATEGORIES_OPTIONS,
   EXTENSION_OPTIONS,
 } from '../constants';
-import {useFiltersStore} from '../states';
+import {useSearchStore} from '../states';
 import FilterItem from './FilterItem';
 
 const Filters = (props: BoxProps<Theme>) => {
@@ -25,7 +25,7 @@ const Filters = (props: BoxProps<Theme>) => {
   const languageOptionsHandle = useRef<BottomSheetModalMethods>(null);
   const categoryOptionsHandle = useRef<BottomSheetModalMethods>(null);
   const extensionOptionHandle = useRef<BottomSheetModalMethods>(null);
-  const filters = useFiltersStore();
+  const filters = useSearchStore();
 
   const toggleBottomSheet = (filterType: FilterType) => {
     switch (filterType) {
@@ -42,6 +42,13 @@ const Filters = (props: BoxProps<Theme>) => {
   };
 
   const renderFilter = (filterType: FilterType, index: number) => {
+    if (
+      (filters.category === 'ALL' || filters.category === 'NON_FICTION') &&
+      filterType === 'extension'
+    ) {
+      return;
+    }
+
     return (
       <FilterItem
         data={filterType}
@@ -55,18 +62,18 @@ const Filters = (props: BoxProps<Theme>) => {
   const mapFiltersValueLabel = (filterType: FilterType) => {
     switch (filterType) {
       case 'language':
-        if (filters.language === 'all') {
+        if (filters.language === 'ALL') {
           return t('search:languages.all');
         }
         return t(LANGUAGES_OPTIONS_MAP[filters.language]);
       case 'extension':
-        if (filters.extension === 'all') {
+        if (filters.extension === 'ALL') {
           return t('search:extensions.all');
         }
 
         return t(EXTENSION_OPTIONS_MAP[filters.extension]);
       case 'category':
-        if (filters.category === 'all') {
+        if (filters.category === 'ALL') {
           return t('search:categories.all');
         }
 
@@ -118,18 +125,20 @@ const Filters = (props: BoxProps<Theme>) => {
         }}
         onPick={selectCategory}
       />
-      <Picker
-        ref={extensionOptionHandle}
-        options={EXTENSION_OPTIONS}
-        titleExtractor={item => t(item.label)}
-        keyExtractor={(_, index) => index.toString()}
-        itemHeight={sizes.listItem_one_line}
-        onPick={selectExtension}
-        selected={{
-          value: filters.extension,
-          label: EXTENSION_OPTIONS_MAP[filters.extension],
-        }}
-      />
+      {filters.category === 'FICTION' ? (
+        <Picker
+          ref={extensionOptionHandle}
+          options={EXTENSION_OPTIONS}
+          titleExtractor={item => t(item.label)}
+          keyExtractor={(_, index) => index.toString()}
+          itemHeight={sizes.listItem_one_line}
+          onPick={selectExtension}
+          selected={{
+            value: filters.extension,
+            label: EXTENSION_OPTIONS_MAP[filters.extension],
+          }}
+        />
+      ) : null}
     </>
   );
 };

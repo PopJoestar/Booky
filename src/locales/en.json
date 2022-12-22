@@ -3,7 +3,9 @@
     "search": "Search author, title, isbn, ...",
     "all": "All",
     "save": "Save",
-    "download": "Download"
+    "download": "Download",
+    "unkown_author": "Unknown author",
+    "unkown": "Unknown"
   },
   "library": {
     "books": "Books",
@@ -51,7 +53,8 @@
       "pdf": "PDF",
       "epub": "EPUB",
       "djvu": "DJVU"
-    }
+    },
+    "no_result_found_for": "No result found for {{query}}"
   },
   "collection": {
     "title": "Collection"

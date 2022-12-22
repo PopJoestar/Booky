@@ -1,15 +1,20 @@
 import {NativeModules} from 'react-native';
-import {LibgenResponse} from './types';
+import {
+  CategoryOption,
+  ExtensionOption,
+  LanguageOption,
+} from '../features_search/constants';
 const {LibgenModule} = NativeModules;
 
 interface LibgenInterface {
   search(
-    search: string,
-    category: string,
-    language: string,
-    extension: string,
-  ): LibgenResponse;
-  getDetails(detailsUrl: string): Promise<string>;
+    query: string,
+    page: number,
+    category: CategoryOption,
+    language: LanguageOption,
+    extension: ExtensionOption,
+  ): Promise<string>;
+  getDetails(detailsUrl: string): Promise<string>; // string because the native module encode the result as JSON string
 }
 
 export default LibgenModule as LibgenInterface;

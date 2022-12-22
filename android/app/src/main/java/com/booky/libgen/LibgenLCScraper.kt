@@ -111,7 +111,7 @@ class LibgenLCScraper {
                 )
             },
             nbrOfPages = sections[6].text(),
-            authors = sections[2].text().split(","),
+            authors = sections[2].text().split(",").filter { it.isNotEmpty() },
             publisher = sections[3].text(),
             year = sections[4].text(),
             title = title,
@@ -119,7 +119,7 @@ class LibgenLCScraper {
             size = sections[7].text(),
             type = if ("l" in sections[1].select("span[class=badge badge-secondary]")
                     .text()
-            ) BookType.NON_FICTION else BookType.FICTION
+            ) "NON_FICTION" else "FICTION"
         )
     }
 

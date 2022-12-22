@@ -1,44 +1,51 @@
-export interface LibgenResponse {
+import {
+  CategoryOption,
+  ExtensionOption,
+  LanguageOption,
+} from '../features_search/constants';
+
+export interface SearchResponse {
   totalItem: number;
   totalPages: number;
   items: BookRemote[];
 }
 
 export type SearchParams = {
-  search: string;
-  category: string;
-  language: string;
-  extension: string;
+  query: string;
+  category: CategoryOption;
+  language: LanguageOption;
+  extension: ExtensionOption;
+  page?: number;
 };
 
 export interface BookRemote {
-  libgenID: string;
   title: string;
   size: string;
   extension: string;
-  md5: string;
-  image: string;
-  nbrOfPages: string;
-  series: string;
   authors: string[];
-  publisher: string;
-  isbns: string[];
-  year: string;
   language: string;
-  type: string;
+  isbns?: string[];
+  year?: string;
+  image?: string;
+  nbrOfPages?: string;
+  series?: string;
+  libgenID?: string;
+  md5?: string;
+  publisher?: string;
   description?: string;
-  downloadLinks?: {host: string; link: string}[];
+  downloadLinks?: {host: string; link?: string}[];
+  type: 'FICTION' | 'NON_FICTION';
 }
 
 export interface GetDetailsResponse {
-  title: string;
-  image: string;
-  authors: string[];
-  publisher: string;
-  isbns: string[];
-  description: string;
-  downloadLinks: DownloadLink[];
-  year: string;
+  title?: string;
+  image?: string;
+  authors?: string[];
+  publisher?: string;
+  isbns?: string[];
+  description?: string;
+  downloadLinks?: DownloadLink[];
+  year?: string;
 }
 
 export interface DownloadLink {

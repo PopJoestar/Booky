@@ -50,6 +50,10 @@ class NonFictionScraper {
 
         val tables = body.select("table[rules=cols]").toMutableList()
 
+        if (tables.size == 0) {
+            return  result
+        }
+
         tables.removeLast()
 
         tables.forEachIndexed tablesLoop@{ index, table ->
@@ -88,7 +92,8 @@ class NonFictionScraper {
             series = rows[3].select("td")[1].text().trim(),
             year = rows[5].select("td")[1].text().trim(),
             description = null,
-            downloadLinks = null, type = BookType.NON_FICTION
+            downloadLinks = null,
+            type = "NON_FICTION"
         )
     }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import BooksTab from './BooksTab';
 import Header from './Header';
+import BookList from './BookList';
 
 const LibraryScreen = () => {
   return (
     <>
       <Header />
-      <BooksTab />
+      <BookList data={[]} />
     </>
   );
 };

@@ -104,7 +104,6 @@ const Picker = React.forwardRef<BottomSheetModalMethods, PickerProps<any>>(
       return undefined;
     }, [height, itemHeight, options.length]);
 
-    console.log(snapPoints);
     return (
       <BottomSheet ref={ref} snapPoints={snapPoints}>
         <StyledBottomSheetFlatlist

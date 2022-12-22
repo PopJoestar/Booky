@@ -96,7 +96,14 @@ const BookDetailsScreen = () => {
           title={'Nombre de pages'}
           description={currentBook.nbrOfPages}
         />
-        <List.Item title={'Isbn'} description={currentBook.isbns.join(', ')} />
+        <List.Item
+          title={'Isbn'}
+          description={
+            currentBook.isbns && currentBook.isbns.length > 0
+              ? currentBook.isbns.join(', ')
+              : t('unkown')
+          }
+        />
         <List.Item
           title={'Fichier'}
           description={StringUtils.merge([

@@ -1,7 +1,5 @@
 package entities
 
-import BookType
-
 data class DownloadLink(val host: String, val link: String)
 
 data class Book(
@@ -20,5 +18,5 @@ data class Book(
     var downloadLinks:  MutableList<DownloadLink>? = mutableListOf(),
     var year:  String? = null,
     var language:  String? = null,
-    val type: BookType? = null
+    val type: String
 )

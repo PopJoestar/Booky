@@ -1,5 +1,5 @@
 import create from 'zustand';
-import {BookRemote} from '../types';
+import {BookRemote} from '../features_libgen/types';
 
 type useCurrentBookStore = {
   currentBook: BookRemote;
@@ -21,10 +21,10 @@ const initialCurrentBook: BookRemote = {
   series: '',
   authors: [],
   publisher: '',
-  isbns: [],
+  isbns: undefined,
   year: '',
   language: '',
-  type: '',
+  type: 'NON_FICTION',
 };
 
 const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
