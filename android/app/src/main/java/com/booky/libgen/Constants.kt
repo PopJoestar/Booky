@@ -11,7 +11,7 @@ object Constants {
     const val FICTION_BASE_URL = "http://libgen.rs/fiction"
     const val FICTION_ITEMS_PER_PAGE = 25.0
 
-    const val LIBGEN_LC_ITEMS_PER_PAGE = 25
+    const val LIBGEN_LC_ITEMS_PER_PAGE = 25.0
     const val LIBGEN_LC_BASE_URL = "http://libgen.lc/index.php"
     const val LIBGEN_LC_IMAGE_SOURCE = "http://libgen.lc"
     const val DEFAULT_TIMEOUT = 30000
