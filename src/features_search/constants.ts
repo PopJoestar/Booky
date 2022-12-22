@@ -1,7 +1,6 @@
 export const FILTERS_TYPES = ['category', 'language', 'extension'] as const;
 
 export const CATEGORIES_OPTIONS_MAP = {
-  ALL: 'common:all',
   FICTION: 'search:categories.fiction',
   NON_FICTION: 'search:categories.non_fiction',
 } as const;

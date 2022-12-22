@@ -1,14 +1,12 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {NavigatorScreenParams} from '@react-navigation/native';
-import {BookRemoteType} from '../features_libgen/types';
 
 export type RootStackParamList = {
   main_tab: NavigatorScreenParams<MainTabParamList>;
   search: undefined;
   book_details: {
-    md5: string;
-    book_type: BookRemoteType;
+    details_url: string;
   };
 };
 

@@ -36,7 +36,7 @@ export interface BookRemote {
   publisher?: string;
   description?: string;
   downloadLinks?: {host: string; link?: string}[];
-  type: BookRemoteType;
+  details_url?: string;
 }
 
 export interface GetDetailsResponse {

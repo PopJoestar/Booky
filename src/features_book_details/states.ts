@@ -22,7 +22,6 @@ const initialCurrentBook: BookRemote = {
   isbns: undefined,
   year: '',
   language: '',
-  type: 'NON_FICTION',
 };
 
 const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
@@ -45,7 +44,7 @@ const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
         isbns: value.isbns,
         year: value.year,
         language: value.language,
-        type: value.type,
+        details_url: value.details_url,
       },
     })),
   setDetails: value =>

@@ -34,7 +34,7 @@ class LibgenLCScraper {
         data("objects[]", "a")
         data("objects[]", "p")
         data("topics[]", "l")
-        data("topics[]", "f")
+       // data("topics[]", "f") Cannot find fiction book details anymore
         data("res", Constants.LIBGEN_LC_ITEMS_PER_PAGE.toString())
         data("curetab", "f")
         data("covers", "on")
@@ -99,11 +99,14 @@ class LibgenLCScraper {
             else if (isValidISBN(temp.replace("-", "")))
                 isbns.add(temp.replace("-", ""))
         }
+        val md5 = sections[9].select("a").attr("href").split("=").last()
+        val isNonFiction = "l" in sections[1].select("span[class=badge badge-secondary]")
+            .text()
 
         return Book(
             language = sections[5].text(),
             extension = sections[8].text(),
-            md5 = sections[9].select("a").attr("href").split("=").last(),
+            md5 = md5,
             image = sections.first()?.select("img")?.let {
                 getImageSource(
                     Constants.LIBGEN_LC_IMAGE_SOURCE,
@@ -117,9 +120,7 @@ class LibgenLCScraper {
             title = title,
             isbns = isbns,
             size = sections[7].text(),
-            type = if ("l" in sections[1].select("span[class=badge badge-secondary]")
-                    .text()
-            ) "NON_FICTION" else "FICTION"
+            details_url = if (isNonFiction) NonFictionScraper.getDetailsUrl(md5) else FictionScraper.getDetailsUrl(md5)
         )
     }
 

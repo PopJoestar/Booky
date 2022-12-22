@@ -33,9 +33,7 @@ const BookDetailsScreen = () => {
   const {params} = useRoute<BookDetailsScreenRouteProp>();
 
   const {isLoading, error} = useSWR(
-    `http://library.lol/${
-      params.book_type === 'FICTION' ? 'fiction' : 'main'
-    }/${params.md5}`,
+    params.details_url,
     (detailsUrl: string) => Libgen.getDetails(detailsUrl),
     {
       onSuccess: data => {

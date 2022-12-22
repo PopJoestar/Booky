@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
-import {useWindowDimensions} from 'react-native';
+import {Alert, useWindowDimensions} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useCurrentBookStore} from '../../features_book_details';
 import {BookRemote} from '../../features_libgen/types';
@@ -14,20 +14,22 @@ const SearchScreen = () => {
   const {height} = useWindowDimensions();
   const {t} = useTranslation('search');
   const navigation = useNavigation();
+
   const {data, isNoResult, query, isFirstLoading, isLoading, isEnd, next} =
     useSearch();
+
   const setCurrentBook = useCurrentBookStore(state => state.setCurrentBook);
 
   const goToBookDownloadScreen = useCallback(
     (item: BookRemote) => {
-      if (item.md5 === undefined) {
-        console.error('Undefined md5');
+      if (item.details_url === undefined) {
+        Alert.alert('Scraping error', 'Undefined md5');
         return;
       }
+
       setCurrentBook(item);
       navigation.navigate('book_details', {
-        md5: item.md5,
-        book_type: item.type,
+        details_url: item.details_url,
       });
     },
     [navigation, setCurrentBook],

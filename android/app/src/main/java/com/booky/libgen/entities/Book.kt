@@ -18,5 +18,5 @@ data class Book(
     var downloadLinks:  MutableList<DownloadLink>? = mutableListOf(),
     var year:  String? = null,
     var language:  String? = null,
-    val type: String
+    val details_url: String?
 )

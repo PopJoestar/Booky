@@ -7,6 +7,11 @@ import utils.getImageSource
 import kotlin.math.ceil
 
 class NonFictionScraper {
+
+    companion object {
+        fun getDetailsUrl (md5: String) = "http://library.lol/main/$md5"
+    }
+
     fun fetch(connectionCallback: Connection.() -> Connection): Response {
         val jsoup = Jsoup.connect(Constants.NON_FICTION_BASE_URL)
             .timeout(Constants.DEFAULT_TIMEOUT)
@@ -71,11 +76,11 @@ class NonFictionScraper {
         val pageLanguage = rows[6].select("td")
         val sizeExtension = rows[9].select("td")
         val isbnsId = rows[7].select("td")
-
+        val md5 = rows[1].select("a").first()?.attr("href")?.split("=")?.last()?.trim()
         return Book(
             libgenID = isbnsId[3].text().trim(),
             title = rows[1].select("b").text().trim(),
-            md5 = rows[1].select("a").first()?.attr("href")?.split("=")?.last()?.trim(),
+            md5 = md5,
             language = pageLanguage[1].text().trim(),
             size = sizeExtension[1].text().trim(),
             extension = sizeExtension.last()?.text()?.trim(),
@@ -93,7 +98,7 @@ class NonFictionScraper {
             year = rows[5].select("td")[1].text().trim(),
             description = null,
             downloadLinks = null,
-            type = "NON_FICTION"
+            details_url = md5?.let { getDetailsUrl(it) }
         )
     }
 }

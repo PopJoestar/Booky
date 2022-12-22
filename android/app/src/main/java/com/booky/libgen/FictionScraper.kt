@@ -6,6 +6,11 @@ import org.jsoup.nodes.Element
 import kotlin.math.ceil
 
 class FictionScraper {
+
+    companion object {
+        fun getDetailsUrl (md5: String) = "http://library.lol/fiction/$md5"
+    }
+
     fun fetch(connectionCallback: Connection.() -> Connection): Response {
         val jsoup = Jsoup.connect(Constants.FICTION_BASE_URL)
             .timeout(Constants.DEFAULT_TIMEOUT)
@@ -18,14 +23,16 @@ class FictionScraper {
         val sections = row.select("td")
         val sizeExtension = sections[4].text().split("/")
 
+        val md5 =  sections[5].select("ul > li > a").attr("href").split("/").last()
+
         return Book(
             title = sections[2].select("a").text().trim(),
             language = sections[3].text().trim(),
             size = sizeExtension.last(),
             extension = sizeExtension.first(),
-            md5 = sections[5].select("ul > li > a").attr("href").split("/").last(),
+            md5 = md5,
             authors = sections[0].text().split(",").filter { it.isNotBlank() },
-            type = "FICTION"
+            details_url = getDetailsUrl(md5)
         )
     }
 

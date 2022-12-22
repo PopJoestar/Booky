@@ -13,7 +13,7 @@ type SearchStore = {
 };
 
 const useSearchStore = create<SearchStore>()(set => ({
-  category: 'ALL',
+  category: 'NON_FICTION',
   language: 'ALL',
   extension: 'ALL',
   query: '',
