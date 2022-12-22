@@ -44,8 +44,6 @@ const BookDetailsScreen = () => {
     },
   );
 
-  console.log(currentBook.image);
-
   useEffect(() => clearCurrentBook, [clearCurrentBook]);
 
   const {sizes} = useAppTheme();

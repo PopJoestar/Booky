@@ -22,8 +22,6 @@ function BookItem<T extends BaseBook>({item, onPress}: Props<T>) {
     onPress(item);
   };
 
-  console.log(item.authors);
-
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut}>
       <TouchableRipple
@@ -58,7 +56,7 @@ function BookItem<T extends BaseBook>({item, onPress}: Props<T>) {
               color="onSurface"
               numberOfLines={1}
               opacity={0.6}>
-              {[item.size, item.extension].join(' \u2022 ')}
+              {[item.size, item.extension, item.language].join(' \u2022 ')}
             </Text>
           </Box>
         </Row>

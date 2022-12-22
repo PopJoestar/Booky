@@ -13,7 +13,7 @@ const CollectionsScreen = () => {
         right={0}
         marginBottom="m"
         marginRight="m">
-        <FAB icon="plus" onPress={() => console.log('Pressed')} label={'Add'} />
+        <FAB icon="plus" label={'Add'} />
       </Box>
     </>
   );
