@@ -6,7 +6,7 @@ object Constants {
     const val NON_FICTION_ITEMS_PER_PAGE = 25.0
     const val NON_FICTION_BASE_URL = "http://libgen.rs/search.php"
 
-    const val IMAGE_SOURCE = "https://libgen.is"
+    const val IMAGE_SOURCE = "http://library.lol"
 
     const val FICTION_BASE_URL = "http://libgen.rs/fiction"
     const val FICTION_ITEMS_PER_PAGE = 25.0
