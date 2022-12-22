@@ -19,7 +19,7 @@ class FictionScraper {
         val sizeExtension = sections[4].text().split("/")
 
         return Book(
-            title = sections[2].text().trim(),
+            title = sections[2].select("a").text().trim(),
             language = sections[3].text().trim(),
             size = sizeExtension.last(),
             extension = sizeExtension.first(),
@@ -38,7 +38,13 @@ class FictionScraper {
         val totalItemContainer =
             body.getElementsByAttributeValue("style", "float:left").first()?.text() ?: return result
 
-        val totalItems = totalItemContainer.split(" ").first().toInt()
+        val totalItems = totalItemContainer.split("").reduce { acc, s ->
+            acc + try {
+                s.toInt()
+            } catch (e: NumberFormatException) {
+                ""
+            }
+        }.toInt()
 
         if (totalItems == 0) return result
 
