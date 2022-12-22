@@ -111,7 +111,7 @@ class LibgenLCScraper {
                 )
             },
             nbrOfPages = sections[6].text(),
-            authors = sections[2].text().split(",").filter { it.isNotEmpty() },
+            authors = sections[2].text().split(",").filter { it.isNotBlank() },
             publisher = sections[3].text(),
             year = sections[4].text(),
             title = title,

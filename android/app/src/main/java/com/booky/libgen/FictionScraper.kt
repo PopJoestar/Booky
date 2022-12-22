@@ -24,7 +24,7 @@ class FictionScraper {
             size = sizeExtension.last(),
             extension = sizeExtension.first(),
             md5 = sections[5].select("ul > li > a").attr("href").split("/").last(),
-            authors = sections[0].text().split(","),
+            authors = sections[0].text().split(",").filter { it.isNotBlank() },
             type = "FICTION"
         )
     }

@@ -86,7 +86,7 @@ class NonFictionScraper {
                     it.trim()
                 )
             },
-            authors = rows[2].select("b").text().split(","),
+            authors = rows[2].select("b").text().split(",").filter { it.isNotBlank() },
             publisher = rows[4].select("td")[1].text(),
             isbns = isbnsId[1].text().trim().replace(" ", "").split(","),
             series = rows[3].select("td")[1].text().trim(),
