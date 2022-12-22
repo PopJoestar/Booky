@@ -17,8 +17,18 @@ const Header = () => {
   const navigation = useNavigation();
   const [searchInput, setSearchInput] = useState<string>('');
   const updateQuery = useSearchStore(state => state.updateQuery);
+  const query = useSearchStore(state => state.query);
+
   const submit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
     updateQuery(e.nativeEvent.text);
+  };
+
+  const handleOnChangeText = (text: string) => {
+    if (query !== '' && text === '') {
+      updateQuery('');
+    }
+
+    setSearchInput(text);
   };
 
   return (
@@ -26,7 +36,7 @@ const Header = () => {
       <StatusBar backgroundColor={colors.surface} />
       <Searchbar
         value={searchInput}
-        onChangeText={setSearchInput}
+        onChangeText={handleOnChangeText}
         marginTop="l"
         elevation={0}
         inputStyle={textVariants.bodyLarge}
