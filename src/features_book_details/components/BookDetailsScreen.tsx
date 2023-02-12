@@ -24,9 +24,11 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {useAppTheme} from '@/shared/hooks';
+import {useBookRepository} from '@/features_library';
 
 const BookDetailsScreen = () => {
   const currentBook = useCurrentBookStore(state => state.currentBook);
+  const {addBook} = useBookRepository();
 
   const setDetails = useCurrentBookStore(state => state.setDetails);
   const clearCurrentBook = useCurrentBookStore(state => state.clear);
@@ -55,6 +57,10 @@ const BookDetailsScreen = () => {
   const style = useAnimatedStyle(() => ({
     opacity: withTiming(isLoading ? 0.4 : 1),
   }));
+
+  const saveBook = () => {
+    addBook(currentBook);
+  };
 
   return (
     <AnimatedBox flex={1} style={style}>
@@ -126,7 +132,10 @@ const BookDetailsScreen = () => {
         <Button mode="outlined" marginRight="m" disabled={isLoading || !!error}>
           {t('common:save')}
         </Button>
-        <Button mode="contained" disabled={isLoading || !!error}>
+        <Button
+          mode="contained"
+          disabled={isLoading || !!error}
+          onPress={saveBook}>
           {t('common:download')}
         </Button>
       </Row>
