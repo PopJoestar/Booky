@@ -2,6 +2,7 @@
  * @format
  */
 import 'react-native-gesture-handler';
+import 'react-native-get-random-values';
 import './i18n';
 import {AppRegistry} from 'react-native';
 import App from './src/App';
