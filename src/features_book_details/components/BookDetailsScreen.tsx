@@ -9,7 +9,6 @@ import {
   Button,
   AnimatedBox,
 } from '../../shared/components';
-import {useAppTheme} from '../../shared/hooks';
 import {useCurrentBookStore} from '../states';
 import {List} from 'react-native-paper';
 import {StringUtils} from '../../shared/utils';
@@ -23,6 +22,8 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+
+import {useAppTheme} from '@/shared/hooks';
 
 const BookDetailsScreen = () => {
   const currentBook = useCurrentBookStore(state => state.currentBook);
