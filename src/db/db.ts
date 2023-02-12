@@ -3,7 +3,7 @@ import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 
 import schema from './schema';
 import migrations from './migrations';
-import {Author, Book, BookAuthor} from '../features_library';
+import {Book, Author, BookAuthor} from '@/features_library';
 
 const adapter = new SQLiteAdapter({
   schema,
