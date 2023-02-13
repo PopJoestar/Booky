@@ -8,13 +8,34 @@ const useBookRepository = () => {
   const books: Realm.Results<BookModel> = useQuery(BookModel);
   const addBook = useCallback(
     (book: BookRemote) => {
+      let newBook!: BookModel;
+
       realm.write(() => {
-        realm.create('Book', BookModel.generate(book));
+        newBook = realm.create<BookModel>('Book', BookModel.generate(book));
+      });
+
+      return newBook;
+    },
+    [realm],
+  );
+
+  const removeBook = useCallback(
+    (book: BookModel) => {
+      realm.write(() => {
+        realm.delete(book);
       });
     },
     [realm],
   );
-  return {addBook, books: books.map(book => book)};
+
+  const getBook = useCallback(
+    (md5: string) => {
+      return realm.objectForPrimaryKey<BookModel>('Book', md5);
+    },
+    [realm],
+  );
+
+  return {addBook, removeBook, getBook, books: books.map(book => book)};
 };
 
 export default useBookRepository;
