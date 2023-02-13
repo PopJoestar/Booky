@@ -78,7 +78,7 @@ function BookItemUI<T extends BaseBook>({
               numberOfLines={1}
               opacity={0.6}>
               {[
-                item.size.split(' ').splice(0, 2).join(' '),
+                item.size.trim().split(' ').splice(0, 2).join(' '),
                 item.extension,
                 item.language,
               ].join(' \u2022 ')}
