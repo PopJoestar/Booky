@@ -1,12 +1,11 @@
 import React, {useCallback, useState} from 'react';
 import {Snackbar} from 'react-native-paper';
-import {useContext} from 'react';
 import {Text} from '..';
 import {SnackbarProps, SnackbarProviderProps} from './types';
 import {GestureResponderEvent} from 'react-native';
 
 // eslint-disable-next-line no-spaced-func
-const SnackbarContext = React.createContext<
+export const SnackbarContext = React.createContext<
   ((options: SnackbarProps) => void) | undefined
 >(undefined);
 
@@ -57,16 +56,6 @@ const SnackbarProvider = ({children}: SnackbarProviderProps) => {
       </Snackbar>
     </SnackbarContext.Provider>
   );
-};
-
-export const useSnackbar = () => {
-  const context = useContext(SnackbarContext);
-
-  if (context === undefined) {
-    throw new Error('useSnackbar must be used within a SnackbarProvider');
-  }
-
-  return context;
 };
 
 export default SnackbarProvider;
