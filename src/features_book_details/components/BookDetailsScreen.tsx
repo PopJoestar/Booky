@@ -8,32 +8,34 @@ import {
   ScrollView,
   Button,
   AnimatedBox,
-} from '../../shared/components';
+} from '@/shared/components';
 import {useCurrentBookStore} from '../states';
 import {List} from 'react-native-paper';
-import {StringUtils} from '../../shared/utils';
+import {StringUtils} from '@/shared/utils';
 import {useTranslation} from 'react-i18next';
 import useSWR from 'swr';
 import {useRoute} from '@react-navigation/native';
-import {BookDetailsScreenRouteProp} from '../../navigation/types';
-import {Libgen} from '../../features_libgen';
 import Animated, {
   FadeIn,
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
 
-import {useAppTheme} from '@/shared/hooks';
+import {useAppTheme, useSnackbar} from '@/shared/hooks';
 import {useBookRepository} from '@/features_library';
+import {BookDetailsScreenRouteProp} from '@/navigation/types';
+import {Libgen} from '@/features_libgen';
 
 const BookDetailsScreen = () => {
-  const currentBook = useCurrentBookStore(state => state.currentBook);
-  const {addBook} = useBookRepository();
+  const {sizes} = useAppTheme();
+  const {t} = useTranslation();
+  const {params} = useRoute<BookDetailsScreenRouteProp>();
 
+  const currentBook = useCurrentBookStore(state => state.currentBook);
   const setDetails = useCurrentBookStore(state => state.setDetails);
   const clearCurrentBook = useCurrentBookStore(state => state.clear);
 
-  const {params} = useRoute<BookDetailsScreenRouteProp>();
+  const {addBook, getBook} = useBookRepository();
 
   const {isLoading, error} = useSWR(
     params.details_url,
@@ -45,22 +47,31 @@ const BookDetailsScreen = () => {
     },
   );
 
-  useEffect(() => clearCurrentBook, [clearCurrentBook]);
+  const showSnackbar = useSnackbar();
 
-  const {sizes} = useAppTheme();
-  const {t} = useTranslation();
+  useEffect(() => clearCurrentBook, [clearCurrentBook]);
 
   const description = useMemo(() => {
     return {html: `<p>${currentBook.description}</p>`};
   }, [currentBook.description]);
 
-  const style = useAnimatedStyle(() => ({
-    opacity: withTiming(isLoading ? 0.4 : 1),
-  }));
+  const isBookInLibrary = useMemo(() => {
+    if (currentBook.md5 == null) {
+      return false;
+    }
+    return getBook(currentBook.md5) != null;
+  }, [currentBook.md5, getBook]);
 
   const saveBook = () => {
     addBook(currentBook);
+    showSnackbar({
+      message: `${currentBook.title} a été ajouté à votre bibliothèque`,
+    });
   };
+
+  const style = useAnimatedStyle(() => ({
+    opacity: withTiming(isLoading ? 0.4 : 1),
+  }));
 
   return (
     <AnimatedBox flex={1} style={style}>
@@ -129,13 +140,15 @@ const BookDetailsScreen = () => {
         paddingRight={'m'}
         justifyContent={'space-around'}
         alignSelf="flex-end">
-        <Button mode="outlined" marginRight="m" disabled={isLoading || !!error}>
-          {t('common:save')}
-        </Button>
         <Button
-          mode="contained"
-          disabled={isLoading || !!error}
+          mode="outlined"
+          marginRight="m"
+          disabled={isLoading || !!error || isBookInLibrary}
+          icon={isBookInLibrary ? 'check' : undefined}
           onPress={saveBook}>
+          {isBookInLibrary ? t('label:saved') : t('common:save')}
+        </Button>
+        <Button mode="contained" disabled={isLoading || !!error}>
           {t('common:download')}
         </Button>
       </Row>

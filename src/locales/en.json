@@ -61,5 +61,8 @@
   },
   "more": {
     "title": "More"
+  },
+  "label": {
+    "saved": "Saved"
   }
 }
