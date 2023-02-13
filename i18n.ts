@@ -1,6 +1,6 @@
 import 'intl-pluralrules';
 
-import i18next, {Module, Resource} from 'i18next';
+import i18next from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import {getLocales} from 'react-native-localize';
 import {Locales} from './src/locales';
@@ -24,11 +24,8 @@ const languageDetector = {
   cacheUserLanguage: () => {},
 };
 
-i18next
-  .use(languageDetector as Module)
-  .use(initReactI18next)
-  .init({
-    fallbackLng: DEFAULT_LANGUAGE,
-    resources: Locales as unknown as Resource,
-    defaultNS: DEFAULT_NS,
-  });
+i18next.use(languageDetector).use(initReactI18next).init({
+  fallbackLng: DEFAULT_LANGUAGE,
+  resources: Locales,
+  defaultNS: DEFAULT_NS,
+});
