@@ -84,6 +84,7 @@ const SearchScreen = () => {
       <Header />
       <BookList
         data={data}
+        showSaved={true}
         ListEmptyComponent={renderListEmptyComponent()}
         ListFooterComponent={renderListFooter()}
         onEndReached={next}

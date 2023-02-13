@@ -4,6 +4,7 @@ import React from 'react';
 import {SharedValue} from 'react-native-reanimated';
 import {Theme, ThemeSpacingType} from '../../../theme';
 import Box from './Box';
+import Icon from './Icon';
 import TextInput from './TextInput';
 
 export type StackProps = Omit<BoxProps<Theme>, 'flexDirection'> & {
@@ -14,6 +15,8 @@ export type StackProps = Omit<BoxProps<Theme>, 'flexDirection'> & {
 export type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 export type BoxProps = React.ComponentProps<typeof Box>;
+
+export type IconProps = React.ComponentProps<typeof Icon>;
 
 export type BottomSheetProps = Omit<BottomSheetModalProps, 'snapPoints'> & {
   children: React.ReactNode;

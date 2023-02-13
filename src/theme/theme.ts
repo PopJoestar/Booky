@@ -49,6 +49,7 @@ const LightTheme = createTheme({
     book_card_image_width: 70,
     book_poster_image_height: 165,
     book_poster_image_width: 120,
+    book_card_estimated_height: 137,
   },
   breakpoints: {
     base: 0,

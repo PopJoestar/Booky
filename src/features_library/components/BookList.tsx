@@ -3,6 +3,7 @@ import {FlashList, FlashListProps} from '@shopify/flash-list';
 import {Divider} from 'react-native-paper';
 import {BaseBook} from '../../types';
 import BookItem from './BookItem';
+import {useAppTheme} from '@/shared/hooks';
 
 type Props<T extends BaseBook> = Omit<
   FlashListProps<T>,
@@ -10,6 +11,7 @@ type Props<T extends BaseBook> = Omit<
 > & {
   data: T[];
   onPressItem?: (book: T) => void;
+  showSaved?: boolean;
 };
 
 function BookList<T extends BaseBook>({
@@ -17,17 +19,19 @@ function BookList<T extends BaseBook>({
   onPressItem,
   scrollEventThrottle = 16,
   onEndReachedThreshold = 1.5,
+  showSaved,
   ...rest
 }: Props<T>) {
+  const {sizes} = useAppTheme();
   const renderBook = ({item}: {item: T}) => {
-    return <BookItem item={item} onPress={onPressItem} />;
+    return <BookItem item={item} onPress={onPressItem} showSaved={showSaved} />;
   };
 
   return (
     <FlashList
       data={data}
       renderItem={renderBook}
-      estimatedItemSize={121 + 16}
+      estimatedItemSize={sizes.book_card_estimated_height}
       ItemSeparatorComponent={Divider}
       scrollEventThrottle={scrollEventThrottle}
       onEndReachedThreshold={onEndReachedThreshold}

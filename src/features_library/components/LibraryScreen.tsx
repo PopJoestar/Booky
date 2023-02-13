@@ -5,7 +5,6 @@ import useBookRepository from '../hooks/useBookRepository';
 
 const LibraryScreen = () => {
   const {books} = useBookRepository();
-
   return (
     <>
       <Header />
