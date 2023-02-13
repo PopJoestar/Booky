@@ -44,6 +44,7 @@ const SnackbarProvider = ({children}: SnackbarProviderProps) => {
       {children}
       <Snackbar
         visible={snackbarProps.visible}
+        duration={snackbarProps.duration}
         action={
           snackbarProps.action
             ? {...snackbarProps.action, onPress: actionOnPress}
