@@ -1,7 +1,7 @@
 import {BookRemote} from '@/features_libgen/types';
-import {createRealmContext, Realm} from '@realm/react';
+import {Realm} from '@realm/react';
 
-class DownloadLink extends Realm.Object<DownloadLink> {
+export class DownloadLinkModel extends Realm.Object<DownloadLinkModel> {
   static schema = {
     name: 'DownloadLink',
     properties: {
@@ -11,7 +11,7 @@ class DownloadLink extends Realm.Object<DownloadLink> {
   };
 }
 
-export class Book extends Realm.Object<Book> implements BookRemote {
+export class BookModel extends Realm.Object<BookModel> implements BookRemote {
   _id!: Realm.BSON.ObjectId;
   createdAt!: Date;
 
@@ -68,11 +68,3 @@ export class Book extends Realm.Object<Book> implements BookRemote {
     },
   };
 }
-
-export const {
-  RealmProvider: BooksProvider,
-  useRealm: useBooksRealm,
-  useQuery: useBooks,
-} = createRealmContext({
-  schema: [Book, DownloadLink],
-});

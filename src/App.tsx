@@ -5,7 +5,7 @@ import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {BooksProvider} from './features_library';
+import {RealmProvider} from './db/database';
 import Navigations from './navigation/Navigations';
 import {SnackbarProvider} from './shared/components';
 import {LightTheme} from './theme';
@@ -17,7 +17,7 @@ const App = () => {
         <SnackbarProvider>
           <GestureHandlerRootView style={styles.ghRoot}>
             <BottomSheetModalProvider>
-              <BooksProvider fallback={<></>}>
+              <RealmProvider fallback={<></>}>
                 <NavigationContainer theme={LightTheme}>
                   <StatusBar
                     backgroundColor={'transparent'}
@@ -26,7 +26,7 @@ const App = () => {
                   />
                   <Navigations />
                 </NavigationContainer>
-              </BooksProvider>
+              </RealmProvider>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </SnackbarProvider>
