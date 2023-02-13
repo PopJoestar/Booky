@@ -14,7 +14,7 @@ const useBookRepository = () => {
     },
     [realm],
   );
-  return {addBook, books};
+  return {addBook, books: books.map(book => book)};
 };
 
 export default useBookRepository;
