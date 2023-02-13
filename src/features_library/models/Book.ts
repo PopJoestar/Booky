@@ -13,9 +13,11 @@ export class DownloadLinkModel extends Realm.Object<DownloadLinkModel> {
 
 export class BookModel extends Realm.Object<BookModel> implements BookRemote {
   _id!: Realm.BSON.ObjectId;
-  createdAt!: Date;
 
+  createdAt!: Date;
   isRead!: boolean;
+  filePath!: string;
+
   title!: string;
   size!: string;
   extension!: string;
@@ -38,13 +40,13 @@ export class BookModel extends Realm.Object<BookModel> implements BookRemote {
       _id: new Realm.BSON.ObjectId(),
       createdAt: new Date(),
       isRead: false,
+      filePath: '',
       ...book,
     };
   }
 
   static schema = {
     name: 'Book',
-    primaryKey: '_id',
     properties: {
       _id: 'objectId',
       createdAt: 'date',
@@ -53,6 +55,7 @@ export class BookModel extends Realm.Object<BookModel> implements BookRemote {
       extension: 'string',
       authors: 'string[]',
       isRead: {type: 'bool', default: false},
+      filePath: {type: 'string', default: ''},
       language: 'string?',
       isbns: {type: 'string[]', default: []},
       year: 'string?',
@@ -66,5 +69,6 @@ export class BookModel extends Realm.Object<BookModel> implements BookRemote {
       downloadLinks: {type: 'list', default: [], objectType: 'DownloadLink'},
       details_url: 'string?',
     },
+    primaryKey: 'md5',
   };
 }
