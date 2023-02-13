@@ -31,7 +31,7 @@ function useSearch() {
 
       return {
         page: pageIndex + 1,
-        query,
+        query: query.trim().toLowerCase(),
         language,
         extension,
         category,
@@ -44,7 +44,7 @@ function useSearch() {
     getKey,
     arg =>
       Libgen.search({
-        query: arg.query,
+        query: arg.query.trim().toLowerCase(),
         category: arg.category,
         language: arg.language,
         extension: arg.extension,
