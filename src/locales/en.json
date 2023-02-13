@@ -64,5 +64,16 @@
   },
   "label": {
     "saved": "Saved"
+  },
+  "book_details": {
+    "book_info_label": {
+      "publisher_publication_date": "Publisher and publication date",
+      "nbr_page": "Number of pages",
+      "isbn": "Isbn",
+      "file": "File",
+      "language": "Language",
+      "series": "Series"
+    },
+    "book_saved": "{{title}} has been added to your library"
   }
 }

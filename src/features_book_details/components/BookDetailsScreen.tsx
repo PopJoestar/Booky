@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {
   Box,
   Row,
@@ -29,13 +29,12 @@ import {Libgen} from '@/features_libgen';
 const BookDetailsScreen = () => {
   const {sizes} = useAppTheme();
   const {t} = useTranslation();
+  const showSnackbar = useSnackbar();
   const {params} = useRoute<BookDetailsScreenRouteProp>();
+  const {addBook, getBook} = useBookRepository();
 
   const currentBook = useCurrentBookStore(state => state.currentBook);
   const setDetails = useCurrentBookStore(state => state.setDetails);
-  const clearCurrentBook = useCurrentBookStore(state => state.clear);
-
-  const {addBook, getBook} = useBookRepository();
 
   const {isLoading, error} = useSWR(
     params.details_url,
@@ -47,31 +46,28 @@ const BookDetailsScreen = () => {
     },
   );
 
-  const showSnackbar = useSnackbar();
-
-  useEffect(() => clearCurrentBook, [clearCurrentBook]);
-
   const description = useMemo(() => {
     return {html: `<p>${currentBook.description}</p>`};
   }, [currentBook.description]);
 
-  const isBookInLibrary = useMemo(() => {
-    if (currentBook.md5 == null) {
-      return false;
-    }
-    return getBook(currentBook.md5) != null;
-  }, [currentBook.md5, getBook]);
+  const style = useAnimatedStyle(() => ({
+    opacity: withTiming(isLoading ? 0.4 : 1),
+  }));
 
   const saveBook = () => {
     addBook(currentBook);
     showSnackbar({
-      message: `${currentBook.title} a été ajouté à votre bibliothèque`,
+      message: t('book_details:book_saved', {title: currentBook.title}),
+      duration: 1000,
     });
   };
 
-  const style = useAnimatedStyle(() => ({
-    opacity: withTiming(isLoading ? 0.4 : 1),
-  }));
+  const isBookInLibrary = () => {
+    if (currentBook.md5 == null) {
+      return false;
+    }
+    return getBook(currentBook.md5) != null;
+  };
 
   return (
     <AnimatedBox flex={1} style={style}>
@@ -100,7 +96,7 @@ const BookDetailsScreen = () => {
           ) : null}
         </Box>
         <List.Item
-          title={'Publisher et date de publication'}
+          title={t('book_details:book_info_label.publisher_publication_date')}
           description={
             currentBook.publisher || currentBook.year
               ? StringUtils.merge([currentBook.publisher, currentBook.year])
@@ -108,13 +104,13 @@ const BookDetailsScreen = () => {
           }
         />
         <List.Item
-          title={'Nombre de pages'}
+          title={t('book_details:book_info_label.nbr_page')}
           description={
             currentBook.nbrOfPages ? currentBook.nbrOfPages : t('unkown')
           }
         />
         <List.Item
-          title={'Isbn'}
+          title={t('book_details:book_info_label.isbn')}
           description={
             currentBook.isbns && currentBook.isbns.length > 0
               ? currentBook.isbns.join(', ')
@@ -122,15 +118,21 @@ const BookDetailsScreen = () => {
           }
         />
         <List.Item
-          title={'Fichier'}
+          title={t('book_details:book_info_label.file')}
           description={StringUtils.merge([
             currentBook.size,
             currentBook.extension,
           ])}
         />
-        <List.Item title={'Language'} description={currentBook.language} />
+        <List.Item
+          title={t('book_details:book_info_label.language')}
+          description={currentBook.language}
+        />
         {StringUtils.notEmpty(currentBook.series) ? (
-          <List.Item title={'Series'} description={currentBook.series} />
+          <List.Item
+            title={t('book_details:book_info_label.series')}
+            description={currentBook.series}
+          />
         ) : null}
         <Box height={sizes.l} />
       </ScrollView>
@@ -143,10 +145,10 @@ const BookDetailsScreen = () => {
         <Button
           mode="outlined"
           marginRight="m"
-          disabled={isLoading || !!error || isBookInLibrary}
-          icon={isBookInLibrary ? 'check' : undefined}
+          disabled={isLoading || !!error || isBookInLibrary()}
+          icon={isBookInLibrary() ? 'check' : undefined}
           onPress={saveBook}>
-          {isBookInLibrary ? t('label:saved') : t('common:save')}
+          {isBookInLibrary() ? t('label:saved') : t('common:save')}
         </Button>
         <Button mode="contained" disabled={isLoading || !!error}>
           {t('common:download')}
