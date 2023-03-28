@@ -7388,14 +7388,14 @@ react-native-pager-view@^6.1.2:
   resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-6.1.2.tgz#3522079b9a9d6634ca5e8d153bc0b4d660254552"
   integrity sha512-qs2KSFc+7N7B+UZ6SG2sTvCkppagm5fVyRclv1KFKc7lDtrhXLzN59tXJw575LDP/dRJoXsNwqUAhZJdws6ABQ==
 
-react-native-paper@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-5.2.0.tgz#112c0dd7c5ad9e9da0791c9d0b430af380b326a3"
-  integrity sha512-FfKvfh4nBvetTusiuc1QMuNxXdNai4lthoyD+dNPM03RnIapcjoKHrhCD1EvVi5c1kBSKHrlXQ3OAW/8QCQXNw==
+react-native-paper@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-5.5.2.tgz#c28058ad0e4252b3b6061b9ddc39ed11543706d5"
+  integrity sha512-cgkx67++r1oDoZRhzTohb0//qkD1Z20C/OcLfrE0HzyAkG+bYm0fA6gWqvHpdC7icQmuDS8iOOLu2288IYWiOA==
   dependencies:
     "@callstack/react-theme-provider" "^3.0.8"
     color "^3.1.2"
-    use-event-callback "^0.1.0"
+    use-latest-callback "^0.1.5"
 
 react-native-reanimated@^2.13.0:
   version "2.13.0"
@@ -8886,11 +8886,6 @@ url-parse@^1.4.4, url-parse@^1.5.3:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
-
-use-event-callback@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/use-event-callback/-/use-event-callback-0.1.0.tgz"
-  integrity sha512-5fTzY5UEXHMK5UR0NRkUz6TPfWmmX9fO8Tx3SnHrfMPdrQ7Rna0gDBy0r56SP68TwsP9DgwSBzeysCu3A/Z2NA==
 
 use-latest-callback@^0.1.5:
   version "0.1.5"

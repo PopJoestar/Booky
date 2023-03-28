@@ -1,6 +1,10 @@
 import {createTheme} from '@shopify/restyle';
 import {LightColors} from './colors';
-import {adaptNavigationTheme, MD3LightTheme} from 'react-native-paper';
+import {
+  adaptNavigationTheme,
+  MD3LightTheme,
+  MD3Theme,
+} from 'react-native-paper';
 import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
@@ -8,15 +12,9 @@ import {
 import {Typography} from './typography';
 import {StatusBar} from 'react-native';
 
-const {LightTheme: NavigationLightTheme} = adaptNavigationTheme({
-  reactNavigationLight: NavigationDefaultTheme,
-  reactNavigationDark: NavigationDarkTheme,
-});
-
 const LightTheme = createTheme({
   ...MD3LightTheme,
-  ...NavigationLightTheme,
-  colors: {...LightColors, ...NavigationLightTheme.colors},
+  colors: LightColors,
   spacing: {
     none: 0,
     s: 8,
@@ -101,12 +99,30 @@ const LightTheme = createTheme({
   },
 });
 
-export const PaperTheme = {
+export const {LightTheme: NavigationLightTheme} = adaptNavigationTheme({
+  reactNavigationLight: NavigationDefaultTheme,
+  reactNavigationDark: NavigationDarkTheme,
+});
+
+export const PaperTheme: MD3Theme = {
   ...MD3LightTheme,
   ...NavigationLightTheme,
+
   colors: {
-    ...MD3LightTheme,
+    ...NavigationLightTheme.colors,
+    ...MD3LightTheme.colors,
     ...LightColors,
+    elevation: {
+      level0: 'transparent',
+      // Note: Color values with transparency cause RN to transfer shadows to children nodes
+      // instead of View component in Surface. Providing solid background fixes the issue.
+      // Opaque color values generated with `palette.primary99` used as background
+      level1: 'rgba(99, 97, 0,0.05)', // palette.primary40, alpha 0.05
+      level2: 'rgba(99, 97, 0,0.08)',
+      level3: 'rgba(99, 97, 0,0.11)', // palette.primary40, alpha 0.11
+      level4: 'rgba(99, 97, 0,0.12)', // palette.primary40, alpha 0.12
+      level5: 'rgba(99, 97, 0,0.14)', // palette.primary40, alpha 0.14
+    },
   },
 };
 

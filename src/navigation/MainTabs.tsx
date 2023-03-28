@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next';
 import {Icon} from '../shared/components';
 import {useAppTheme} from '../shared/hooks';
 import {CollectionsScreen} from '../features_collection';
+import {PaperTheme} from '@/theme';
 
 const Tab = createMaterialBottomTabNavigator<MainTabParamList>();
 
