@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 import {CategoryOption, ExtensionOption, LanguageOption} from './constants';
 
 type SearchStore = {

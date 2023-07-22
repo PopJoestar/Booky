@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native';
-import {StackScreenProps} from '@react-navigation/stack';
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   main_tab: NavigatorScreenParams<MainTabParamList>;
@@ -11,7 +11,7 @@ export type RootStackParamList = {
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
-  StackScreenProps<RootStackParamList, T>;
+  NativeStackScreenProps<RootStackParamList, T>;
 
 export type BookDetailsScreenRouteProp = RouteProp<
   RootStackParamList,

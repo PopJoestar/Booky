@@ -1,5 +1,5 @@
 import {useSearchStore} from '../states';
-import shallow from 'zustand/shallow';
+import {shallow} from 'zustand/shallow';
 import useSWRInfinite from 'swr/infinite';
 import {useCallback, useEffect} from 'react';
 import {SearchParams, SearchResponse} from '../../features_libgen/types';
