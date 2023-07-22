@@ -42,10 +42,7 @@ const Filters = (props: BoxProps<Theme>) => {
   };
 
   const renderFilter = (filterType: FilterType, index: number) => {
-    if (
-      (filters.category === 'ALL' || filters.category === 'NON_FICTION') &&
-      filterType === 'extension'
-    ) {
+    if (filters.category === 'NON_FICTION' && filterType === 'extension') {
       return;
     }
 
@@ -73,10 +70,6 @@ const Filters = (props: BoxProps<Theme>) => {
 
         return t(EXTENSION_OPTIONS_MAP[filters.extension]);
       case 'category':
-        if (filters.category === 'ALL') {
-          return t('search:categories.all');
-        }
-
         return t(CATEGORIES_OPTIONS_MAP[filters.category]);
     }
   };
