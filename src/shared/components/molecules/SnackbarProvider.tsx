@@ -51,7 +51,7 @@ const SnackbarProvider = ({children}: SnackbarProviderProps) => {
             : undefined
         }
         onDismiss={dismissSnackbar}>
-        <Text color="onInverseSurface" variant="bodyMedium">
+        <Text color="inverseOnSurface" variant="bodyMedium">
           {snackbarProps.message}
         </Text>
       </Snackbar>
