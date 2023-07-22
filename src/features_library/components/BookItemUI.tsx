@@ -96,7 +96,7 @@ const StatusIcon = ({
 }: {
   status?: BookStatus;
 } & Omit<IconProps, 'name'>) => {
-  const {sizes} = useAppTheme();
+  const {sizes, colors} = useAppTheme();
 
   if (status !== 'downloaded' && status !== 'saved') {
     return null;
@@ -104,9 +104,23 @@ const StatusIcon = ({
 
   switch (status) {
     case 'downloaded':
-      return <Icon name="checkbox-marked-circle" size={sizes.l} {...rest} />;
+      return (
+        <Icon
+          name="checkbox-marked-circle"
+          size={sizes.l}
+          color={colors.tertiary}
+          {...rest}
+        />
+      );
     case 'saved':
-      return <Icon name="bookmark" size={sizes.l} {...rest} />;
+      return (
+        <Icon
+          name="bookmark"
+          size={sizes.l}
+          color={colors.tertiary}
+          {...rest}
+        />
+      );
   }
 };
 
