@@ -10,6 +10,7 @@ import Icon from './atoms/Icon';
 import Image from './atoms/Image';
 import RenderHTML from './atoms/RenderHTML';
 import Row from './atoms/Row';
+import SafeAreaView from './atoms/SafeAreaView';
 import ScrollView from './atoms/ScrollView';
 import Searchbar from './atoms/Searchbar';
 import Text from './atoms/Text';
@@ -38,4 +39,5 @@ export {
   Chip,
   RenderHTML,
   AnimatedBox,
+  SafeAreaView,
 };
