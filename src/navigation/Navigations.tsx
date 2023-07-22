@@ -1,13 +1,16 @@
 import React from 'react';
 import {RootStackParamList} from './types';
-import {StackHeaderProps, createStackNavigator} from '@react-navigation/stack';
 import {SearchScreen} from '../features_search';
 import {BookDetailsScreen} from '../features_book_details';
 import {useAppTheme} from '../shared/hooks';
 import MainTab from './MainTabs';
 import {Appbar} from 'react-native-paper';
+import {
+  NativeStackHeaderProps,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigations = () => {
   const {colors} = useAppTheme();
@@ -40,7 +43,7 @@ const Navigations = () => {
   );
 };
 
-const Header = (props: StackHeaderProps) => (
+const Header = (props: NativeStackHeaderProps) => (
   <Appbar.Header>
     {props.navigation.canGoBack() ? (
       <Appbar.BackAction onPress={props.navigation.goBack} />
