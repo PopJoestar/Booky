@@ -1,10 +1,11 @@
 import React from 'react';
 import {RootStackParamList} from './types';
-import {createStackNavigator} from '@react-navigation/stack';
+import {StackHeaderProps, createStackNavigator} from '@react-navigation/stack';
 import {SearchScreen} from '../features_search';
 import {BookDetailsScreen} from '../features_book_details';
 import {useAppTheme} from '../shared/hooks';
 import MainTab from './MainTabs';
+import {Appbar} from 'react-native-paper';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -13,7 +14,7 @@ const Navigations = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShadowVisible: false,
+        header: Header,
       }}>
       <Stack.Screen
         name="main_tab"
@@ -38,5 +39,15 @@ const Navigations = () => {
     </Stack.Navigator>
   );
 };
+
+const Header = (props: StackHeaderProps) => (
+  <Appbar.Header>
+    {props.navigation.canGoBack() ? (
+      <Appbar.BackAction onPress={props.navigation.goBack} />
+    ) : null}
+
+    <Appbar.Content title={props.options.title} />
+  </Appbar.Header>
+);
 
 export default Navigations;

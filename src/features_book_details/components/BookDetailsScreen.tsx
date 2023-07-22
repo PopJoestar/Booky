@@ -150,12 +150,69 @@ const BookDetailsScreen = () => {
           onPress={saveBook}>
           {isBookInLibrary() ? t('label:saved') : t('common:save')}
         </Button>
-        <Button mode="contained" disabled={isLoading || !!error}>
+        <Button
+          mode="contained"
+          disabled={isLoading || !!error}
+          onPress={async () => {
+            currentBook.downloadLinks?.forEach(d => {
+              if (d.link != null && VALID_HOSTS.includes(d.host)) {
+                console.log(getFileNameFromDownloadLink(d.link, d.host));
+              }
+            });
+            // const response = await ReactNativeBlobUtil.config({
+            //   addAndroidDownloads: {
+            //     useDownloadManager: true,
+            //     path: ReactNativeBlobUtil.fs.dirs. + 'caca.djvu',
+            //   },
+            // })
+            //   .fetch('GET', currentBook.downloadLinks[1].link)
+            //   .progress((r, s) => {
+            //     console.log(r, s);
+            //   });
+
+            // console.log(response.path());
+          }}>
           {t('common:download')}
         </Button>
       </Row>
     </AnimatedBox>
   );
 };
+
+function getRequestParamsFromUrl(url: string): Record<string, string> {
+  const params: Record<string, string> = {};
+
+  const queryStringRegex = /\?.*/; // Matches the query string starting with "?"
+  const paramRegex = /([^?=&]+)(=([^&]*))?/g; // Matches individual parameters in the query string
+
+  const queryStringMatch = url.match(queryStringRegex);
+  if (queryStringMatch) {
+    const queryString = queryStringMatch[0].slice(1); // Remove the "?"
+    let paramMatch;
+
+    while ((paramMatch = paramRegex.exec(queryString)) !== null) {
+      const [, paramName, , paramValue] = paramMatch;
+      params[paramName] = paramValue || '';
+    }
+  }
+
+  return params;
+}
+
+const VALID_HOSTS = ['GET', 'Cloudflare', 'IPFS.io', 'Pinata'];
+
+export function getFileNameFromDownloadLink(link: string, host?: string) {
+  if (host === 'GET') {
+    const split_link = link.split('/');
+    return decodeURIComponent(split_link[split_link.length - 1]);
+  }
+  const rawFilename = getRequestParamsFromUrl(link).filename;
+
+  if (rawFilename == null || rawFilename === '') {
+    throw new Error(`Undefined filename ${host} ${link}`);
+  }
+
+  return decodeURIComponent(rawFilename);
+}
 
 export default BookDetailsScreen;
