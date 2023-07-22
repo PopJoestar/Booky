@@ -67,3 +67,7 @@ buck-out/
 .metro-health-check*
 # testing
 /coverage
+# Expo
+.expo
+dist/
+web-build/

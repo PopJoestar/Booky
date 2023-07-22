@@ -10,6 +10,8 @@ import Navigations from './navigation/Navigations';
 import {SnackbarProvider} from './shared/components';
 import {LightTheme, PaperTheme} from './theme';
 
+import {NavigationLightTheme} from './theme/theme';
+
 const App = () => {
   return (
     <PaperProvider theme={PaperTheme}>
@@ -18,7 +20,7 @@ const App = () => {
           <GestureHandlerRootView style={styles.ghRoot}>
             <BottomSheetModalProvider>
               <RealmProvider fallback={<></>}>
-                <NavigationContainer theme={PaperTheme}>
+                <NavigationContainer theme={NavigationLightTheme}>
                   <StatusBar
                     backgroundColor={'transparent'}
                     barStyle="dark-content"
