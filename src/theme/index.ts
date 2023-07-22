@@ -1,4 +1,4 @@
-import LightTheme, {PaperTheme, Theme} from './theme';
+import LightTheme, {NavigationLightTheme, PaperTheme, Theme} from './theme';
 import type {
   ThemeButtonVariantsType,
   ThemeColorType,
@@ -6,7 +6,7 @@ import type {
   ThemeSpacingType,
 } from './types';
 
-export {LightTheme, PaperTheme};
+export {LightTheme, PaperTheme, NavigationLightTheme};
 
 export type {
   Theme,

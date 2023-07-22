@@ -99,17 +99,11 @@ const LightTheme = createTheme({
   },
 });
 
-export const {LightTheme: NavigationLightTheme} = adaptNavigationTheme({
-  reactNavigationLight: NavigationDefaultTheme,
-  reactNavigationDark: NavigationDarkTheme,
-});
+
 
 export const PaperTheme: MD3Theme = {
   ...MD3LightTheme,
-  ...NavigationLightTheme,
-
   colors: {
-    ...NavigationLightTheme.colors,
     ...MD3LightTheme.colors,
     ...LightColors,
     elevation: {
@@ -125,6 +119,12 @@ export const PaperTheme: MD3Theme = {
     },
   },
 };
+
+export const {LightTheme: NavigationLightTheme} = adaptNavigationTheme({
+  reactNavigationLight: NavigationDefaultTheme,
+  reactNavigationDark: NavigationDarkTheme,
+  materialLight: PaperTheme,
+});
 
 export default LightTheme;
 
