@@ -1,7 +1,8 @@
 import {createBox} from '@shopify/restyle';
 import {Theme} from '../../../theme';
-import FastImage, {FastImageProps} from 'react-native-fast-image';
+import {Image as RNIMage} from 'react-native';
+import {ImageProps} from 'react-native';
 
-const Image = createBox<Theme, FastImageProps>(FastImage);
+const Image = createBox<Theme, ImageProps>(RNIMage);
 
 export default Image;
