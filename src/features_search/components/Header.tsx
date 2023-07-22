@@ -37,7 +37,8 @@ const Header = () => {
       <Searchbar
         value={searchInput}
         onChangeText={handleOnChangeText}
-        marginTop="l"
+        marginTop="searchbarHeader"
+        marginHorizontal={'m'}
         elevation={0}
         inputStyle={textVariants.bodyLarge}
         icon="keyboard-backspace"
@@ -47,7 +48,7 @@ const Header = () => {
         placeholder={t('common:search')}
         onSubmitEditing={submit}
       />
-      <Filters marginTop={'s'} marginBottom="s" />
+      <Filters marginVertical={'m'} />
     </>
   );
 };
