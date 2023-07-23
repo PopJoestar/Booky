@@ -7,12 +7,12 @@ import {
   Text,
   Image,
   Icon,
+  IconProps,
 } from '@/shared/components';
 import {useAppTheme} from '@/shared/hooks';
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import {BaseBook} from '@/types';
-import {IconProps} from '@/shared/components/atoms/types';
 import {BookStatus} from '../types';
 
 export type BookItemUIProps<T extends BaseBook> = {

@@ -1,8 +1,7 @@
 import React from 'react';
-import Box from './Box';
-import {StackProps} from './types';
+import Box, {BoxProps} from './Box';
 
-const Row = ({children, ...rest}: StackProps) => {
+const Row = ({children, ...rest}: Omit<BoxProps, 'flexDirection'>) => {
   return (
     <Box {...rest} flexDirection="row">
       {children}

@@ -1,39 +1,45 @@
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {NavigationContainer} from '@react-navigation/native';
-import {ThemeProvider} from '@shopify/restyle';
 import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {Provider as PaperProvider} from 'react-native-paper';
 import {RealmProvider} from './db/database';
 import Navigations from './navigation/Navigations';
 import {SnackbarProvider} from './shared/components';
-import {LightTheme, PaperTheme} from './theme';
 
-import {NavigationLightTheme} from './theme/theme';
+import {
+  Material3ThemeProvider,
+  useMaterial3ThemeContext,
+} from './theme/Material3ThemeProvider';
 
 const App = () => {
   return (
-    <PaperProvider theme={PaperTheme}>
-      <ThemeProvider theme={LightTheme}>
-        <SnackbarProvider>
-          <GestureHandlerRootView style={styles.ghRoot}>
-            <BottomSheetModalProvider>
-              <RealmProvider fallback={<></>}>
-                <NavigationContainer theme={NavigationLightTheme}>
-                  <StatusBar
-                    backgroundColor={'transparent'}
-                    barStyle="dark-content"
-                    translucent={true}
-                  />
-                  <Navigations />
-                </NavigationContainer>
-              </RealmProvider>
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </SnackbarProvider>
-      </ThemeProvider>
-    </PaperProvider>
+    <RealmProvider fallback={<></>}>
+      <Material3ThemeProvider>
+        <AppContent />
+      </Material3ThemeProvider>
+    </RealmProvider>
+  );
+};
+
+const AppContent = () => {
+  const {navigationTheme, isDark} = useMaterial3ThemeContext();
+
+  return (
+    <SnackbarProvider>
+      <GestureHandlerRootView style={styles.ghRoot}>
+        <BottomSheetModalProvider>
+          <NavigationContainer theme={navigationTheme}>
+            <StatusBar
+              backgroundColor={'transparent'}
+              barStyle={isDark ? 'light-content' : 'dark-content'}
+              translucent={true}
+            />
+            <Navigations />
+          </NavigationContainer>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </SnackbarProvider>
   );
 };
 
