@@ -3,12 +3,18 @@ import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
+  BottomSheetModalProps,
 } from '@gorhom/bottom-sheet';
 
 import {useResponsiveProp} from '@shopify/restyle';
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useAppTheme} from '../../hooks';
-import {BottomSheetProps} from './types';
+import {SharedValue} from 'react-native-reanimated';
+
+export type BottomSheetProps = Omit<BottomSheetModalProps, 'snapPoints'> & {
+  children: React.ReactNode;
+  snapPoints?: (string | number)[] | SharedValue<(string | number)[]>;
+};
 
 const BottomSheet = React.forwardRef<BottomSheetModalMethods, BottomSheetProps>(
   ({children, snapPoints, ...rest}, ref) => {

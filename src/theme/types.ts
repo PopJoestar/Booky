@@ -1,6 +1,11 @@
-import {Theme} from './theme';
+import {Material3Scheme} from '@pchmn/expo-material3-theme';
+import {borderRadii, breakpoints, sizes, spacing} from './layout';
+import {BaseTheme} from '@shopify/restyle';
 
-export type ThemeColorType = keyof Theme['colors'];
-export type ThemeSpacingType = keyof Theme['spacing'];
-export type ThemeSizeType = keyof Theme['sizes'];
-export type ThemeButtonVariantsType = keyof Theme['buttonVariants'];
+export interface Theme extends BaseTheme {
+  colors: Omit<Material3Scheme, 'elevation'>;
+  spacing: typeof spacing;
+  borderRadii: typeof borderRadii;
+  breakpoints: typeof breakpoints;
+  sizes: typeof sizes;
+}

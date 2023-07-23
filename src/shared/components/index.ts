@@ -5,7 +5,6 @@ import Box from './atoms/Box';
 import Button from './atoms/Button';
 import Center from './atoms/Center';
 import Chip from './atoms/Chip';
-import Column from './atoms/Column';
 import Icon from './atoms/Icon';
 import Image from './atoms/Image';
 import RenderHTML from './atoms/RenderHTML';
@@ -19,6 +18,9 @@ import TouchableOpacity from './atoms/TouchableOpacity';
 import TouchableRipple from './atoms/TouchableRipple';
 import SnackbarProvider from './molecules/SnackbarProvider';
 
+import type {IconProps} from './atoms/Icon';
+
+export type {IconProps};
 export {
   Box,
   Text,
@@ -26,7 +28,6 @@ export {
   TouchableOpacity,
   BottomSheet,
   Center,
-  Column,
   TextInput,
   Button,
   Image,

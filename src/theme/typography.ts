@@ -20,3 +20,8 @@ export const Typography = {
   titleSmall: fonts.titleSmall,
   default: fonts.default,
 };
+
+export const textVariants = {
+  ...Typography,
+  defaults: {...Typography.default, color: 'onSurface'},
+};

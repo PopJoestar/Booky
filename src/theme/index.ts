@@ -1,17 +1,5 @@
-import LightTheme, {NavigationLightTheme, PaperTheme, Theme} from './theme';
-import type {
-  ThemeButtonVariantsType,
-  ThemeColorType,
-  ThemeSizeType,
-  ThemeSpacingType,
-} from './types';
+import {useMaterial3ThemeContext} from './Material3ThemeProvider';
+import {Theme} from './types';
 
-export {LightTheme, PaperTheme, NavigationLightTheme};
-
-export type {
-  Theme,
-  ThemeColorType,
-  ThemeSpacingType,
-  ThemeSizeType,
-  ThemeButtonVariantsType,
-};
+export type {Theme};
+export {useMaterial3ThemeContext};

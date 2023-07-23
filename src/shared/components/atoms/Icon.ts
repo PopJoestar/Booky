@@ -7,4 +7,6 @@ const Icon = createBox<Theme, ComponentProps<typeof MaterialCommunityIcons>>(
   MaterialCommunityIcons,
 );
 
+export type IconProps = React.ComponentProps<typeof Icon>;
+
 export default Icon;
