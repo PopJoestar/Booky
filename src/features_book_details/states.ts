@@ -1,14 +1,14 @@
 import {create} from 'zustand';
-import {BookRemote, GetDetailsResponse} from '../features_libgen/types';
+import {Book} from '@/interfaces/Book';
 
 type useCurrentBookStore = {
-  currentBook: BookRemote;
-  setCurrentBook: (value: BookRemote) => void;
-  setDetails: (value: GetDetailsResponse) => void;
+  currentBook: Book;
+  setCurrentBook: (value: Book) => void;
+  setDetails: (value: Partial<Book>) => void;
   clear: () => void;
 };
 
-const initialCurrentBook: BookRemote = {
+const initialCurrentBook: Book = {
   libgenID: '',
   title: '',
   size: '',

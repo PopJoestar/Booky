@@ -2,8 +2,8 @@ import {useSearchStore} from '../states';
 import {shallow} from 'zustand/shallow';
 import useSWRInfinite from 'swr/infinite';
 import {useCallback, useEffect} from 'react';
-import {SearchParams, SearchResponse} from '../../features_libgen/types';
-import {Libgen} from '../../features_libgen';
+import {BookFinder} from '@/services';
+import {SearchBooksParams, SearchBooksResponse} from '@/interfaces/Book';
 
 function useSearch() {
   const {query, category, extension, language} = useSearchStore(
@@ -20,8 +20,8 @@ function useSearch() {
   const getKey = useCallback(
     (
       pageIndex: number,
-      previousPageData: SearchResponse,
-    ): SearchParams | null => {
+      previousPageData: SearchBooksResponse,
+    ): SearchBooksParams | null => {
       if (
         (previousPageData && previousPageData.items.length === 0) ||
         query === ''
@@ -43,12 +43,12 @@ function useSearch() {
   const {data, size, isLoading, setSize, error, isValidating} = useSWRInfinite(
     getKey,
     arg =>
-      Libgen.search({
+      BookFinder.search({
         query: arg.query.trim().toLowerCase(),
         category: arg.category,
         language: arg.language,
         extension: arg.extension,
-        page: arg.page,
+        page: arg.page ?? 1,
       }),
   );
 

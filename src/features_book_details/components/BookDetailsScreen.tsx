@@ -24,8 +24,8 @@ import Animated, {
 import {useAppTheme} from '@/shared/hooks';
 import {useBookRepository} from '@/features_library';
 import {BookDetailsScreenRouteProp} from '@/navigation/types';
-import {Libgen} from '@/features_libgen';
 import useMessageDisplayer from '@/shared/hooks/useMessageDisplayer';
+import {BookFinder} from '@/services';
 
 const BookDetailsScreen = () => {
   const {sizes} = useAppTheme();
@@ -40,7 +40,7 @@ const BookDetailsScreen = () => {
 
   const {isLoading, error} = useSWR(
     params.details_url,
-    (detailsUrl: string) => Libgen.getDetails(detailsUrl),
+    (detailsUrl: string) => BookFinder.getBookDetails(detailsUrl),
     {
       onSuccess: data => {
         setDetails(data);
