@@ -1,14 +1,14 @@
 import LibgenModule from './LibgenModules';
 import {
-  GetDetailsResponse,
+  LibgenBookDetails,
+  LibgenSearchBooksParams,
+  LibgenSearchBooksResponse,
   NativeModuleError,
-  SearchParams,
-  SearchResponse,
 } from './types';
 
 export async function getDetails(
   detailsUrl: string,
-): Promise<GetDetailsResponse> {
+): Promise<LibgenBookDetails> {
   try {
     const resp = await LibgenModule.getDetails(detailsUrl);
 
@@ -28,7 +28,7 @@ export async function search({
   language,
   extension,
   page = 1,
-}: SearchParams): Promise<SearchResponse> {
+}: LibgenSearchBooksParams): Promise<LibgenSearchBooksResponse> {
   try {
     const resp = await LibgenModule.search(
       query,

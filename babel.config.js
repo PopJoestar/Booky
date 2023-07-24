@@ -8,6 +8,7 @@ module.exports = {
         alias: {
           '@': './src',
           '@shared': './src/shared',
+          libgen: './libgen',
         },
       },
     ],

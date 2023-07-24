@@ -1,26 +1,22 @@
-import {
-  CategoryOption,
-  ExtensionOption,
-  LanguageOption,
-} from '../features_search/constants';
+export type LibgenBookLanguage = 'ALL' | 'fr' | 'en' | 'de' | 'it';
+export type LibgenBookExtension = 'ALL' | 'pdf' | 'epub' | 'djvu';
+export type LibgenBookCategory = 'FICTION' | 'NON_FICTION';
 
-export interface SearchResponse {
+export interface LibgenSearchBooksResponse {
   totalItem: number;
   totalPages: number;
-  items: BookRemote[];
+  items: LibgenBook[];
 }
 
-export type SearchParams = {
+export type LibgenSearchBooksParams = {
   query: string;
-  category: CategoryOption;
-  language: LanguageOption;
-  extension: ExtensionOption;
+  category: LibgenBookCategory;
+  language: LibgenBookLanguage;
+  extension: LibgenBookExtension;
   page?: number;
 };
 
-export type BookRemoteType = 'FICTION' | 'NON_FICTION';
-
-export interface BookRemote {
+export interface LibgenBook {
   title: string;
   size: string;
   extension: string;
@@ -35,11 +31,11 @@ export interface BookRemote {
   md5?: string;
   publisher?: string;
   description?: string;
-  downloadLinks?: {host: string; link?: string}[];
+  downloadLinks?: DownloadLink[];
   details_url?: string;
 }
 
-export interface GetDetailsResponse {
+export interface LibgenBookDetails {
   title?: string;
   image?: string;
   authors?: string[];
