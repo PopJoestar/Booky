@@ -22,10 +22,10 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {useAppTheme} from '@/shared/hooks';
-import {useBookRepository} from '@/features_library';
 import {BookDetailsScreenRouteProp} from '@/navigation/types';
 import useMessageDisplayer from '@/shared/hooks/useMessageDisplayer';
 import {BookFinder} from '@/services';
+import {useBookRepository} from '@/data';
 
 const BookDetailsScreen = () => {
   const {sizes} = useAppTheme();

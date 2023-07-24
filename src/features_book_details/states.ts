@@ -22,6 +22,7 @@ const initialCurrentBook: Book = {
   isbns: undefined,
   year: '',
   language: '',
+  filePath: '',
 };
 
 const useCurrentBookStore = create<useCurrentBookStore>()(set => ({

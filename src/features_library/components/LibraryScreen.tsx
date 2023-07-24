@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import BookList from './BookList';
-import useBookRepository from '../hooks/useBookRepository';
+import {useBookRepository} from '@/data';
 
 const LibraryScreen = () => {
   const {books} = useBookRepository();

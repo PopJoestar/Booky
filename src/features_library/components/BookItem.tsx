@@ -1,16 +1,15 @@
 import React from 'react';
 import {BaseBook} from '@/types';
 import BookItemUI, {BookItemUIProps} from './BookItemUI';
-import {useObject} from '@/db';
-import {BookModel} from '../../models/BookModel';
 import {BookStatus} from '../types';
+import {useBookObject} from '@/data';
 
 type Props<T extends BaseBook> = BookItemUIProps<T> & {
   showSaved?: boolean;
 };
 
 function BookItem<T extends BaseBook>(props: Props<T>) {
-  const savedBook: BookModel | null = useObject('Book', props.item.md5 ?? '');
+  const savedBook = useBookObject(props.item.md5 ?? '');
 
   const getStatus = (): BookStatus | undefined => {
     if (savedBook == null) {

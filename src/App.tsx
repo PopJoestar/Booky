@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {RealmProvider} from './db/database';
+import {RealmProvider} from './data/database';
 import Navigations from './navigation/Navigations';
 
 import {

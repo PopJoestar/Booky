@@ -1,20 +1,19 @@
-import {useQuery, useRealm} from '@/db';
-import {BookRemote} from '@/features_libgen/types';
 import {useCallback} from 'react';
-import {BookModel} from '../../models/BookModel';
+import {BookModel, bookModelToBook} from '../models/BookModel';
+import {Book} from '@/interfaces/Book';
+import {useQuery, useRealm} from '../database';
 
 const useBookRepository = () => {
   const realm = useRealm();
   const books: Realm.Results<BookModel> = useQuery(BookModel);
-  const addBook = useCallback(
-    (book: BookRemote) => {
-      let newBook!: BookModel;
 
+  const addBook = useCallback(
+    (book: Book) => {
       realm.write(() => {
-        newBook = realm.create<BookModel>('Book', BookModel.generate(book));
+        realm.create<BookModel>('Book', BookModel.generate(book));
       });
 
-      return newBook;
+      return true;
     },
     [realm],
   );
@@ -30,7 +29,13 @@ const useBookRepository = () => {
 
   const getBook = useCallback(
     (md5: string) => {
-      return realm.objectForPrimaryKey<BookModel>('Book', md5);
+      const response = realm.objectForPrimaryKey<BookModel>('Book', md5);
+
+      if (response == null) {
+        return null;
+      }
+
+      return bookModelToBook(response);
     },
     [realm],
   );
