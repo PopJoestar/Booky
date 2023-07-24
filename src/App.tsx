@@ -5,12 +5,13 @@ import {StatusBar, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {RealmProvider} from './db/database';
 import Navigations from './navigation/Navigations';
-import {SnackbarProvider} from './shared/components';
 
 import {
   Material3ThemeProvider,
   useMaterial3ThemeContext,
 } from './theme/Material3ThemeProvider';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import FlashMessage from 'react-native-flash-message';
 
 const App = () => {
   return (
@@ -26,21 +27,25 @@ const AppContent = () => {
   const {navigationTheme, isDark} = useMaterial3ThemeContext();
 
   return (
-    <SnackbarProvider>
-      <GestureHandlerRootView style={styles.ghRoot}>
-        <BottomSheetModalProvider>
-          <NavigationContainer theme={navigationTheme}>
-            <StatusBar
-              backgroundColor={'transparent'}
-              barStyle={isDark ? 'light-content' : 'dark-content'}
-              translucent={true}
-            />
-            <Navigations />
-          </NavigationContainer>
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
-    </SnackbarProvider>
+    <GestureHandlerRootView style={styles.ghRoot}>
+      <BottomSheetModalProvider>
+        <NavigationContainer theme={navigationTheme}>
+          <StatusBar
+            backgroundColor={'transparent'}
+            barStyle={isDark ? 'light-content' : 'dark-content'}
+            translucent={true}
+          />
+          <Navigations />
+          <FlashMessageContainer />
+        </NavigationContainer>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
+};
+
+const FlashMessageContainer = () => {
+  const {top} = useSafeAreaInsets();
+  return <FlashMessage statusBarHeight={top} />;
 };
 
 const styles = StyleSheet.create({

@@ -21,17 +21,19 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import {useAppTheme, useSnackbar} from '@/shared/hooks';
+import {useAppTheme} from '@/shared/hooks';
 import {useBookRepository} from '@/features_library';
 import {BookDetailsScreenRouteProp} from '@/navigation/types';
 import {Libgen} from '@/features_libgen';
+import useMessageDisplayer from '@/shared/hooks/useMessageDisplayer';
 
 const BookDetailsScreen = () => {
   const {sizes} = useAppTheme();
   const {t} = useTranslation();
-  const showSnackbar = useSnackbar();
   const {params} = useRoute<BookDetailsScreenRouteProp>();
   const {addBook, getBook} = useBookRepository();
+
+  const {showMessage} = useMessageDisplayer();
 
   const currentBook = useCurrentBookStore(state => state.currentBook);
   const setDetails = useCurrentBookStore(state => state.setDetails);
@@ -56,9 +58,8 @@ const BookDetailsScreen = () => {
 
   const saveBook = () => {
     addBook(currentBook);
-    showSnackbar({
+    showMessage('success', {
       message: t('book_details:book_saved', {title: currentBook.title}),
-      duration: 1000,
     });
   };
 

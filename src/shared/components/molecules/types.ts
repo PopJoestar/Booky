@@ -4,7 +4,3 @@ export type SnackbarProps = Pick<PSnackbarProps, 'action'> & {
   message?: string;
   duration?: number;
 };
-
-export type SnackbarProviderProps = {
-  children: React.ReactNode;
-};
