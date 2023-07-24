@@ -2,7 +2,7 @@ import React from 'react';
 import {BaseBook} from '@/types';
 import BookItemUI, {BookItemUIProps} from './BookItemUI';
 import {useObject} from '@/db';
-import {BookModel} from '../models/Book';
+import {BookModel} from '../../models/BookModel';
 import {BookStatus} from '../types';
 
 type Props<T extends BaseBook> = BookItemUIProps<T> & {

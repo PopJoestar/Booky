@@ -1,7 +1,7 @@
 import {useQuery, useRealm} from '@/db';
 import {BookRemote} from '@/features_libgen/types';
 import {useCallback} from 'react';
-import {BookModel} from '../models/Book';
+import {BookModel} from '../../models/BookModel';
 
 const useBookRepository = () => {
   const realm = useRealm();

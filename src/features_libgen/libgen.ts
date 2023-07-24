@@ -29,7 +29,6 @@ export async function search({
   extension,
   page = 1,
 }: SearchParams): Promise<SearchResponse> {
-  console.log('search', query, category, language, extension);
   try {
     const resp = await LibgenModule.search(
       query,
