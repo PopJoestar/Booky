@@ -9892,6 +9892,14 @@ react-native-codegen@^0.71.3:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-flash-message@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-flash-message/-/react-native-flash-message-0.4.1.tgz#3a894e65364bc900ca51b8b6f5b317a74094a3f2"
+  integrity sha512-sWpLBzB7Nbrh9ppq/8BfU10kd2wQuEGsg0RXf5qpQ9yxnsO7ShZzCGh7WLzRZcttkQg43onKkL2gvuI0PG1Buw==
+  dependencies:
+    prop-types "^15.8.1"
+    react-native-iphone-screen-helper "^2.0.2"
+
 react-native-gesture-handler@^2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.12.0.tgz#59ca9d97e4c71f70b9c258f14a1a081f4c689976"
@@ -9914,6 +9922,11 @@ react-native-gradle-plugin@^0.71.14:
   version "0.71.14"
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.14.tgz#cc399662f04fbfcc0e352d03eae1d3efbd5f635a"
   integrity sha512-nnLawTZEPPRAKq92UqDkzoGgCBl9aa9zAihFHMwmwzn4WRVdK4O6Cd4XYiyoNOiQzx3Hh9k5WOckHE80C92ivQ==
+
+react-native-iphone-screen-helper@^2.0.2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-screen-helper/-/react-native-iphone-screen-helper-2.0.3.tgz#6bc6d19db5e4691d6204e9e996be9214c117c846"
+  integrity sha512-gbSnV0iYWQ3hne3inYoueatSJL/Un49biIkHLGKsm7J7QjFhL+/WSPB1sZhQ87lNIANwFh33nvxcjixxR4T+NQ==
 
 react-native-localize@^3.0.2:
   version "3.0.2"

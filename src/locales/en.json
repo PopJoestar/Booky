@@ -74,6 +74,6 @@
       "language": "Language",
       "series": "Series"
     },
-    "book_saved": "{{title}} has been added to your library"
+    "book_saved": "{{- title}} has been added to your library"
   }
 }

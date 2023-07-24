@@ -16,7 +16,6 @@ import Text from './atoms/Text';
 import TextInput from './atoms/TextInput';
 import TouchableOpacity from './atoms/TouchableOpacity';
 import TouchableRipple from './atoms/TouchableRipple';
-import SnackbarProvider from './molecules/SnackbarProvider';
 
 import type {IconProps} from './atoms/Icon';
 
@@ -31,7 +30,6 @@ export {
   TextInput,
   Button,
   Image,
-  SnackbarProvider,
   Searchbar,
   TouchableRipple,
   Icon,
