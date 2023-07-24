@@ -1,3 +1,4 @@
+import React from 'react';
 import {Material3Theme, useMaterial3Theme} from '@pchmn/expo-material3-theme';
 import {
   ThemeProvider as RestyleThemeProvider,
