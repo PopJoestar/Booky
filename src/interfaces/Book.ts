@@ -15,6 +15,7 @@ export interface Book {
   description?: string;
   downloadLinks?: DownloadLink[];
   details_url?: string;
+  filePath: string;
 }
 
 export interface DownloadLink {

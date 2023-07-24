@@ -1,4 +1,4 @@
-import {BookRemote} from '@/features_libgen/types';
+import {Book} from '@/interfaces/Book';
 import {Realm} from '@realm/react';
 
 export class DownloadLinkModel extends Realm.Object<DownloadLinkModel> {
@@ -6,12 +6,12 @@ export class DownloadLinkModel extends Realm.Object<DownloadLinkModel> {
     name: 'DownloadLink',
     properties: {
       host: 'string',
-      link: 'string?',
+      link: 'string',
     },
   };
 }
 
-export class BookModel extends Realm.Object<BookModel> implements BookRemote {
+export class BookModel extends Realm.Object<BookModel> {
   _id!: Realm.BSON.ObjectId;
 
   createdAt!: Date;
@@ -32,15 +32,14 @@ export class BookModel extends Realm.Object<BookModel> implements BookRemote {
   md5?: string;
   publisher?: string;
   description?: string;
-  downloadLinks?: {host: string; link?: string}[];
+  downloadLinks?: {host: string; link: string}[];
   details_url?: string;
 
-  static generate(book: BookRemote) {
+  static generate(book: Book) {
     return {
       _id: new Realm.BSON.ObjectId(),
       createdAt: new Date(),
       isRead: false,
-      filePath: '',
       ...book,
     };
   }
@@ -72,3 +71,19 @@ export class BookModel extends Realm.Object<BookModel> implements BookRemote {
     primaryKey: 'md5',
   };
 }
+
+export const bookModelToBook = (bookModel: BookModel): Book => {
+  return {
+    title: bookModel.title,
+    size: bookModel.size,
+    extension: bookModel.extension,
+    authors: bookModel.authors,
+    language: bookModel.language,
+    description: bookModel.description,
+    image: bookModel.image,
+    downloadLinks: bookModel.downloadLinks,
+    isbns: bookModel.isbns,
+    md5: bookModel.md5,
+    filePath: bookModel.filePath,
+  };
+};
