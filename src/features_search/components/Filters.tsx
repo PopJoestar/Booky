@@ -74,17 +74,17 @@ const Filters = (props: BoxProps<Theme>) => {
     }
   };
 
-  const selectExtension = (item: typeof EXTENSION_OPTIONS[number]) => {
+  const selectExtension = (item: (typeof EXTENSION_OPTIONS)[number]) => {
     filters.updateExtension(item.value);
     extensionOptionHandle.current?.dismiss();
   };
 
-  const selectLanguage = (item: typeof LANGUAGES_OPTIONS[number]) => {
+  const selectLanguage = (item: (typeof LANGUAGES_OPTIONS)[number]) => {
     filters.updateLanguage(item.value);
     languageOptionsHandle.current?.dismiss();
   };
 
-  const selectCategory = (item: typeof CATEGORIES_OPTIONS[number]) => {
+  const selectCategory = (item: (typeof CATEGORIES_OPTIONS)[number]) => {
     filters.updateCategory(item.value);
     categoryOptionsHandle.current?.dismiss();
   };
