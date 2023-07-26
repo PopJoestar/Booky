@@ -18,8 +18,10 @@ import TouchableOpacity from './atoms/TouchableOpacity';
 import TouchableRipple from './atoms/TouchableRipple';
 
 import type {IconProps} from './atoms/Icon';
+import Picker from './molecules/Picker';
 
 export type {IconProps};
+
 export {
   Box,
   Text,
@@ -39,4 +41,5 @@ export {
   RenderHTML,
   AnimatedBox,
   SafeAreaView,
+  Picker,
 };

@@ -1,14 +1,18 @@
 import {create} from 'zustand';
 import {Book} from '@/interfaces/Book';
 
-type useCurrentBookStore = {
-  currentBook: Book;
-  setCurrentBook: (value: Book) => void;
+/**
+ * Used to store the selected book from search screen temporary
+ */
+
+type TempBookStore = {
+  tempBook: Book;
+  setTempBook: (value: Book) => void;
   setDetails: (value: Partial<Book>) => void;
   clear: () => void;
 };
 
-const initialCurrentBook: Book = {
+const initialTempBook: Book = {
   libgenID: '',
   title: '',
   size: '',
@@ -25,13 +29,13 @@ const initialCurrentBook: Book = {
   filePath: '',
 };
 
-const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
-  currentBook: initialCurrentBook,
-  setCurrentBook: value =>
+const useTempBookStore = create<TempBookStore>()(set => ({
+  tempBook: initialTempBook,
+  setTempBook: value =>
     set(state => ({
       ...state,
-      currentBook: {
-        ...state.currentBook,
+      tempBook: {
+        ...state.tempBook,
         libgenID: value.libgenID,
         title: value.title,
         size: value.size,
@@ -51,17 +55,17 @@ const useCurrentBookStore = create<useCurrentBookStore>()(set => ({
   setDetails: value =>
     set(state => ({
       ...state,
-      currentBook: {
-        ...state.currentBook,
+      tempBook: {
+        ...state.tempBook,
         description: value.description,
         downloadLinks: value.downloadLinks,
-        image: value.image ?? state.currentBook.image,
-        year: value.year ?? state.currentBook.year,
-        publisher: value.publisher ?? state.currentBook.publisher,
-        isbns: value.isbns ?? state.currentBook.isbns,
+        image: value.image ?? state.tempBook.image,
+        year: value.year ?? state.tempBook.year,
+        publisher: value.publisher ?? state.tempBook.publisher,
+        isbns: value.isbns ?? state.tempBook.isbns,
       },
     })),
-  clear: () => set(state => ({...state, currentBook: initialCurrentBook})),
+  clear: () => set(state => ({...state, tempBook: initialTempBook})),
 }));
 
-export {useCurrentBookStore};
+export {useTempBookStore};

@@ -6,18 +6,19 @@ import {
   StatusBar,
   TextInputSubmitEditingEventData,
 } from 'react-native';
-import {Searchbar} from '../../shared/components';
-import {useAppTheme} from '../../shared/hooks';
-import {useSearchStore} from '../states';
-import Filters from './Filters';
 
-const Header = () => {
+import Filters from './SearchBooksFilters';
+import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
+import {useAppTheme} from '@/shared/hooks';
+import {Searchbar} from '@/shared/components';
+
+const SearchBooksScreenHeader = () => {
   const {colors, textVariants} = useAppTheme();
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [searchInput, setSearchInput] = useState<string>('');
-  const updateQuery = useSearchStore(state => state.updateQuery);
-  const query = useSearchStore(state => state.query);
+  const updateQuery = useSearchBooksOptionsStore(state => state.updateQuery);
+  const query = useSearchBooksOptionsStore(state => state.query);
 
   const submit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
     updateQuery(e.nativeEvent.text);
@@ -53,4 +54,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default SearchBooksScreenHeader;

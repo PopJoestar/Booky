@@ -1,7 +1,5 @@
 import React from 'react';
 import {RootStackParamList} from './types';
-import {SearchScreen} from '../features_search';
-import {BookDetailsScreen} from '../features_book_details';
 import {useAppTheme} from '../shared/hooks';
 import MainTab from './MainTabs';
 import {Appbar} from 'react-native-paper';
@@ -9,6 +7,10 @@ import {
   NativeStackHeaderProps,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
+import {
+  RemoteBookDetailsScreen,
+  SearchBooksScreen,
+} from '@/features/search_book';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -26,14 +28,14 @@ const Navigations = () => {
       />
       <Stack.Screen
         name="search"
-        component={SearchScreen}
+        component={SearchBooksScreen}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="book_details"
-        component={BookDetailsScreen}
+        name="remote_book_details"
+        component={RemoteBookDetailsScreen}
         options={{
           headerTitle: '',
           headerStyle: {backgroundColor: colors.background},

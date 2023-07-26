@@ -1,12 +1,12 @@
-import {useSearchStore} from '../states';
 import {shallow} from 'zustand/shallow';
 import useSWRInfinite from 'swr/infinite';
 import {useCallback, useEffect} from 'react';
 import {BookFinder} from '@/services';
 import {SearchBooksParams, SearchBooksResponse} from '@/interfaces/Book';
+import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
 
-function useSearch() {
-  const {query, category, extension, language} = useSearchStore(
+function useSearchBooksQuery() {
+  const {query, category, extension, language} = useSearchBooksOptionsStore(
     state => ({
       category: state.category,
       extension: state.extension,
@@ -15,7 +15,7 @@ function useSearch() {
     }),
     shallow,
   );
-  const updateQuery = useSearchStore(state => state.updateQuery);
+  const updateQuery = useSearchBooksOptionsStore(state => state.updateQuery);
 
   const getKey = useCallback(
     (
@@ -81,4 +81,4 @@ function useSearch() {
   };
 }
 
-export default useSearch;
+export default useSearchBooksQuery;
