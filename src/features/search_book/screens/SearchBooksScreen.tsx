@@ -3,36 +3,36 @@ import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert, useWindowDimensions} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
-import {useCurrentBookStore} from '../../features_book_details';
-import {BookRemote} from '../../features_libgen/types';
-import BookList from '../../features_library/components/BookList';
-import {Box, Center, Text} from '../../shared/components';
-import useSearch from '../hooks/useSearch';
-import Header from './Header';
+import BookList from '../../../features_library/components/BookList';
+import {Book} from '@/interfaces/Book';
+import SearchBooksScreenHeader from '../components/SearchBooksScreenHeader';
+import useSearchBooksQuery from '../hooks/useSearchBooksQuery';
+import {useTempBookStore} from '../stores/tempBookStore';
+import {Box, Center, Text} from '@/shared/components';
 
-const SearchScreen = () => {
+const SearchBooksScreen = () => {
   const {height} = useWindowDimensions();
   const {t} = useTranslation('search');
   const navigation = useNavigation();
 
   const {data, isNoResult, query, isFirstLoading, isLoading, isEnd, next} =
-    useSearch();
+    useSearchBooksQuery();
 
-  const setCurrentBook = useCurrentBookStore(state => state.setCurrentBook);
+  const setTempBook = useTempBookStore(state => state.setTempBook);
 
   const goToBookDownloadScreen = useCallback(
-    (item: BookRemote) => {
+    (item: Book) => {
       if (item.details_url === undefined) {
         Alert.alert('Scraping error', 'Undefined md5');
         return;
       }
 
-      setCurrentBook(item);
-      navigation.navigate('book_details', {
+      setTempBook(item);
+      navigation.navigate('remote_book_details', {
         details_url: item.details_url,
       });
     },
-    [navigation, setCurrentBook],
+    [navigation, setTempBook],
   );
 
   const renderListEmptyComponent = () => {
@@ -81,7 +81,7 @@ const SearchScreen = () => {
 
   return (
     <>
-      <Header />
+      <SearchBooksScreenHeader />
       <BookList
         data={data}
         showSaved={true}
@@ -94,4 +94,4 @@ const SearchScreen = () => {
   );
 };
 
-export default SearchScreen;
+export default SearchBooksScreen;

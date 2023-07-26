@@ -9,7 +9,6 @@ import {
   Button,
   AnimatedBox,
 } from '@/shared/components';
-import {useCurrentBookStore} from '../states';
 import {List} from 'react-native-paper';
 import {StringUtils} from '@/shared/utils';
 import {useTranslation} from 'react-i18next';
@@ -22,21 +21,23 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {useAppTheme} from '@/shared/hooks';
-import {BookDetailsScreenRouteProp} from '@/navigation/types';
 import useMessageDisplayer from '@/shared/hooks/useMessageDisplayer';
 import {BookFinder} from '@/services';
 import {useBookRepository} from '@/data';
+import {RemoteBookDetailsScreenRouteProp} from '@/navigation/types';
+import {useTempBookStore} from '../stores/tempBookStore';
 
-const BookDetailsScreen = () => {
+const RemoteBookDetailsScreen = () => {
   const {sizes} = useAppTheme();
   const {t} = useTranslation();
-  const {params} = useRoute<BookDetailsScreenRouteProp>();
+  const {params} = useRoute<RemoteBookDetailsScreenRouteProp>();
+
   const {addBook, getBook} = useBookRepository();
 
   const {showMessage} = useMessageDisplayer();
 
-  const currentBook = useCurrentBookStore(state => state.currentBook);
-  const setDetails = useCurrentBookStore(state => state.setDetails);
+  const currentBook = useTempBookStore(state => state.tempBook);
+  const setDetails = useTempBookStore(state => state.setDetails);
 
   const {isLoading, error} = useSWR(
     params.details_url,
@@ -155,11 +156,11 @@ const BookDetailsScreen = () => {
           mode="contained"
           disabled={isLoading || !!error}
           onPress={async () => {
-            currentBook.downloadLinks?.forEach(d => {
-              if (d.link != null && VALID_HOSTS.includes(d.host)) {
-                console.log(getFileNameFromDownloadLink(d.link, d.host));
-              }
-            });
+            // currentBook.downloadLinks?.forEach(d => {
+            //   if (d.link != null && VALID_HOSTS.includes(d.host)) {
+            //     console.log(getFileNameFromDownloadLink(d.link, d.host));
+            //   }
+            // });
             // const response = await ReactNativeBlobUtil.config({
             //   addAndroidDownloads: {
             //     useDownloadManager: true,
@@ -170,7 +171,6 @@ const BookDetailsScreen = () => {
             //   .progress((r, s) => {
             //     console.log(r, s);
             //   });
-
             // console.log(response.path());
           }}>
           {t('common:download')}
@@ -216,4 +216,4 @@ export function getFileNameFromDownloadLink(link: string, host?: string) {
   return decodeURIComponent(rawFilename);
 }
 
-export default BookDetailsScreen;
+export default RemoteBookDetailsScreen;

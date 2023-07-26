@@ -1,7 +1,7 @@
 import {create} from 'zustand';
-import {CategoryOption, ExtensionOption, LanguageOption} from './constants';
+import {CategoryOption, LanguageOption, ExtensionOption} from '../constants';
 
-type SearchStore = {
+type SearchBooksOptionsStore = {
   category: CategoryOption;
   language: LanguageOption;
   extension: ExtensionOption;
@@ -12,7 +12,7 @@ type SearchStore = {
   updateQuery: (value: string) => void;
 };
 
-const useSearchStore = create<SearchStore>()(set => ({
+const useSearchBooksOptionsStore = create<SearchBooksOptionsStore>()(set => ({
   category: 'NON_FICTION',
   language: 'ALL',
   extension: 'ALL',
@@ -23,4 +23,4 @@ const useSearchStore = create<SearchStore>()(set => ({
   updateQuery: value => set(state => ({...state, query: value})),
 }));
 
-export {useSearchStore};
+export {useSearchBooksOptionsStore};

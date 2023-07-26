@@ -1,31 +1,31 @@
+import React, {useRef} from 'react';
+
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {BoxProps} from '@shopify/restyle';
-import React, {useRef} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Box} from '../../shared/components';
-import Picker from '../../shared/components/molecules/Picker';
-import {useAppTheme} from '../../shared/hooks';
-import {Theme} from '../../theme';
+
+import {Box, Chip, Picker} from '@/shared/components';
+import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
 import {
-  CATEGORIES_OPTIONS_MAP,
-  EXTENSION_OPTIONS_MAP,
-  FILTERS_TYPES,
-  LANGUAGES_OPTIONS_MAP,
   FilterType,
+  LANGUAGES_OPTIONS_MAP,
+  EXTENSION_OPTIONS_MAP,
+  CATEGORIES_OPTIONS_MAP,
+  EXTENSION_OPTIONS,
   LANGUAGES_OPTIONS,
   CATEGORIES_OPTIONS,
-  EXTENSION_OPTIONS,
+  FILTERS_TYPES,
 } from '../constants';
-import {useSearchStore} from '../states';
-import FilterItem from './FilterItem';
+import {Theme} from '@/theme';
+import {useAppTheme} from '@/shared/hooks';
 
-const Filters = (props: BoxProps<Theme>) => {
+const SearchBooksFilters = (props: BoxProps<Theme>) => {
   const {t} = useTranslation();
   const {sizes} = useAppTheme();
   const languageOptionsHandle = useRef<BottomSheetModalMethods>(null);
   const categoryOptionsHandle = useRef<BottomSheetModalMethods>(null);
   const extensionOptionHandle = useRef<BottomSheetModalMethods>(null);
-  const filters = useSearchStore();
+  const filters = useSearchBooksOptionsStore();
 
   const toggleBottomSheet = (filterType: FilterType) => {
     switch (filterType) {
@@ -136,4 +136,36 @@ const Filters = (props: BoxProps<Theme>) => {
   );
 };
 
-export default Filters;
+// Filter item
+
+type Props = {
+  data: FilterType;
+  onPress?: (item: FilterType) => void;
+  value: string;
+};
+
+const FilterItem = ({data, onPress, value}: Props) => {
+  const {sizes} = useAppTheme();
+
+  const _onPress = () => {
+    if (onPress === undefined) {
+      return;
+    }
+
+    onPress(data);
+  };
+
+  return (
+    <Chip
+      mode="outlined"
+      closeIcon="menu-down"
+      height={sizes.chip}
+      marginRight="s"
+      onPress={_onPress}
+      onClose={_onPress}>
+      {value}
+    </Chip>
+  );
+};
+
+export default SearchBooksFilters;

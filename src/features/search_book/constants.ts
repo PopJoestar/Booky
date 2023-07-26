@@ -45,4 +45,3 @@ export type FilterType = (typeof FILTERS_TYPES)[number];
 export type CategoryOption = keyof typeof CATEGORIES_OPTIONS_MAP;
 export type LanguageOption = keyof typeof LANGUAGES_OPTIONS_MAP;
 export type ExtensionOption = keyof typeof EXTENSION_OPTIONS_MAP;
- 

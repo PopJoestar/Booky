@@ -5,7 +5,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 export type RootStackParamList = {
   main_tab: NavigatorScreenParams<MainTabParamList>;
   search: undefined;
-  book_details: {
+  remote_book_details: {
     details_url: string;
   };
 };
@@ -13,9 +13,9 @@ export type RootStackParamList = {
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>;
 
-export type BookDetailsScreenRouteProp = RouteProp<
+export type RemoteBookDetailsScreenRouteProp = RouteProp<
   RootStackParamList,
-  'book_details'
+  'remote_book_details'
 >;
 
 declare global {
