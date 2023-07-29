@@ -1,5 +1,5 @@
 import React from 'react';
-import {Surface} from 'react-native-paper';
+import {IconButton, ProgressBar, Surface} from 'react-native-paper';
 import {
   Row,
   Box,
@@ -18,12 +18,14 @@ import {BookStatus} from '../types';
 export type BookItemUIProps<T extends BaseBook> = {
   item: T;
   onPress?: (item: T) => void;
+  onCancelDownloading?: (item: T) => void;
   status?: BookStatus;
 };
 
 function BookItemUI<T extends BaseBook>({
   item,
   onPress,
+  onCancelDownloading,
   status,
 }: BookItemUIProps<T>) {
   const {sizes} = useAppTheme();
@@ -34,6 +36,13 @@ function BookItemUI<T extends BaseBook>({
     }
 
     onPress(item);
+  };
+  const callOnCancelDownloading = () => {
+    if (onCancelDownloading === undefined) {
+      return;
+    }
+
+    onCancelDownloading(item);
   };
 
   return (
@@ -54,35 +63,51 @@ function BookItemUI<T extends BaseBook>({
           </Surface>
 
           <Box flex={1} paddingLeft="m">
-            <Row alignItems={'center'}>
-              <Box flex={1}>
-                <Text variant="bodyLarge" color="onSurface" numberOfLines={2}>
-                  {item.title}
-                </Text>
-              </Box>
+            <Box flex={1}>
+              <Row alignItems={'center'}>
+                <Box flex={1}>
+                  <Text variant="bodyLarge" color="onSurface" numberOfLines={2}>
+                    {item.title}
+                  </Text>
+                </Box>
 
-              <StatusIcon status={status} alignSelf="flex-start" />
-            </Row>
+                <StatusIcon status={status} alignSelf="flex-start" />
+              </Row>
 
-            <Text
-              variant="bodySmall"
-              color="onSurfaceVariant"
-              numberOfLines={1}>
-              {item.authors.length > 0
-                ? item.authors.join(', ')
-                : t('unkown_author')}
-            </Text>
-            <Text
-              variant="bodySmall"
-              color="onSurface"
-              numberOfLines={1}
-              opacity={0.6}>
-              {[
-                item.size.trim().split(' ').splice(0, 2).join(' '),
-                item.extension,
-                item.language,
-              ].join(' \u2022 ')}
-            </Text>
+              <Text
+                variant="bodySmall"
+                color="onSurfaceVariant"
+                numberOfLines={1}>
+                {item.authors.length > 0
+                  ? item.authors.join(', ')
+                  : t('unkown_author')}
+              </Text>
+              <Text
+                variant="bodySmall"
+                color="onSurface"
+                numberOfLines={1}
+                opacity={0.6}>
+                {[
+                  item.size.trim().split(' ').splice(0, 2).join(' '),
+                  item.extension,
+                  item.language,
+                ].join(' \u2022 ')}
+              </Text>
+            </Box>
+
+            {status === 'downloading' ? (
+              <Row alignItems={'center'}>
+                <Box flex={1} marginRight={'s'}>
+                  <ProgressBar indeterminate />
+                </Box>
+                <IconButton
+                  icon={'close'}
+                  mode="contained-tonal"
+                  onPress={callOnCancelDownloading}
+                  size={sizes.m}
+                />
+              </Row>
+            ) : null}
           </Box>
         </Row>
       </TouchableRipple>

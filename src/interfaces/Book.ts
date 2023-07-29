@@ -58,3 +58,9 @@ export interface SearchBooksParams {
   extension: BookExtension;
   page: number;
 }
+
+export interface BookDownloadInfo {
+  url: string;
+  fileUri: string;
+  bookMd5: string;
+}
