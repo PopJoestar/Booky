@@ -40,7 +40,31 @@ const useBookRepository = () => {
     [realm],
   );
 
-  return {addBook, removeBook, getBook, books: books.map(book => book)};
+  const updateBook = useCallback(
+    (bookMd5: string, newBook: Partial<Book>) => {
+      const book = getBook(bookMd5);
+
+      if (book == null) {
+        return;
+      }
+
+      realm.write(() => {
+        for (const key in newBook) {
+          //@ts-ignore
+          book[key] = newBook[key];
+        }
+      });
+    },
+    [getBook, realm],
+  );
+
+  return {
+    addBook,
+    removeBook,
+    getBook,
+    updateBook,
+    books: books.map(book => book),
+  };
 };
 
 export default useBookRepository;

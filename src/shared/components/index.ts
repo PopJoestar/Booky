@@ -20,6 +20,7 @@ import TouchableRipple from './atoms/TouchableRipple';
 import type {IconProps} from './atoms/Icon';
 import Picker from './molecules/Picker';
 import FlashMessageSuccessIcon from './atoms/FlashMessageSuccessIcon';
+import ProgressBar from './atoms/ProgressBar';
 
 export type {IconProps};
 
@@ -44,4 +45,5 @@ export {
   SafeAreaView,
   Picker,
   FlashMessageSuccessIcon,
+  ProgressBar,
 };
