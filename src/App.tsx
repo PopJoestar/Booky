@@ -36,8 +36,8 @@ const AppContent = () => {
             translucent={true}
           />
           <Navigations />
-          <FlashMessageContainer />
         </NavigationContainer>
+        <FlashMessageContainer />
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );

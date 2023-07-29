@@ -76,5 +76,12 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "expo": {
+    "autolinking": {
+      "exclude": [
+        "expo-permissions"
+      ]
+    }
   }
 }

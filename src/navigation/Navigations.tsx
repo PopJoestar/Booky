@@ -1,6 +1,5 @@
 import React from 'react';
 import {RootStackParamList} from './types';
-import {useAppTheme} from '../shared/hooks';
 import MainTab from './MainTabs';
 import {Appbar} from 'react-native-paper';
 import {
@@ -8,6 +7,7 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 import {
+  RemoteBookDetailsHeader,
   RemoteBookDetailsScreen,
   SearchBooksScreen,
 } from '@/features/search_book';
@@ -15,7 +15,6 @@ import {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigations = () => {
-  const {colors} = useAppTheme();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -37,8 +36,7 @@ const Navigations = () => {
         name="remote_book_details"
         component={RemoteBookDetailsScreen}
         options={{
-          headerTitle: '',
-          headerStyle: {backgroundColor: colors.background},
+          header: RemoteBookDetailsHeader,
         }}
       />
     </Stack.Navigator>

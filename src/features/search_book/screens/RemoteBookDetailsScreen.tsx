@@ -8,11 +8,11 @@ import {
   ScrollView,
   Button,
   AnimatedBox,
+  Chip,
 } from '@/shared/components';
 import {List} from 'react-native-paper';
 import {StringUtils} from '@/shared/utils';
 import {useTranslation} from 'react-i18next';
-import useSWR from 'swr';
 import {useRoute} from '@react-navigation/native';
 import Animated, {
   FadeIn,
@@ -21,33 +21,27 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {useAppTheme} from '@/shared/hooks';
-import useMessageDisplayer from '@/shared/hooks/useMessageDisplayer';
-import {BookFinder} from '@/services';
-import {useBookRepository} from '@/data';
+
 import {RemoteBookDetailsScreenRouteProp} from '@/navigation/types';
 import {useTempBookStore} from '../stores/tempBookStore';
+
+import useGetRemoteBookDetailsQuery from '../hooks/useGetRemoteBookDetailsQuery';
+import {Constants} from '@/constants';
 
 const RemoteBookDetailsScreen = () => {
   const {sizes} = useAppTheme();
   const {t} = useTranslation();
   const {params} = useRoute<RemoteBookDetailsScreenRouteProp>();
 
-  const {addBook, getBook} = useBookRepository();
-
-  const {showMessage} = useMessageDisplayer();
-
   const currentBook = useTempBookStore(state => state.tempBook);
   const setDetails = useTempBookStore(state => state.setDetails);
 
-  const {isLoading, error} = useSWR(
-    params.details_url,
-    (detailsUrl: string) => BookFinder.getBookDetails(detailsUrl),
-    {
-      onSuccess: data => {
-        setDetails(data);
-      },
+  const {isLoading, error} = useGetRemoteBookDetailsQuery({
+    bookDetailsUrl: params.details_url,
+    onSuccess: data => {
+      setDetails(data);
     },
-  );
+  });
 
   const description = useMemo(() => {
     return {html: `<p>${currentBook.description}</p>`};
@@ -56,20 +50,6 @@ const RemoteBookDetailsScreen = () => {
   const style = useAnimatedStyle(() => ({
     opacity: withTiming(isLoading ? 0.4 : 1),
   }));
-
-  const saveBook = () => {
-    addBook(currentBook);
-    showMessage('success', {
-      message: t('book_details:book_saved', {title: currentBook.title}),
-    });
-  };
-
-  const isBookInLibrary = () => {
-    if (currentBook.md5 == null) {
-      return false;
-    }
-    return getBook(currentBook.md5) != null;
-  };
 
   return (
     <AnimatedBox flex={1} style={style}>
@@ -144,34 +124,55 @@ const RemoteBookDetailsScreen = () => {
         paddingRight={'m'}
         justifyContent={'space-around'}
         alignSelf="flex-end">
-        <Button
-          mode="outlined"
-          marginRight="m"
-          disabled={isLoading || !!error || isBookInLibrary()}
-          icon={isBookInLibrary() ? 'check' : undefined}
-          onPress={saveBook}>
-          {isBookInLibrary() ? t('label:saved') : t('common:save')}
-        </Button>
+        <Box flex={1}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            paddingLeft={'s'}
+            marginRight={'s'}>
+            {currentBook.downloadLinks
+              ?.filter(({host}) =>
+                Constants.VALID_HOSTS.includes(host.trim().toLowerCase()),
+              )
+              .map((downloadLink, index) => (
+                <Chip marginLeft={'s'} key={index} mode="outlined">
+                  {downloadLink.host}
+                </Chip>
+              ))}
+            <Box width={40} />
+          </ScrollView>
+        </Box>
+
         <Button
           mode="contained"
           disabled={isLoading || !!error}
           onPress={async () => {
-            // currentBook.downloadLinks?.forEach(d => {
-            //   if (d.link != null && VALID_HOSTS.includes(d.host)) {
-            //     console.log(getFileNameFromDownloadLink(d.link, d.host));
+            // const filename = getFileNameFromDownloadLink(
+            //   currentBook.downloadLinks[2].link,
+            // );
+            // const downloadResumable = FileSystem.createDownloadResumable(
+            //   currentBook.downloadLinks[2].link,
+            //   FileSystem.documentDirectory + filename,
+            //   {},
+            //   e => console.log(e),
+            // );
+            // try {
+            //   console.log('download starts');
+            //   const downloadResult = await downloadResumable.downloadAsync();
+            //   if (downloadResult == null) {
+            //     console.log('null');
+            //     return;
             //   }
-            // });
-            // const response = await ReactNativeBlobUtil.config({
-            //   addAndroidDownloads: {
-            //     useDownloadManager: true,
-            //     path: ReactNativeBlobUtil.fs.dirs. + 'caca.djvu',
-            //   },
-            // })
-            //   .fetch('GET', currentBook.downloadLinks[1].link)
-            //   .progress((r, s) => {
-            //     console.log(r, s);
-            //   });
-            // console.log(response.path());
+            //   await FS.cpExternal(
+            //     downloadResult.uri,
+            //     'caca',
+            //     `${settings.downloadPath}`,
+            //   );
+            //   console.log('Finished downloaded to ', downloadResult.uri);
+            // } catch (e) {
+            //   console.log(e);
+            //   Alert.alert('cou', JSON.stringify(e));
+            // }
           }}>
           {t('common:download')}
         </Button>
@@ -179,41 +180,5 @@ const RemoteBookDetailsScreen = () => {
     </AnimatedBox>
   );
 };
-
-function getRequestParamsFromUrl(url: string): Record<string, string> {
-  const params: Record<string, string> = {};
-
-  const queryStringRegex = /\?.*/; // Matches the query string starting with "?"
-  const paramRegex = /([^?=&]+)(=([^&]*))?/g; // Matches individual parameters in the query string
-
-  const queryStringMatch = url.match(queryStringRegex);
-  if (queryStringMatch) {
-    const queryString = queryStringMatch[0].slice(1); // Remove the "?"
-    let paramMatch;
-
-    while ((paramMatch = paramRegex.exec(queryString)) !== null) {
-      const [, paramName, , paramValue] = paramMatch;
-      params[paramName] = paramValue || '';
-    }
-  }
-
-  return params;
-}
-
-const VALID_HOSTS = ['GET', 'Cloudflare', 'IPFS.io', 'Pinata'];
-
-export function getFileNameFromDownloadLink(link: string, host?: string) {
-  if (host === 'GET') {
-    const split_link = link.split('/');
-    return decodeURIComponent(split_link[split_link.length - 1]);
-  }
-  const rawFilename = getRequestParamsFromUrl(link).filename;
-
-  if (rawFilename == null || rawFilename === '') {
-    throw new Error(`Undefined filename ${host} ${link}`);
-  }
-
-  return decodeURIComponent(rawFilename);
-}
 
 export default RemoteBookDetailsScreen;

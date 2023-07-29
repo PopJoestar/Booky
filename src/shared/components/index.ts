@@ -19,6 +19,7 @@ import TouchableRipple from './atoms/TouchableRipple';
 
 import type {IconProps} from './atoms/Icon';
 import Picker from './molecules/Picker';
+import FlashMessageSuccessIcon from './atoms/FlashMessageSuccessIcon';
 
 export type {IconProps};
 
@@ -42,4 +43,5 @@ export {
   AnimatedBox,
   SafeAreaView,
   Picker,
+  FlashMessageSuccessIcon,
 };
