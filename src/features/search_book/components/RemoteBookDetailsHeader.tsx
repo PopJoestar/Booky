@@ -28,6 +28,7 @@ const RemoteBookDetailsHeader = ({navigation}: NativeStackHeaderProps) => {
       message: t('book_details:book_saved', {title: currentBook.title}),
       icon: FlashMessageSuccessIcon,
       type: 'success',
+      position: {bottom: 70},
     });
   };
 
@@ -41,7 +42,9 @@ const RemoteBookDetailsHeader = ({navigation}: NativeStackHeaderProps) => {
     }
     removeBook(book);
   };
+
   const _isBookInLibrary = isBookInLibrary();
+
   return (
     <Appbar.Header>
       {navigation.canGoBack() ? (

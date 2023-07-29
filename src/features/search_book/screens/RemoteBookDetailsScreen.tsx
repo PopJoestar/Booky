@@ -72,6 +72,7 @@ const RemoteBookDetailsScreen = () => {
 
   const handleOnPressDownload = () => {
     const savedBook = getBook(currentBook.md5!);
+
     if (savedBook == null) {
       addBook(currentBook);
 
@@ -79,6 +80,7 @@ const RemoteBookDetailsScreen = () => {
         message: t('book_details:book_saved', {title: currentBook.title}),
         icon: FlashMessageSuccessIcon,
         type: 'success',
+        position: {bottom: 70},
       });
     }
 
