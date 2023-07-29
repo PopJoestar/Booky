@@ -4,6 +4,7 @@ import {useCallback, useEffect} from 'react';
 import {BookFinder} from '@/services';
 import {SearchBooksParams, SearchBooksResponse} from '@/interfaces/Book';
 import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
+import {Alert} from 'react-native';
 
 function useSearchBooksQuery() {
   const {query, category, extension, language} = useSearchBooksOptionsStore(
@@ -50,6 +51,10 @@ function useSearchBooksQuery() {
         extension: arg.extension,
         page: arg.page ?? 1,
       }),
+    {
+      shouldRetryOnError: false,
+      onError: e => Alert.alert('error', JSON.stringify(e)),
+    },
   );
 
   const next = () => {

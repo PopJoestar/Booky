@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <!-- Include the system default trust anchors -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Allow all connections by setting the includeSubdomains attribute to true and specifying '*' -->
+        <domain includeSubdomains="true">*</domain>
+    </domain-config>
+</network-security-config>

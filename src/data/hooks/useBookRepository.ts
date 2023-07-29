@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {BookModel, bookModelToBook} from '../models/BookModel';
+import {BookModel} from '../models/BookModel';
 import {Book} from '@/interfaces/Book';
 import {useQuery, useRealm} from '../database';
 
@@ -35,7 +35,7 @@ const useBookRepository = () => {
         return null;
       }
 
-      return bookModelToBook(response);
+      return response;
     },
     [realm],
   );
