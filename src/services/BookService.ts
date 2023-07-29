@@ -3,6 +3,7 @@ import {Book, DownloadLink} from '@/interfaces/Book';
 import {getFileNameFromDownloadLink} from '@/shared/utils/request';
 import * as FileSystem from 'expo-file-system';
 import NotificationService from './NotificationService';
+import {AndroidCategory} from '@notifee/react-native';
 
 export type DownloadBookOptions = {
   onProgress?: FileSystem.FileSystemNetworkTaskProgressCallback<FileSystem.DownloadProgressData>;
@@ -56,10 +57,10 @@ export const createDownloadLifecycleNotificationHooks = async (book: Book) => {
       android: {
         channelId: downloadChannel,
         autoCancel: false,
+        category: AndroidCategory.PROGRESS,
         progress: {
           indeterminate: true,
         },
-        ongoing: true,
         onlyAlertOnce: true,
       },
     });
@@ -78,6 +79,7 @@ export const createDownloadLifecycleNotificationHooks = async (book: Book) => {
       android: {
         autoCancel: false,
         channelId: downloadChannel,
+        category: AndroidCategory.PROGRESS,
         progress: {
           current: progress.totalBytesWritten,
           max:
@@ -86,7 +88,6 @@ export const createDownloadLifecycleNotificationHooks = async (book: Book) => {
               : progress.totalBytesExpectedToWrite,
           indeterminate: progress.totalBytesExpectedToWrite === 0,
         },
-        ongoing: true,
         onlyAlertOnce: true,
       },
     });

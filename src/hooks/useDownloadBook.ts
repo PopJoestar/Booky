@@ -39,8 +39,6 @@ const useDownloadBook = () => {
         hostIndex: selectedHostIndex,
       });
 
-      console.log('useDownloadBook download result', downloadResult);
-
       if (downloadResult == null || displaySuccessNotification == null) {
         await NotificationService.cancelNotification(book.md5!);
         return;
