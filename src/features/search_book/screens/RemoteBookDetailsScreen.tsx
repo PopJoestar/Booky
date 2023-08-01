@@ -52,7 +52,7 @@ const RemoteBookDetailsScreen = () => {
   const {addBook, getBook} = useBookRepository();
 
   const {downloadBook, cancelDownload} = useDownloadBook();
-  const downloadInfo = useBookDownloadInfoObject(currentBook.md5 ?? '');
+  const downloadInfo = useBookDownloadInfoObject(currentBook.md5!);
 
   const [selectedHostIndex, setSelectedHostIndex] = useState(-1);
 
