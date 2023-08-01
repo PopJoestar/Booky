@@ -23,11 +23,14 @@ export const downloadBook = async (
   }
 
   const downloadLink =
-    options && options.hostIndex && book.downloadLinks
+    options && options.hostIndex !== undefined && book.downloadLinks
       ? book.downloadLinks[options.hostIndex]
       : (getDownloadLink(book.downloadLinks) as DownloadLink);
 
-  const filename = getFileNameFromDownloadLink(downloadLink?.link);
+  const filename = getFileNameFromDownloadLink(
+    downloadLink?.link,
+    downloadLink.host,
+  );
 
   const downloadResumable = FileSystem.createDownloadResumable(
     downloadLink.link,
