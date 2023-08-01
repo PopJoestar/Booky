@@ -4,6 +4,7 @@
     "all": "All",
     "save": "Save",
     "download": "Download",
+    "open": "Open",
     "unkown_author": "Unknown author",
     "unkown": "Unknown"
   },
@@ -74,6 +75,7 @@
       "language": "Language",
       "series": "Series"
     },
+    "gateways": "Gateways",
     "book_saved": "{{- title}} has been added to your library"
   }
 }

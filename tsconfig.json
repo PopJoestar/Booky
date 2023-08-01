@@ -13,7 +13,8 @@
       "@/*": ["src/*"],
       "@shared/*":["src/shared/*"],
       "@features/*":["src/features/*"],
-      "libgen": ["libgen"]
+      "libgen": ["libgen"],
+      "externalStorage": ["externalStorage"],
     },     
   }
 }

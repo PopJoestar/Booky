@@ -7,6 +7,8 @@ type Settings = {
   isDarkMode: boolean | null;
   theme: string | null;
   language: string;
+  showVPNWarning: boolean;
+  hasDownloadedBook: boolean;
 };
 
 const useSettings = () => {

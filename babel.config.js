@@ -10,6 +10,7 @@ module.exports = {
           '@shared': './src/shared',
           '@features': './src/features',
           libgen: './libgen',
+          externalStorage: './externalStorage',
         },
       },
     ],

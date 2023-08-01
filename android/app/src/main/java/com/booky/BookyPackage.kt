@@ -15,5 +15,5 @@ class BookyPackage : ReactPackage {
 
     override fun createNativeModules(
         reactContext: ReactApplicationContext
-    ): MutableList<NativeModule> = listOf(LibgenModule(reactContext)).toMutableList()
+    ): MutableList<NativeModule> = listOf(LibgenModule(reactContext), ExternalStorageModule(reactContext)).toMutableList()
 }

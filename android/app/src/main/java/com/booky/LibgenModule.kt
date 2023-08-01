@@ -40,8 +40,8 @@ class LibgenModule(reactContext: ReactApplicationContext) :
             kotlin.runCatching {
                 lateinit var response: Response
 
-                when  {
-                  category ==  "NON_FICTION" && language == "ALL" -> {
+                when {
+                    category == "NON_FICTION" && language == "ALL" -> {
                         response = nonFictionScraper.fetch {
                             nonFictionScraper.generateSearchBooksConnection(
                                 query = query,
@@ -51,6 +51,7 @@ class LibgenModule(reactContext: ReactApplicationContext) :
                         }
                         promise.resolve(gson.toJson(response))
                     }
+
                     category == "FICTION" -> {
                         response = fictionScraper.fetch {
                             fictionScraper.generateSearchBooksConnection(
@@ -63,6 +64,7 @@ class LibgenModule(reactContext: ReactApplicationContext) :
                         }
                         promise.resolve(gson.toJson(response))
                     }
+
                     (category == "ALL") || (category == "NON_FICTION" && language != "ALL") -> {
                         response = libgenLCScraper.fetch {
                             libgenLCScraper.generateSearchBooksConnection(
@@ -75,6 +77,7 @@ class LibgenModule(reactContext: ReactApplicationContext) :
                         promise.resolve(gson.toJson(response))
 
                     }
+
                     else -> {
                         val localError = WritableNativeMap()
                         localError.putString("code", "UNKNOWN_CATEGORY")
@@ -106,17 +109,20 @@ class LibgenModule(reactContext: ReactApplicationContext) :
                 localError.putString("message", error.message)
                 promise.reject(s, error)
             }
+
             is HttpStatusException -> {
                 localError.putString("code", "HTTP_STATUS")
                 localError.putInt("status", error.statusCode)
                 localError.putString("message", error.message)
                 promise.reject(s, error)
             }
+
             is IOException -> {
                 localError.putString("code", "IO_EXCEPTION")
                 localError.putString("message", error.message)
                 promise.reject(s, error)
             }
+
             else -> {
                 promise.reject(s, error)
             }
