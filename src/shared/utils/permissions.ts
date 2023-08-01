@@ -1,11 +1,7 @@
-import {PermissionsAndroid} from 'react-native';
+import {startActivityAsync} from 'expo-intent-launcher';
 
-export async function requestStoragePermission() {
-  const result = await PermissionsAndroid.requestMultiple([
-    PermissionsAndroid.PERMISSIONS.CAMERA,
-  ]);
-
-  console.log(result);
-
-  return 2;
-}
+export const redirectToManageExternalStoragePermission = async () => {
+  await startActivityAsync(
+    'android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION',
+  );
+};

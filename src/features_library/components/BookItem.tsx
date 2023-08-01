@@ -14,7 +14,6 @@ function BookItem<T extends BaseBook>(props: Props<T>) {
 
   const downloadInfo = useBookDownloadInfoObject(props.item.md5 ?? '');
   const {cancelDownload} = useDownloadBook();
-
   const getStatus = (): BookStatus | undefined => {
     if (downloadInfo != null) {
       return 'downloading';

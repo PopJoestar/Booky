@@ -9,7 +9,6 @@ import {
   Button,
   AnimatedBox,
   Chip,
-  FlashMessageSuccessIcon,
 } from '@/shared/components';
 import {List} from 'react-native-paper';
 import {StringUtils} from '@/shared/utils';
@@ -21,7 +20,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import {useAppTheme, useMessageDisplayer} from '@/shared/hooks';
+import {useAppTheme} from '@/shared/hooks';
 
 import {RemoteBookDetailsScreenRouteProp} from '@/navigation/types';
 import {useTempBookStore} from '../stores/tempBookStore';
@@ -32,19 +31,29 @@ import {Constants} from '@/constants';
 import {ScrollView as RNScrollView} from 'react-native';
 import {BookService} from '@/services';
 import {useDownloadBook} from '@/hooks';
-import {useBookRepository} from '@/data';
+import {
+  useBookDownloadInfoObject,
+  useBookObject,
+  useBookRepository,
+} from '@/data';
+import {redirectToManageExternalStoragePermission} from '@/shared/utils/permissions';
+import ExternalStorage from 'externalStorage';
 
 const RemoteBookDetailsScreen = () => {
   const {sizes} = useAppTheme();
   const {t} = useTranslation();
   const {params} = useRoute<RemoteBookDetailsScreenRouteProp>();
-  const {showMessage} = useMessageDisplayer();
 
   const currentBook = useTempBookStore(state => state.tempBook);
+  const savedBook = useBookObject(currentBook.md5 ?? '');
+
   const setDetails = useTempBookStore(state => state.setDetails);
   const hostsListRef = useRef<RNScrollView>();
   const {addBook, getBook} = useBookRepository();
-  const {downloadBook} = useDownloadBook();
+
+  const {downloadBook, cancelDownload} = useDownloadBook();
+  const downloadInfo = useBookDownloadInfoObject(currentBook.md5 ?? '');
+
   const [selectedHostIndex, setSelectedHostIndex] = useState(-1);
 
   const {isLoading, error} = useGetRemoteBookDetailsQuery({
@@ -70,31 +79,47 @@ const RemoteBookDetailsScreen = () => {
     return {html: `<p>${currentBook.description}</p>`};
   }, [currentBook.description]);
 
-  const handleOnPressDownload = () => {
-    const savedBook = getBook(currentBook.md5!);
+  const handleOnPressDownload = async () => {
+    let isExternalStorageManager =
+      await ExternalStorage.isExternalStorageManager();
 
-    if (savedBook == null) {
-      addBook(currentBook);
+    if (!isExternalStorageManager) {
+      await redirectToManageExternalStoragePermission();
 
-      showMessage({
-        message: t('book_details:book_saved', {title: currentBook.title}),
-        icon: FlashMessageSuccessIcon,
-        type: 'success',
-        position: {bottom: 70},
-      });
+      isExternalStorageManager =
+        await ExternalStorage.isExternalStorageManager();
+      if (!isExternalStorageManager) {
+        return;
+      }
     }
 
-    downloadBook(currentBook);
+    const _savedBook = getBook(currentBook.md5!);
+
+    if (_savedBook == null) {
+      addBook(currentBook);
+    }
+
+    downloadBook(currentBook, selectedHostIndex);
   };
 
-  const style = useAnimatedStyle(() => ({
-    opacity: withTiming(isLoading ? 0.4 : 1),
-  }));
+  const openBook = () => {
+    if (savedBook == null) {
+      return;
+    }
+    BookService.openBook(savedBook);
+  };
+
+  const style = useAnimatedStyle(
+    () => ({
+      opacity: withTiming(isLoading ? 0.4 : 1),
+    }),
+    [isLoading],
+  );
 
   return (
     <AnimatedBox flex={1} style={style}>
       <ScrollView paddingTop="l" showsVerticalScrollIndicator={false}>
-        <Box paddingHorizontal="l">
+        <Box paddingHorizontal="m">
           <Row>
             <Image
               source={{uri: currentBook.image}}
@@ -117,7 +142,8 @@ const RemoteBookDetailsScreen = () => {
             </Animated.View>
           ) : null}
         </Box>
-        <Box paddingHorizontal={'s'}>
+
+        <Box>
           <List.Item
             title={t('book_details:book_info_label.publisher_publication_date')}
             description={
@@ -162,53 +188,64 @@ const RemoteBookDetailsScreen = () => {
         <Box height={sizes.l} />
       </ScrollView>
 
-      <Row
-        paddingVertical="s"
-        paddingRight={'l'}
-        justifyContent={'space-around'}
-        alignSelf="flex-end">
-        <Box flex={1}>
-          <ScrollView
-            horizontal
-            ref={hostsListRef}
-            showsHorizontalScrollIndicator={false}
-            paddingLeft={'m'}
-            marginRight={'s'}>
-            {currentBook.downloadLinks
-              ?.filter(({host}) =>
-                Constants.VALID_HOSTS.includes(host.trim().toLowerCase()),
-              )
-              .map((downloadLink, index) => (
-                <Chip
-                  marginLeft={'s'}
-                  key={index}
-                  onPress={() => setSelectedHostIndex(index)}
-                  mode={selectedHostIndex === index ? 'flat' : 'outlined'}
-                  icon={
-                    selectedHostIndex === index
-                      ? 'checkbox-marked-circle'
-                      : undefined
-                  }
-                  selected={selectedHostIndex === index}>
-                  {downloadLink.host}
-                </Chip>
-              ))}
-            <Box width={40} />
-          </ScrollView>
-        </Box>
+      <Box paddingHorizontal={'m'} paddingVertical="s" rowGap={'s'}>
+        <Row alignItems={'center'} columnGap={'m'}>
+          <Text variant={'labelLarge'}>{t('book_details:gateways')}</Text>
+          <Box flex={1}>
+            <ScrollView
+              horizontal
+              ref={hostsListRef}
+              showsHorizontalScrollIndicator={false}
+              marginRight={'s'}>
+              {currentBook.downloadLinks
+                ?.filter(({host}) =>
+                  Constants.VALID_HOSTS.includes(host.trim().toLowerCase()),
+                )
+                .map((downloadLink, index) => (
+                  <Chip
+                    marginLeft={'s'}
+                    key={index}
+                    onPress={() => setSelectedHostIndex(index)}
+                    mode={selectedHostIndex === index ? 'flat' : 'outlined'}
+                    icon={
+                      selectedHostIndex === index
+                        ? 'checkbox-marked-circle'
+                        : undefined
+                    }
+                    selected={selectedHostIndex === index}>
+                    {downloadLink.host}
+                  </Chip>
+                ))}
+              <Box width={40} />
+            </ScrollView>
+          </Box>
+        </Row>
 
-        <Button
-          mode="contained"
-          disabled={
-            isLoading ||
-            !!error ||
-            currentBook.downloadLinks == null ||
-            currentBook.downloadLinks.length === 0
-          }
-          onPress={handleOnPressDownload}>
-          {t('common:download')}
-        </Button>
-      </Row>
+        <Row justifyContent={'flex-end'} columnGap={'s'}>
+          {savedBook && savedBook.filePath !== '' ? (
+            <Button mode="outlined" onPress={openBook}>
+              {t('common:open')}
+            </Button>
+          ) : null}
+          <Button onPress={() => cancelDownload(currentBook.md5!)}>
+            Cancel
+          </Button>
+          {/* {!!downloadInfo ? :null} */}
+          <Button
+            mode="contained"
+            loading={!!downloadInfo}
+            disabled={
+              isLoading ||
+              !!error ||
+              currentBook.downloadLinks == null ||
+              currentBook.downloadLinks.length === 0 ||
+              !!downloadInfo
+            }
+            onPress={handleOnPressDownload}>
+            {t('common:download')}
+          </Button>
+        </Row>
+      </Box>
     </AnimatedBox>
   );
 };

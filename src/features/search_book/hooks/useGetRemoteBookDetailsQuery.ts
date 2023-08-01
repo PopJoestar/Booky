@@ -14,6 +14,10 @@ const useGetRemoteBookDetailsQuery = ({
     (detailsUrl: string) => BookFinder.getBookDetails(detailsUrl),
     {
       onSuccess,
+      errorRetryCount: 2,
+      onError: e => {
+        console.log(e);
+      },
     },
   );
 

@@ -4,6 +4,9 @@ import {NotificationService, BookService} from '@/services';
 import {DownloadBookOptions} from '@/services/BookService';
 import {AuthorizationStatus} from '@notifee/react-native';
 import * as FileSystem from 'expo-file-system';
+
+const tem: {[key: string]: FileSystem.DownloadResumable} = {};
+
 const useDownloadBook = () => {
   const {addBookDownloadInfo, getBookDownloadInfo, removeBookDownloadInfo} =
     useBookDownloadInfoRepository();
@@ -43,6 +46,7 @@ const useDownloadBook = () => {
         onProgress: onDownloadProgress,
         hostIndex: selectedHostIndex,
         onDownloadResumableCreated: _downloadResumable => {
+          tem[book.md5!] = _downloadResumable;
           const savable = _downloadResumable.savable();
           addBookDownloadInfo({
             url: savable.url,
@@ -59,35 +63,23 @@ const useDownloadBook = () => {
 
       updateBook(book.md5!, {filePath: downloadResult.uri});
 
-      removeBookDownloadInfo(book.md5!);
+      await displaySuccessNotification(downloadResult.uri);
 
-      displaySuccessNotification(downloadResult.uri);
+      removeBookDownloadInfo(book.md5!);
     } catch (e) {
-      removeBookDownloadInfo(book.md5!);
-
-      await NotificationService.cancelNotification(book.md5!);
-
       console.log(e);
+      removeBookDownloadInfo(book.md5!);
+      await NotificationService.cancelNotification(book.md5!);
     }
   };
 
   const cancelDownload = async (bookMd5: string) => {
-    const bookDownloadInfo = getBookDownloadInfo(bookMd5);
-
-    if (bookDownloadInfo == null) {
-      return;
+    if (tem[bookMd5]) {
+      await tem[bookMd5].cancelAsync();
     }
-
-    const downloadResumable = new FileSystem.DownloadResumable(
-      bookDownloadInfo.url,
-      bookDownloadInfo.fileUri,
-    );
-
-    console.log(bookMd5, downloadResumable);
-
-    await downloadResumable.cancelAsync();
-
     removeBookDownloadInfo(bookMd5);
+
+    await NotificationService.cancelNotification(bookMd5);
   };
 
   const isDownloadingBook = (bookMd5: string) =>

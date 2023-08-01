@@ -4,6 +4,7 @@ import {getFileNameFromDownloadLink} from '@/shared/utils/request';
 import * as FileSystem from 'expo-file-system';
 import NotificationService from './NotificationService';
 import {AndroidCategory} from '@notifee/react-native';
+import {openFileWithThirdPartyApp} from '@/shared/utils/files';
 
 export type DownloadBookOptions = {
   onProgress?: FileSystem.FileSystemNetworkTaskProgressCallback<FileSystem.DownloadProgressData>;
@@ -127,10 +128,18 @@ const getDefaultDownloadHostIndex = (downloadLinksLength: number) => {
   return downloadLinksLength - 1;
 };
 
+const openBook = async (book: Book) => {
+  if (book.filePath === '') {
+    return;
+  }
+  await openFileWithThirdPartyApp(book.filePath);
+};
+
 const BookService = {
   downloadBook,
   createDownloadLifecycleNotificationHooks,
   getDefaultDownloadHostIndex,
+  openBook,
 };
 
 export default BookService;
