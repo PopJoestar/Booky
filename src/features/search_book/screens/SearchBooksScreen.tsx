@@ -46,7 +46,7 @@ const SearchBooksScreen = () => {
       );
     }
 
-    if (isFirstLoading) {
+    if (isFirstLoading || isLoading) {
       return (
         <Center flex={1} height={height - 100}>
           <ActivityIndicator />
