@@ -121,11 +121,14 @@ const RemoteBookDetailsScreen = () => {
       <ScrollView paddingTop="l" showsVerticalScrollIndicator={false}>
         <Box paddingHorizontal="m">
           <Row>
-            <Image
-              source={{uri: currentBook.image}}
+            <Box
               height={sizes.book_poster_image_height}
-              width={sizes.book_poster_image_width}
-            />
+              width={sizes.book_poster_image_width}>
+              {currentBook.image == null ? null : (
+                <Image source={{uri: currentBook.image}} flex={1} />
+              )}
+            </Box>
+
             <Box flex={1} marginHorizontal="m">
               <Text variant="titleLarge">{currentBook.title}</Text>
               <Text

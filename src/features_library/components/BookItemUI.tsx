@@ -54,12 +54,19 @@ function BookItemUI<T extends BaseBook>({
         onPress={_onPress}
         paddingRight="l">
         <Row>
-          <Surface elevation={2}>
-            <Image
-              source={{uri: item.image}}
-              height={sizes.book_card_image_height}
-              width={sizes.book_card_image_width}
-            />
+          <Surface
+            elevation={2}
+            style={{
+              height: sizes.book_card_image_height,
+              width: sizes.book_card_image_width,
+            }}>
+            {item.image ? (
+              <Image
+                source={{uri: item.image}}
+                height={sizes.book_card_image_height}
+                width={sizes.book_card_image_width}
+              />
+            ) : null}
           </Surface>
 
           <Box flex={1} paddingLeft="m">
