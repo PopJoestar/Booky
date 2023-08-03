@@ -1,39 +1,21 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Alert, useWindowDimensions} from 'react-native';
+import {useWindowDimensions} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
-import BookList from '../../../features_library/components/BookList';
 import {Book} from '@/interfaces/Book';
-import SearchBooksScreenHeader from '../components/SearchBooksScreenHeader';
 import useSearchBooksQuery from '../hooks/useSearchBooksQuery';
-import {useTempBookStore} from '../stores/tempBookStore';
 import {Box, Center, Text} from '@/shared/components';
+import {FlashList, ListRenderItem} from '@shopify/flash-list';
+import {useAppTheme} from '@/shared/hooks';
+import {RemoteBookItem} from '@/components';
 
 const SearchBooksScreen = () => {
   const {height} = useWindowDimensions();
   const {t} = useTranslation('search');
-  const navigation = useNavigation();
+  const {sizes} = useAppTheme();
 
   const {data, isNoResult, query, isFirstLoading, isLoading, isEnd, next} =
     useSearchBooksQuery();
-
-  const setTempBook = useTempBookStore(state => state.setTempBook);
-
-  const goToBookDownloadScreen = useCallback(
-    (item: Book) => {
-      if (item.details_url === undefined) {
-        Alert.alert('Scraping error', 'Undefined md5');
-        return;
-      }
-
-      setTempBook(item);
-      navigation.navigate('remote_book_details', {
-        details_url: item.details_url,
-      });
-    },
-    [navigation, setTempBook],
-  );
 
   const renderListEmptyComponent = () => {
     if (isNoResult) {
@@ -79,18 +61,21 @@ const SearchBooksScreen = () => {
     return undefined;
   };
 
+  const renderBook: ListRenderItem<Book> = ({item}) => {
+    return <RemoteBookItem item={item} />;
+  };
+
   return (
-    <>
-      <SearchBooksScreenHeader />
-      <BookList
-        data={data}
-        showSaved={true}
-        ListEmptyComponent={renderListEmptyComponent()}
-        ListFooterComponent={renderListFooter()}
-        onEndReached={next}
-        onPressItem={goToBookDownloadScreen}
-      />
-    </>
+    <FlashList
+      data={data}
+      ListEmptyComponent={renderListEmptyComponent()}
+      ListFooterComponent={renderListFooter()}
+      onEndReached={next}
+      estimatedItemSize={sizes.book_card_estimated_height}
+      scrollEventThrottle={16}
+      renderItem={renderBook}
+      onEndReachedThreshold={1.5}
+    />
   );
 };
 
