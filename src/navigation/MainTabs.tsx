@@ -2,27 +2,19 @@ import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {MainTabParamList} from './types';
 import {useTranslation} from 'react-i18next';
-import {Icon} from '../shared/components';
-import {useAppTheme} from '../shared/hooks';
 import {CollectionsScreen, LibraryScreen} from '@/screens';
 
 const Tab = createMaterialBottomTabNavigator<MainTabParamList>();
 
 function MainTab() {
   const {t} = useTranslation();
-  const {sizes} = useAppTheme();
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="library"
         component={LibraryScreen}
         options={{
-          tabBarIcon: ({focused, color}) =>
-            focused ? (
-              <Icon name="book-open" size={sizes.l} color={color} />
-            ) : (
-              <Icon name="book-open-outline" size={sizes.l} color={color} />
-            ),
+          tabBarIcon: 'book-open',
 
           title: t('library:title'),
         }}
@@ -31,12 +23,7 @@ function MainTab() {
         name="collections"
         component={CollectionsScreen}
         options={{
-          tabBarIcon: ({focused, color}) =>
-            focused ? (
-              <Icon name="book-multiple" size={sizes.l} color={color} />
-            ) : (
-              <Icon name="book-multiple-outline" size={sizes.l} color={color} />
-            ),
+          tabBarIcon: 'book-multiple',
           title: t('collection:title'),
         }}
       />
@@ -44,12 +31,7 @@ function MainTab() {
         name="settings"
         component={LibraryScreen}
         options={{
-          tabBarIcon: ({focused, color}) =>
-            focused ? (
-              <Icon name="dots-horizontal" size={sizes.l} color={color} />
-            ) : (
-              <Icon name="dots-horizontal" size={sizes.l} color={color} />
-            ),
+          tabBarIcon: 'dots-horizontal',
           title: t('more:title'),
         }}
       />
