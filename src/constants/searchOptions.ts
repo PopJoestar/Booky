@@ -1,3 +1,9 @@
+import {
+  CategoryOption,
+  ExtensionOption,
+  LanguageOption,
+} from '@/types/searchOption';
+
 export const FILTERS_TYPES = ['category', 'language', 'extension'] as const;
 
 export const CATEGORIES_OPTIONS_MAP = {
@@ -40,8 +46,3 @@ export const EXTENSION_OPTIONS = Object.keys(EXTENSION_OPTIONS_MAP).map(
     label: EXTENSION_OPTIONS_MAP[opt as ExtensionOption],
   }),
 );
-
-export type FilterType = (typeof FILTERS_TYPES)[number];
-export type CategoryOption = keyof typeof CATEGORIES_OPTIONS_MAP;
-export type LanguageOption = keyof typeof LANGUAGES_OPTIONS_MAP;
-export type ExtensionOption = keyof typeof EXTENSION_OPTIONS_MAP;

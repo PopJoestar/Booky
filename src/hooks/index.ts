@@ -1,3 +1,5 @@
 import useDownloadBook from './useDownloadBook';
+import useGetRemoteBookDetailsQuery from './useGetRemoteBookDetailsQuery';
+import useSearchBooksQuery from './useSearchBooksQuery';
 
-export {useDownloadBook};
+export {useDownloadBook, useGetRemoteBookDetailsQuery, useSearchBooksQuery};

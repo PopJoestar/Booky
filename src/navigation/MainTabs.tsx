@@ -1,11 +1,10 @@
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {LibraryScreen} from '../features_library';
 import {MainTabParamList} from './types';
 import {useTranslation} from 'react-i18next';
 import {Icon} from '../shared/components';
 import {useAppTheme} from '../shared/hooks';
-import {CollectionsScreen} from '../features_collection';
+import {CollectionsScreen, LibraryScreen} from '@/screens';
 
 const Tab = createMaterialBottomTabNavigator<MainTabParamList>();
 

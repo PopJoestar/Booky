@@ -1,5 +1,9 @@
+import {
+  CategoryOption,
+  LanguageOption,
+  ExtensionOption,
+} from '@/types/searchOption';
 import {create} from 'zustand';
-import {CategoryOption, LanguageOption, ExtensionOption} from '../constants';
 
 type SearchBooksOptionsStore = {
   category: CategoryOption;

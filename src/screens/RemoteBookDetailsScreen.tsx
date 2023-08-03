@@ -23,14 +23,12 @@ import Animated, {
 import {useAppTheme} from '@/shared/hooks';
 
 import {RemoteBookDetailsScreenRouteProp} from '@/navigation/types';
-import {useTempBookStore} from '../stores/tempBookStore';
 
-import useGetRemoteBookDetailsQuery from '../hooks/useGetRemoteBookDetailsQuery';
 import {Constants} from '@/constants';
 
 import {ScrollView as RNScrollView} from 'react-native';
 import {BookService} from '@/services';
-import {useDownloadBook} from '@/hooks';
+import {useDownloadBook, useGetRemoteBookDetailsQuery} from '@/hooks';
 import {
   useBookDownloadInfoObject,
   useBookObject,
@@ -38,6 +36,7 @@ import {
 } from '@/data';
 import {redirectToManageExternalStoragePermission} from '@/shared/utils/permissions';
 import ExternalStorage from 'externalStorage';
+import {useTempBookStore} from '@/stores';
 
 const RemoteBookDetailsScreen = () => {
   const {sizes, colors} = useAppTheme();

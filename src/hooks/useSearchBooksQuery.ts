@@ -3,8 +3,8 @@ import useSWRInfinite from 'swr/infinite';
 import {useCallback, useEffect} from 'react';
 import {BookFinder} from '@/services';
 import {SearchBooksParams, SearchBooksResponse} from '@/interfaces/Book';
-import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
 import {Alert} from 'react-native';
+import {useSearchBooksOptionsStore} from '@/stores';
 
 function useSearchBooksQuery() {
   const {query, category, extension, language} = useSearchBooksOptionsStore(
