@@ -11,6 +11,7 @@ import {
   RemoteBookDetailsScreen,
   SearchBooksScreen,
 } from '@/features/search_book';
+import SearchBooksScreenHeader from '@/features/search_book/components/SearchBooksScreenHeader';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,7 +30,7 @@ const Navigations = () => {
         name="search"
         component={SearchBooksScreen}
         options={{
-          headerShown: false,
+          header: SearchBooksScreenHeader,
         }}
       />
       <Stack.Screen
