@@ -1,11 +1,11 @@
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {Appbar} from 'react-native-paper';
-import {useTempBookStore} from '../stores/tempBookStore';
 import {useBookRepository} from '@/data';
 import {useTranslation} from 'react-i18next';
 import {useAppTheme, useMessageDisplayer} from '@/shared/hooks';
 import {FlashMessageSuccessIcon} from '@/shared/components';
+import {useTempBookStore} from '@/stores';
 
 const RemoteBookDetailsHeader = ({navigation}: NativeStackHeaderProps) => {
   const {colors} = useAppTheme();

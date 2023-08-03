@@ -1,5 +1,4 @@
 import {useBookObject, useBookDownloadInfoObject} from '@/data';
-import {BookStatus} from '@/features_library/types';
 import {useDownloadBook} from '@/hooks';
 import {
   Row,
@@ -18,8 +17,9 @@ import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import BookStatusIcon from './BookStatusIcon';
 import {Book} from '@/interfaces/Book';
 import {Alert} from 'react-native';
-import {useTempBookStore} from '@/features/search_book/stores/tempBookStore';
 import {useNavigation} from '@react-navigation/native';
+import {useTempBookStore} from '@/stores';
+import {BookStatus} from '@/types/status';
 
 type Props = {item: Book};
 

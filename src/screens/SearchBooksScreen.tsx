@@ -3,11 +3,11 @@ import {useTranslation} from 'react-i18next';
 import {useWindowDimensions} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {Book} from '@/interfaces/Book';
-import useSearchBooksQuery from '../hooks/useSearchBooksQuery';
 import {Box, Center, Text} from '@/shared/components';
 import {FlashList, ListRenderItem} from '@shopify/flash-list';
 import {useAppTheme} from '@/shared/hooks';
 import {RemoteBookItem} from '@/components';
+import {useSearchBooksQuery} from '@/hooks';
 
 const SearchBooksScreen = () => {
   const {height} = useWindowDimensions();

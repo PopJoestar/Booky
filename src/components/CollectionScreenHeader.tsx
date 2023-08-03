@@ -2,7 +2,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Appbar} from 'react-native-paper';
 
-const Header = () => {
+const CollectionScreenHeader = () => {
   const {t} = useTranslation();
 
   return (
@@ -13,4 +13,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default CollectionScreenHeader;

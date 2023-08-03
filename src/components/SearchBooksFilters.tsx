@@ -5,19 +5,20 @@ import {BoxProps} from '@shopify/restyle';
 import {useTranslation} from 'react-i18next';
 
 import {Box, Chip, Picker} from '@/shared/components';
-import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
-import {
-  FilterType,
-  LANGUAGES_OPTIONS_MAP,
-  EXTENSION_OPTIONS_MAP,
-  CATEGORIES_OPTIONS_MAP,
-  EXTENSION_OPTIONS,
-  LANGUAGES_OPTIONS,
-  CATEGORIES_OPTIONS,
-  FILTERS_TYPES,
-} from '../constants';
+
 import {Theme} from '@/theme';
 import {useAppTheme} from '@/shared/hooks';
+import {FilterType} from '@/types/searchOption';
+import {
+  CATEGORIES_OPTIONS,
+  CATEGORIES_OPTIONS_MAP,
+  EXTENSION_OPTIONS,
+  EXTENSION_OPTIONS_MAP,
+  FILTERS_TYPES,
+  LANGUAGES_OPTIONS,
+  LANGUAGES_OPTIONS_MAP,
+} from '@/constants/searchOptions';
+import {useSearchBooksOptionsStore} from '@/stores';
 
 const SearchBooksFilters = (props: BoxProps<Theme>) => {
   const {t} = useTranslation();

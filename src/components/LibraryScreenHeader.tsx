@@ -3,7 +3,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Appbar} from 'react-native-paper';
 
-const Header = () => {
+const LibraryScreenHeader = () => {
   const {t} = useTranslation();
 
   const navigation = useNavigation();
@@ -21,4 +21,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default LibraryScreenHeader;

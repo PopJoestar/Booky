@@ -1,49 +1,53 @@
-import React from 'react';
-import {IconButton, ProgressBar, Surface} from 'react-native-paper';
+import {useBookObject, useBookDownloadInfoObject} from '@/data';
+import {useDownloadBook} from '@/hooks';
 import {
   Row,
   Box,
   TouchableRipple,
-  Text,
   Image,
-  Icon,
-  IconProps,
+  Text,
+  ProgressBar,
 } from '@/shared/components';
-import {useAppTheme} from '@/shared/hooks';
-import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
+import {sizes} from '@/theme/layout';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {BaseBook} from '@/types';
-import {BookStatus} from '../types';
+import {IconButton, Surface} from 'react-native-paper';
 
-export type BookItemUIProps<T extends BaseBook> = {
-  item: T;
-  onPress?: (item: T) => void;
-  onCancelDownloading?: (item: T) => void;
-  status?: BookStatus;
-};
+import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
+import BookStatusIcon from './BookStatusIcon';
+import {Book} from '@/interfaces/Book';
+import {BookStatus} from '@/types/status';
 
-function BookItemUI<T extends BaseBook>({
-  item,
-  onPress,
-  onCancelDownloading,
-  status,
-}: BookItemUIProps<T>) {
-  const {sizes} = useAppTheme();
+type Props = {item: Book};
+
+const BookItem = ({item}: Props) => {
   const {t} = useTranslation('common');
-  const _onPress = () => {
-    if (onPress === undefined) {
-      return;
+  const savedBook = useBookObject(item.md5 ?? '');
+
+  const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
+  const {cancelDownload} = useDownloadBook();
+
+  const getStatus = (): BookStatus | undefined => {
+    if (downloadInfo != null) {
+      return 'downloading';
     }
 
-    onPress(item);
-  };
-  const callOnCancelDownloading = () => {
-    if (onCancelDownloading === undefined) {
-      return;
+    if (savedBook == null) {
+      return undefined;
     }
 
-    onCancelDownloading(item);
+    if (savedBook.filePath !== '') {
+      return 'downloaded';
+    }
+
+    return 'saved';
   };
+
+  const callCancelDownload = () => {
+    cancelDownload(item.md5!);
+  };
+
+  const status = getStatus();
 
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut}>
@@ -51,7 +55,7 @@ function BookItemUI<T extends BaseBook>({
         backgroundColor="surface"
         paddingLeft="m"
         paddingVertical="m"
-        onPress={_onPress}
+        onPress={() => {}}
         paddingRight="l">
         <Row>
           <Surface
@@ -78,7 +82,7 @@ function BookItemUI<T extends BaseBook>({
                   </Text>
                 </Box>
 
-                <StatusIcon status={status} alignSelf="flex-start" />
+                <BookStatusIcon status={status} alignSelf="flex-start" />
               </Row>
 
               <Text
@@ -110,7 +114,7 @@ function BookItemUI<T extends BaseBook>({
                 <IconButton
                   icon={'close'}
                   mode="contained-tonal"
-                  onPress={callOnCancelDownloading}
+                  onPress={callCancelDownload}
                   size={sizes.m}
                 />
               </Row>
@@ -120,40 +124,6 @@ function BookItemUI<T extends BaseBook>({
       </TouchableRipple>
     </Animated.View>
   );
-}
-
-const StatusIcon = ({
-  status,
-  ...rest
-}: {
-  status?: BookStatus;
-} & Omit<IconProps, 'name'>) => {
-  const {sizes, colors} = useAppTheme();
-
-  if (status !== 'downloaded' && status !== 'saved') {
-    return null;
-  }
-
-  switch (status) {
-    case 'downloaded':
-      return (
-        <Icon
-          name="checkbox-marked-circle"
-          size={sizes.l}
-          color={colors.tertiary}
-          {...rest}
-        />
-      );
-    case 'saved':
-      return (
-        <Icon
-          name="bookmark"
-          size={sizes.l}
-          color={colors.tertiary}
-          {...rest}
-        />
-      );
-  }
 };
 
-export default BookItemUI;
+export default BookItem;

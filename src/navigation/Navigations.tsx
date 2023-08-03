@@ -6,12 +6,9 @@ import {
   NativeStackHeaderProps,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import {
-  RemoteBookDetailsHeader,
-  RemoteBookDetailsScreen,
-  SearchBooksScreen,
-} from '@/features/search_book';
-import SearchBooksScreenHeader from '@/features/search_book/components/SearchBooksScreenHeader';
+
+import {RemoteBookDetailsHeader, SearchBooksScreenHeader} from '@/components';
+import {RemoteBookDetailsScreen, SearchBooksScreen} from '@/screens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import {FAB} from 'react-native-paper';
-import {Box} from '../../shared/components';
-import Header from './Header';
+import {Box} from '../shared/components';
+import {CollectionScreenHeader} from '@/components';
 
 const CollectionsScreen = () => {
   return (
     <>
-      <Header />
+      <CollectionScreenHeader />
       <Box
         position={'absolute'}
         bottom={0}
