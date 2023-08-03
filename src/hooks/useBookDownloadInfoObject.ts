@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
-import {useRealm} from '../database';
-import {BookDownloadInfoModel} from '../models/BookDownloadInfoModel';
+import {useRealm} from '../database/database';
+import {BookDownloadInfoModel} from '../database/models/BookDownloadInfoModel';
 
 const useBookDownloadInfoObject = (bookMD5: string) => {
   const realm = useRealm();

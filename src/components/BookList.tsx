@@ -1,4 +1,4 @@
-import {BookModel} from '@/data/models/BookModel';
+import {BookModel} from '@/database/models/BookModel';
 import {useAppTheme} from '@/hooks';
 import {FlashList, ListRenderItem} from '@shopify/flash-list';
 import React from 'react';

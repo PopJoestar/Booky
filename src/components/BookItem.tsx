@@ -1,4 +1,4 @@
-import {useBookObject, useBookDownloadInfoObject} from '@/data';
+import {useBookObject, useBookDownloadInfoObject} from '@/hooks';
 import {useDownloadBook} from '@/hooks';
 import {Row, Box, TouchableRipple, Image, Text, ProgressBar} from '@/core';
 import {sizes} from '@/theme/layout';

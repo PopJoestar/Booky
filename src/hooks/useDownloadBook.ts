@@ -1,9 +1,10 @@
-import {useBookDownloadInfoRepository, useBookRepository} from '@/data';
 import {Book} from '@/interfaces/Book';
 import {NotificationService, BookService} from '@/services';
 import {DownloadBookOptions} from '@/services/BookService';
 import {AuthorizationStatus} from '@notifee/react-native';
 import * as FileSystem from 'expo-file-system';
+import useBookDownloadInfoRepository from './useBookDownloadInfoRepository';
+import useBookRepository from './useBookRepository';
 
 const tem: {[key: string]: FileSystem.DownloadResumable} = {};
 

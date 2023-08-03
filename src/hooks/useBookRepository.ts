@@ -1,7 +1,6 @@
 import {useCallback} from 'react';
-import {BookModel} from '../models/BookModel';
 import {Book} from '@/interfaces/Book';
-import {useQuery, useRealm} from '../database';
+import {BookModel, useQuery, useRealm} from '@/database';
 
 const useBookRepository = () => {
   const realm = useRealm();
