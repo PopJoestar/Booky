@@ -11,7 +11,7 @@ import {
 } from './theme/Material3ThemeProvider';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import FlashMessage from 'react-native-flash-message';
-import {RealmProvider} from '@realm/react';
+import {RealmProvider} from './database';
 
 const App = () => {
   return (
