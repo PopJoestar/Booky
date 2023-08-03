@@ -23,7 +23,7 @@ import {
   useBookDownloadInfoObject,
   useBookObject,
   useBookRepository,
-} from '@/data';
+} from '@/hooks';
 import ExternalStorage from 'externalStorage';
 import {useTempBookStore} from '@/stores';
 import {

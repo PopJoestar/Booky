@@ -1,7 +1,7 @@
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {Appbar} from 'react-native-paper';
-import {useBookRepository} from '@/data';
+import {useBookRepository} from '@/hooks';
 import {useTranslation} from 'react-i18next';
 import {useAppTheme, useMessageDisplayer} from '@/hooks';
 import {FlashMessageSuccessIcon} from '@/core';

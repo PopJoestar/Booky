@@ -1,6 +1,5 @@
 import {useCallback, useEffect} from 'react';
-import {useQuery, useRealm} from '../database';
-import {SettingsModel} from '../models/SettingsModel';
+import {SettingsModel, useQuery, useRealm} from '@/database';
 
 type Settings = {
   downloadPath: string | null;

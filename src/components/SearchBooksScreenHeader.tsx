@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 
 import Filters from './SearchBooksFilters';
-import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
 import {useAppTheme} from '@/hooks';
 import {Searchbar} from '@/core';
+import {useSearchBooksOptionsStore} from '@/stores';
 
 const SearchBooksScreenHeader = () => {
   const {colors, textVariants} = useAppTheme();

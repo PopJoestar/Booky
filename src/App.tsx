@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {RealmProvider} from './data/database';
 import Navigations from './navigation/Navigations';
 
 import {
@@ -12,6 +11,7 @@ import {
 } from './theme/Material3ThemeProvider';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import FlashMessage from 'react-native-flash-message';
+import {RealmProvider} from '@realm/react';
 
 const App = () => {
   return (

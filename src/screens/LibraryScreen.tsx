@@ -1,5 +1,5 @@
 import React from 'react';
-import {useBookRepository, useSettings} from '@/data';
+import {useBookRepository, useSettings} from '@/hooks';
 
 import {BookList, LibraryScreenHeader} from '@/components';
 
