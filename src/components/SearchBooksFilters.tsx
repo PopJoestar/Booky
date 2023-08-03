@@ -4,10 +4,10 @@ import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types
 import {BoxProps} from '@shopify/restyle';
 import {useTranslation} from 'react-i18next';
 
-import {Box, Chip, Picker} from '@/shared/components';
+import {Box, Chip, Picker} from '@/core';
 
 import {Theme} from '@/theme';
-import {useAppTheme} from '@/shared/hooks';
+import {useAppTheme} from '@/hooks';
 import {FilterType} from '@/types/searchOption';
 import {
   CATEGORIES_OPTIONS,

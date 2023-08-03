@@ -1,7 +1,7 @@
 import React from 'react';
 import {FAB} from 'react-native-paper';
-import {Box} from '../shared/components';
 import {CollectionScreenHeader} from '@/components';
+import {Box} from '@/core';
 
 const CollectionsScreen = () => {
   return (

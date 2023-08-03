@@ -3,8 +3,8 @@ import React from 'react';
 import {Appbar} from 'react-native-paper';
 import {useBookRepository} from '@/data';
 import {useTranslation} from 'react-i18next';
-import {useAppTheme, useMessageDisplayer} from '@/shared/hooks';
-import {FlashMessageSuccessIcon} from '@/shared/components';
+import {useAppTheme, useMessageDisplayer} from '@/hooks';
+import {FlashMessageSuccessIcon} from '@/core';
 import {useTempBookStore} from '@/stores';
 
 const RemoteBookDetailsHeader = ({navigation}: NativeStackHeaderProps) => {

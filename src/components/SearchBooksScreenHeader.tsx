@@ -9,8 +9,8 @@ import {
 
 import Filters from './SearchBooksFilters';
 import {useSearchBooksOptionsStore} from '../stores/searchBooksOptionsStore';
-import {useAppTheme} from '@/shared/hooks';
-import {Searchbar} from '@/shared/components';
+import {useAppTheme} from '@/hooks';
+import {Searchbar} from '@/core';
 
 const SearchBooksScreenHeader = () => {
   const {colors, textVariants} = useAppTheme();

@@ -1,10 +1,10 @@
 import {Constants} from '@/constants';
 import {Book, DownloadLink} from '@/interfaces/Book';
-import {getFileNameFromDownloadLink} from '@/shared/utils/request';
 import * as FileSystem from 'expo-file-system';
 import NotificationService from './NotificationService';
 import {AndroidCategory} from '@notifee/react-native';
-import {openFileWithThirdPartyApp} from '@/shared/utils/files';
+import {openFileWithThirdPartyApp} from '@/utils/files';
+import {getFileNameFromDownloadLink} from '@/utils/request';
 
 export type DownloadBookOptions = {
   onProgress?: FileSystem.FileSystemNetworkTaskProgressCallback<FileSystem.DownloadProgressData>;

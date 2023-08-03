@@ -4,9 +4,9 @@ import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types
 import {createBox, useResponsiveProp} from '@shopify/restyle';
 import React, {Ref, useCallback, useMemo} from 'react';
 import {ListRenderItem, useWindowDimensions} from 'react-native';
-import {Theme} from '../../../theme';
-import BottomSheet from '../atoms/BottomSheet';
-import ListItem from '../atoms/ListItem';
+import {Theme} from '../theme';
+import ListItem from './ListItem';
+import BottomSheet from './BottomSheet';
 
 export type PickerProps<T> = {
   options: readonly T[];

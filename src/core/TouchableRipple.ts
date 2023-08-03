@@ -3,7 +3,7 @@ import {
   TouchableRippleProps,
   TouchableRipple as PTouchableRipple,
 } from 'react-native-paper';
-import {Theme} from '../../../theme';
+import {Theme} from '@/theme';
 
 const TouchableRipple = createBox<Theme, Omit<TouchableRippleProps, 'theme'>>(
   PTouchableRipple,

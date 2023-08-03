@@ -1,7 +1,8 @@
-import {BookStatus} from '@/features_library/types';
-import {Icon, IconProps} from '@/shared/components';
-import {useAppTheme} from '@/shared/hooks';
+import {Icon} from '@/core';
+import {useAppTheme} from '@/hooks';
 import React from 'react';
+import {IconProps} from '@/core/Icon';
+import {BookStatus} from '@/types/status';
 
 const BookStatusIcon = ({
   status,

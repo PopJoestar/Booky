@@ -1,4 +1,4 @@
-import {useAppTheme} from '@/shared/hooks';
+import {useAppTheme} from '@/hooks';
 import Icon from './Icon';
 import Box from './Box';
 import React from 'react';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useWindowDimensions} from 'react-native';
 import RNRenderHTML, {RenderHTMLProps} from 'react-native-render-html';
-import {useAppTheme} from '../../hooks';
+import {useAppTheme} from '@/hooks';
 
 const RenderHTML = ({source, ...rest}: RenderHTMLProps) => {
   const {width} = useWindowDimensions();
