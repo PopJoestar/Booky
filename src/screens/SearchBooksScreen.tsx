@@ -4,7 +4,7 @@ import {useWindowDimensions} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {Book} from '@/interfaces/Book';
 import {FlashList, ListRenderItem} from '@shopify/flash-list';
-import {RemoteBookItem} from '@/components';
+import {RemoteBookItem, SearchBooksScreenHeader} from '@/components';
 import {useAppTheme, useSearchBooksQuery} from '@/hooks';
 import {Center, Box, Text} from '@/core';
 
@@ -65,16 +65,19 @@ const SearchBooksScreen = () => {
   };
 
   return (
-    <FlashList
-      data={data}
-      ListEmptyComponent={renderListEmptyComponent()}
-      ListFooterComponent={renderListFooter()}
-      onEndReached={next}
-      estimatedItemSize={sizes.book_card_estimated_height}
-      scrollEventThrottle={16}
-      renderItem={renderBook}
-      onEndReachedThreshold={1.5}
-    />
+    <>
+      <SearchBooksScreenHeader />
+      <FlashList
+        data={data}
+        ListEmptyComponent={renderListEmptyComponent()}
+        ListFooterComponent={renderListFooter()}
+        onEndReached={next}
+        estimatedItemSize={sizes.book_card_estimated_height}
+        scrollEventThrottle={16}
+        renderItem={renderBook}
+        onEndReachedThreshold={1.5}
+      />
+    </>
   );
 };
 

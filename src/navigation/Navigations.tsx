@@ -7,7 +7,7 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 
-import {RemoteBookDetailsHeader, SearchBooksScreenHeader} from '@/components';
+import {RemoteBookDetailsHeader} from '@/components';
 import {RemoteBookDetailsScreen, SearchBooksScreen} from '@/screens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,7 +27,7 @@ const Navigations = () => {
         name="search"
         component={SearchBooksScreen}
         options={{
-          header: SearchBooksScreenHeader,
+          headerShown: false,
         }}
       />
       <Stack.Screen
