@@ -8,7 +8,7 @@ import {
 
 import {useResponsiveProp} from '@shopify/restyle';
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import {useAppTheme} from '../../hooks';
+import {useAppTheme} from '@/hooks';
 import {SharedValue} from 'react-native-reanimated';
 
 export type BottomSheetProps = Omit<BottomSheetModalProps, 'snapPoints'> & {

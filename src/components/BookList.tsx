@@ -1,5 +1,5 @@
 import {BookModel} from '@/data/models/BookModel';
-import {useAppTheme} from '@/shared/hooks';
+import {useAppTheme} from '@/hooks';
 import {FlashList, ListRenderItem} from '@shopify/flash-list';
 import React from 'react';
 import {Divider} from 'react-native-paper';

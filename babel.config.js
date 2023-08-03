@@ -7,8 +7,6 @@ module.exports = {
         root: ['./'],
         alias: {
           '@': './src',
-          '@shared': './src/shared',
-          '@features': './src/features',
           libgen: './libgen',
           externalStorage: './externalStorage',
         },

@@ -1,13 +1,6 @@
 import {useBookObject, useBookDownloadInfoObject} from '@/data';
 import {useDownloadBook} from '@/hooks';
-import {
-  Row,
-  Box,
-  TouchableRipple,
-  Image,
-  Text,
-  ProgressBar,
-} from '@/shared/components';
+import {Row, Box, TouchableRipple, Image, Text, ProgressBar} from '@/core';
 import {sizes} from '@/theme/layout';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';

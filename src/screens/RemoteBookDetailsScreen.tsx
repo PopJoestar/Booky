@@ -1,17 +1,6 @@
 import React, {useMemo, useRef, useState} from 'react';
-import {
-  Box,
-  Row,
-  Image,
-  Text,
-  RenderHTML,
-  ScrollView,
-  Button,
-  AnimatedBox,
-  Chip,
-} from '@/shared/components';
+
 import {List, ProgressBar} from 'react-native-paper';
-import {StringUtils} from '@/shared/utils';
 import {useTranslation} from 'react-i18next';
 import {useRoute} from '@react-navigation/native';
 import Animated, {
@@ -20,23 +9,37 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import {useAppTheme} from '@/shared/hooks';
-
 import {RemoteBookDetailsScreenRouteProp} from '@/navigation/types';
 
 import {Constants} from '@/constants';
 
-import {ScrollView as RNScrollView} from 'react-native';
 import {BookService} from '@/services';
-import {useDownloadBook, useGetRemoteBookDetailsQuery} from '@/hooks';
+import {
+  useAppTheme,
+  useDownloadBook,
+  useGetRemoteBookDetailsQuery,
+} from '@/hooks';
 import {
   useBookDownloadInfoObject,
   useBookObject,
   useBookRepository,
 } from '@/data';
-import {redirectToManageExternalStoragePermission} from '@/shared/utils/permissions';
 import ExternalStorage from 'externalStorage';
 import {useTempBookStore} from '@/stores';
+import {
+  AnimatedBox,
+  Box,
+  Row,
+  Text,
+  ScrollView,
+  Button,
+  Image,
+  Chip,
+} from '@/core';
+import RenderHTML from 'react-native-render-html';
+import {ScrollView as RNScrollView} from 'react-native';
+import {mergeStrings, notEmptyString} from '@/utils/strings';
+import {redirectToManageExternalStoragePermission} from '@/utils/permissions';
 
 const RemoteBookDetailsScreen = () => {
   const {sizes, colors} = useAppTheme();
@@ -150,7 +153,7 @@ const RemoteBookDetailsScreen = () => {
             title={t('book_details:book_info_label.publisher_publication_date')}
             description={
               currentBook.publisher || currentBook.year
-                ? StringUtils.merge([currentBook.publisher, currentBook.year])
+                ? mergeStrings([currentBook.publisher, currentBook.year])
                 : t('unkown')
             }
           />
@@ -170,7 +173,7 @@ const RemoteBookDetailsScreen = () => {
           />
           <List.Item
             title={t('book_details:book_info_label.file')}
-            description={StringUtils.merge([
+            description={mergeStrings([
               currentBook.size,
               currentBook.extension,
             ])}
@@ -179,7 +182,7 @@ const RemoteBookDetailsScreen = () => {
             title={t('book_details:book_info_label.language')}
             description={currentBook.language}
           />
-          {StringUtils.notEmpty(currentBook.series) ? (
+          {notEmptyString(currentBook.series) ? (
             <List.Item
               title={t('book_details:book_info_label.series')}
               description={currentBook.series}

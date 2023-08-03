@@ -24,6 +24,7 @@ const languageDetector = {
   cacheUserLanguage: () => {},
 };
 
+//@ts-ignore
 i18next.use(languageDetector).use(initReactI18next).init({
   fallbackLng: DEFAULT_LANGUAGE,
   resources: Locales,
