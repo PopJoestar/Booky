@@ -16,7 +16,8 @@
     "read": "Read",
     "add_to_a_collection": "Add to a collection",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "confirm_remove_from_library": "Do you really want to remove {{title}} from your library ?"
   },
   "library": {
     "books": "Books",
