@@ -7,6 +7,7 @@ import Center from './Center';
 import Chip from './Chip';
 import FlashMessageSuccessIcon from './FlashMessageSuccessIcon';
 import Icon from './Icon';
+import IconButton from './IconButton';
 import Image from './Image';
 import Picker from './Picker';
 import ProgressBar from './ProgressBar';
@@ -42,4 +43,5 @@ export {
   Picker,
   FlashMessageSuccessIcon,
   ProgressBar,
+  IconButton,
 };
