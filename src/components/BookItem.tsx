@@ -23,10 +23,11 @@ type Props = {item: BookModel};
 
 const BookItem = ({item}: Props) => {
   const {t} = useTranslation('common');
+
   const [isMenuVisible, toggleIsMenuVisible] = useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
-  const {updateBook} = useBookRepository();
+  const {updateBook, removeBook} = useBookRepository();
   const {cancelDownload} = useDownloadBook();
 
   const getStatus = (): BookStatus | undefined => {
@@ -47,6 +48,10 @@ const BookItem = ({item}: Props) => {
   const toggleIsBookRead = () => {
     updateBook(item.md5!, {isRead: !item.isRead});
     toggleIsMenuVisible();
+  };
+
+  const removeFromLibrary = () => {
+    removeBook(item);
   };
 
   const status = getStatus();
@@ -132,7 +137,9 @@ const BookItem = ({item}: Props) => {
             {status !== 'downloading' ? (
               <Box alignSelf={'flex-end'}>
                 <Menu
-                  visible={isMenuVisible}
+                  // Force the menu to disappear when the item is removed
+                  key={item.md5!}
+                  visible={isMenuVisible && !!item.md5}
                   onDismiss={toggleIsMenuVisible}
                   anchor={
                     <IconButton
@@ -158,7 +165,7 @@ const BookItem = ({item}: Props) => {
                     }
                   />
                   <Menu.Item
-                    onPress={() => {}}
+                    onPress={removeFromLibrary}
                     title={t('common:remove_from_library')}
                   />
                   <Menu.Item
