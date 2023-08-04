@@ -1,4 +1,4 @@
-import {useBookObject, useBookDownloadInfoObject, useToggle} from '@/hooks';
+import {useBookDownloadInfoObject, useToggle} from '@/hooks';
 import {useDownloadBook} from '@/hooks';
 import {
   Row,
@@ -16,14 +16,13 @@ import {Menu, Surface} from 'react-native-paper';
 
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import BookStatusIcon from './BookStatusIcon';
-import {Book} from '@/interfaces/Book';
 import {BookStatus} from '@/types/status';
+import {BookModel} from '@/database';
 
-type Props = {item: Book};
+type Props = {item: BookModel};
 
 const BookItem = ({item}: Props) => {
   const {t} = useTranslation('common');
-  const savedBook = useBookObject(item.md5 ?? '');
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
   const {cancelDownload} = useDownloadBook();
@@ -32,12 +31,7 @@ const BookItem = ({item}: Props) => {
     if (downloadInfo != null) {
       return 'downloading';
     }
-
-    if (savedBook == null) {
-      return undefined;
-    }
-
-    if (savedBook.filePath !== '') {
+    if (item.filePath !== '') {
       return 'downloaded';
     }
 
@@ -73,6 +67,23 @@ const BookItem = ({item}: Props) => {
                 height={sizes.book_card_image_height}
                 width={sizes.book_card_image_width}
               />
+            ) : null}
+
+            {item.isRead ? (
+              <Box
+                alignSelf={'flex-start'}
+                position={'absolute'}
+                padding={'xxs'}
+                backgroundColor={'inverseSurface'}
+                borderRadius={'xs'}>
+                <Text
+                  color={'inverseOnSurface'}
+                  variant={'labelSmall'}
+                  textTransform={'uppercase'}
+                  fontWeight={'bold'}>
+                  {t('common:read')}
+                </Text>
+              </Box>
             ) : null}
           </Surface>
 
