@@ -1,6 +1,7 @@
 import {Material3Scheme} from '@pchmn/expo-material3-theme';
 import {borderRadii, breakpoints, sizes, spacing} from './layout';
 import {BaseTheme} from '@shopify/restyle';
+import {textVariants} from './typography';
 
 export interface Theme extends BaseTheme {
   colors: Omit<Material3Scheme, 'elevation'>;
@@ -8,4 +9,5 @@ export interface Theme extends BaseTheme {
   borderRadii: typeof borderRadii;
   breakpoints: typeof breakpoints;
   sizes: typeof sizes;
+  textVariants: typeof textVariants;
 }
