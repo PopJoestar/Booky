@@ -17,7 +17,8 @@
     "add_to_a_collection": "Add to a collection",
     "yes": "Yes",
     "no": "No",
-    "confirm_remove_from_library": "Do you really want to remove {{title}} from your library ?"
+    "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library ?",
+    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?"
   },
   "library": {
     "books": "Books",

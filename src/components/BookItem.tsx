@@ -19,6 +19,9 @@ import BookStatusIcon from './BookStatusIcon';
 import {BookStatus} from '@/types/status';
 import {BookModel} from '@/database';
 import ConfirmationDialog from './ConfirmationDialog';
+import ExternalStorage from 'externalStorage';
+import {redirectToManageExternalStoragePermission} from '@/utils/permissions';
+import {deleteFile} from '@/utils/files';
 
 type Props = {item: BookModel};
 
@@ -29,6 +32,11 @@ const BookItem = ({item}: Props) => {
   const [
     isRemoveFromLibraryConfirmationDialogVisible,
     toggleIsRemoveFromLibraryConfirmationDialogVisible,
+  ] = useToggle();
+
+  const [
+    isRemoveEverywhereConfirmationDialogVisible,
+    toggleIsRemoveEverywhereConfirmationDialogVisible,
   ] = useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
@@ -61,10 +69,48 @@ const BookItem = ({item}: Props) => {
       toggleIsRemoveFromLibraryConfirmationDialogVisible();
     }, 1);
   };
+
   const removeFromLibrary = () => {
     toggleIsRemoveFromLibraryConfirmationDialogVisible();
     setTimeout(() => {
       removeBook(item);
+    }, 1);
+  };
+
+  const removeEverywhere = async () => {
+    if (item.filePath === '') {
+      toggleIsRemoveEverywhereConfirmationDialogVisible();
+      setTimeout(() => {
+        removeBook(item);
+      }, 1);
+      return;
+    }
+    let isExternalStorageManager =
+      await ExternalStorage.isExternalStorageManager();
+
+    if (!isExternalStorageManager) {
+      await redirectToManageExternalStoragePermission();
+
+      isExternalStorageManager =
+        await ExternalStorage.isExternalStorageManager();
+      if (!isExternalStorageManager) {
+        return;
+      }
+    }
+
+    await deleteFile(item.filePath);
+
+    toggleIsRemoveEverywhereConfirmationDialogVisible();
+
+    setTimeout(() => {
+      removeBook(item);
+    }, 1);
+  };
+
+  const handleOnPressRemoveEverywhere = () => {
+    toggleIsMenuVisible();
+    setTimeout(() => {
+      toggleIsRemoveEverywhereConfirmationDialogVisible();
     }, 1);
   };
 
@@ -187,7 +233,7 @@ const BookItem = ({item}: Props) => {
                       title={t('common:remove_from_library')}
                     />
                     <Menu.Item
-                      onPress={() => {}}
+                      onPress={handleOnPressRemoveEverywhere}
                       title={t('common:remove_everywhere')}
                     />
                   </Menu>
@@ -218,6 +264,13 @@ const BookItem = ({item}: Props) => {
           onReject={toggleIsRemoveFromLibraryConfirmationDialogVisible}
           visible={isRemoveFromLibraryConfirmationDialogVisible}
           content={t('common:confirm_remove_from_library', {title: item.title})}
+        />
+        <ConfirmationDialog
+          onDismiss={toggleIsRemoveEverywhereConfirmationDialogVisible}
+          onConfirm={removeEverywhere}
+          onReject={toggleIsRemoveEverywhereConfirmationDialogVisible}
+          visible={isRemoveEverywhereConfirmationDialogVisible}
+          content={t('common:confirm_remove_everywhere', {title: item.title})}
         />
       </Portal>
     </>

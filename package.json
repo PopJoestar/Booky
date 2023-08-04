@@ -28,6 +28,7 @@
     "react": "18.2.0",
     "react-i18next": "^13.0.2",
     "react-native": "0.72.3",
+    "react-native-file-access": "^3.0.4",
     "react-native-file-viewer": "^2.1.5",
     "react-native-flash-message": "^0.4.1",
     "react-native-gesture-handler": "^2.12.0",

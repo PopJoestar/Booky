@@ -1,6 +1,8 @@
 import * as FileSystem from 'expo-file-system';
 import {startActivityAsync} from 'expo-intent-launcher';
 
+import {FileSystem as RNFileSystem} from 'react-native-file-access';
+
 export function getMimeType(filename: string) {
   const fileExtension = filename.split('.').pop();
   switch (fileExtension) {
@@ -27,4 +29,12 @@ export const openFileWithThirdPartyApp = async (fileUri: string) => {
     data: fileSafUri,
     flags: 1,
   });
+};
+
+/**
+ * Remove a file
+ * @param {string} fileUri the path of the file (file:// or SAF URI)
+ */
+export const deleteFile = async (fileUri: string) => {
+  await RNFileSystem.unlink(fileUri);
 };
