@@ -14,7 +14,9 @@
     "remove_everywhere": "Remove everywhere",
     "see_details": "See details",
     "read": "Read",
-    "add_to_a_collection": "Add to a collection"
+    "add_to_a_collection": "Add to a collection",
+    "yes": "Yes",
+    "no": "No"
   },
   "library": {
     "books": "Books",
