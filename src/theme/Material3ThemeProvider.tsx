@@ -81,11 +81,11 @@ export const Material3ThemeProvider = ({
         navigationTheme,
         isDark: colorScheme === 'dark',
       }}>
-      <PaperProvider theme={paperTheme} {...otherProps}>
-        <RestyleThemeProvider theme={restyleTheme}>
+      <RestyleThemeProvider theme={restyleTheme}>
+        <PaperProvider theme={paperTheme} {...otherProps}>
           {children}
-        </RestyleThemeProvider>
-      </PaperProvider>
+        </PaperProvider>
+      </RestyleThemeProvider>
     </Material3ThemeProviderContext.Provider>
   );
 };
