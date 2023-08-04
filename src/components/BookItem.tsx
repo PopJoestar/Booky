@@ -1,10 +1,18 @@
-import {useBookObject, useBookDownloadInfoObject} from '@/hooks';
+import {useBookObject, useBookDownloadInfoObject, useToggle} from '@/hooks';
 import {useDownloadBook} from '@/hooks';
-import {Row, Box, TouchableRipple, Image, Text, ProgressBar} from '@/core';
+import {
+  Row,
+  Box,
+  TouchableRipple,
+  Image,
+  Text,
+  ProgressBar,
+  IconButton,
+} from '@/core';
 import {sizes} from '@/theme/layout';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {IconButton, Surface} from 'react-native-paper';
+import {Menu, Surface} from 'react-native-paper';
 
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import BookStatusIcon from './BookStatusIcon';
@@ -33,7 +41,7 @@ const BookItem = ({item}: Props) => {
       return 'downloaded';
     }
 
-    return 'saved';
+    return undefined;
   };
 
   const callCancelDownload = () => {
@@ -42,14 +50,16 @@ const BookItem = ({item}: Props) => {
 
   const status = getStatus();
 
+  const [isMenuVisible, toggleIsMenuVisible] = useToggle();
+
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut}>
       <TouchableRipple
         backgroundColor="surface"
         paddingLeft="m"
-        paddingVertical="m"
+        paddingVertical={'m'}
         onPress={() => {}}
-        paddingRight="l">
+        paddingRight="m">
         <Row>
           <Surface
             elevation={2}
@@ -75,7 +85,11 @@ const BookItem = ({item}: Props) => {
                   </Text>
                 </Box>
 
-                <BookStatusIcon status={status} alignSelf="flex-start" />
+                <BookStatusIcon
+                  status={status}
+                  alignSelf="flex-start"
+                  marginRight={'m'}
+                />
               </Row>
 
               <Text
@@ -98,6 +112,42 @@ const BookItem = ({item}: Props) => {
                 ].join(' \u2022 ')}
               </Text>
             </Box>
+
+            {status !== 'downloading' ? (
+              <Box alignSelf={'flex-end'}>
+                <Menu
+                  visible={isMenuVisible}
+                  onDismiss={toggleIsMenuVisible}
+                  anchor={
+                    <IconButton
+                      icon={'dots-horizontal'}
+                      onPress={toggleIsMenuVisible}
+                      alignSelf={'flex-end'}
+                    />
+                  }>
+                  <Menu.Item
+                    onPress={() => {}}
+                    title={t('common:see_details')}
+                  />
+                  <Menu.Item
+                    onPress={() => {}}
+                    title={t('common:add_to_a_collection')}
+                  />
+                  <Menu.Item
+                    onPress={() => {}}
+                    title={t('common:mark_as_read')}
+                  />
+                  <Menu.Item
+                    onPress={() => {}}
+                    title={t('common:remove_from_library')}
+                  />
+                  <Menu.Item
+                    onPress={() => {}}
+                    title={t('common:remove_everywhere')}
+                  />
+                </Menu>
+              </Box>
+            ) : null}
 
             {status === 'downloading' ? (
               <Row alignItems={'center'}>

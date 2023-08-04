@@ -7,7 +7,13 @@
     "cancel_download": "Cancel download",
     "open": "Open",
     "unkown_author": "Unknown author",
-    "unkown": "Unknown"
+    "unkown": "Unknown",
+    "mark_as_read": "Mark as read",
+    "mark_as_unread": "Mark as unread",
+    "remove_from_library": "Remove from library",
+    "remove_everywhere": "Remove everywhere",
+    "see_details": "See details",
+    "add_to_a_collection": "Add to a collection"
   },
   "library": {
     "books": "Books",
