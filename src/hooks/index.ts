@@ -8,6 +8,8 @@ import useGetRemoteBookDetailsQuery from './useGetRemoteBookDetailsQuery';
 import useMessageDisplayer from './useMessageDisplayer';
 import useSearchBooksQuery from './useSearchBooksQuery';
 import useSettings from './useSettings';
+import useToggle from './useToggle';
+
 
 export {
   useDownloadBook,
@@ -20,4 +22,5 @@ export {
   useBookRepository,
   useSettings,
   useBookDownloadInfoRepository,
+  useToggle,
 };
