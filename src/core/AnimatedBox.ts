@@ -1,6 +1,11 @@
 import Animated from 'react-native-reanimated';
-import Box from './Box';
+import {createBox} from '@shopify/restyle';
+import {Theme} from '@/theme';
+import {ComponentPropsWithRef} from 'react';
 
-const AnimatedBox = Animated.createAnimatedComponent(Box);
+const AnimatedBox = createBox<
+  Theme,
+  ComponentPropsWithRef<typeof Animated.View>
+>(Animated.View);
 
 export default AnimatedBox;
