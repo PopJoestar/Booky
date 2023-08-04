@@ -20,7 +20,6 @@ import {
   useBookObject,
   useBookRepository,
 } from '@/hooks';
-import ExternalStorage from 'externalStorage';
 import {useTempBookStore} from '@/stores';
 import {
   AnimatedBox,
@@ -35,7 +34,7 @@ import {
 } from '@/core';
 import {ScrollView as RNScrollView} from 'react-native';
 import {mergeStrings, notEmptyString} from '@/utils/strings';
-import {redirectToManageExternalStoragePermission} from '@/utils/permissions';
+import {requestExternalStoragePermission} from '@/utils/permissions';
 
 const RemoteBookDetailsScreen = () => {
   const {sizes, colors} = useAppTheme();
@@ -78,17 +77,10 @@ const RemoteBookDetailsScreen = () => {
   }, [currentBook.description]);
 
   const handleOnPressDownload = async () => {
-    let isExternalStorageManager =
-      await ExternalStorage.isExternalStorageManager();
+    const isExternalStorageManager = await requestExternalStoragePermission();
 
     if (!isExternalStorageManager) {
-      await redirectToManageExternalStoragePermission();
-
-      isExternalStorageManager =
-        await ExternalStorage.isExternalStorageManager();
-      if (!isExternalStorageManager) {
-        return;
-      }
+      return;
     }
 
     const _savedBook = getBook(currentBook.md5!);

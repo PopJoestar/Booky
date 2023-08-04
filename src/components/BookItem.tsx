@@ -25,8 +25,7 @@ import BookStatusIcon from './BookStatusIcon';
 import {BookStatus} from '@/types/status';
 import {BookModel} from '@/database';
 import ConfirmationDialog from './ConfirmationDialog';
-import ExternalStorage from 'externalStorage';
-import {redirectToManageExternalStoragePermission} from '@/utils/permissions';
+import {requestExternalStoragePermission} from '@/utils/permissions';
 import {deleteFile} from '@/utils/files';
 
 type Props = {item: BookModel};
@@ -91,17 +90,11 @@ const BookItem = ({item}: Props) => {
       }, 1);
       return;
     }
-    let isExternalStorageManager =
-      await ExternalStorage.isExternalStorageManager();
+
+    const isExternalStorageManager = await requestExternalStoragePermission();
 
     if (!isExternalStorageManager) {
-      await redirectToManageExternalStoragePermission();
-
-      isExternalStorageManager =
-        await ExternalStorage.isExternalStorageManager();
-      if (!isExternalStorageManager) {
-        return;
-      }
+      return;
     }
 
     await deleteFile(item.filePath);
