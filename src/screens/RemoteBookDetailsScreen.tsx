@@ -3,11 +3,7 @@ import React, {useMemo, useRef, useState} from 'react';
 import {List, ProgressBar} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {useRoute} from '@react-navigation/native';
-import Animated, {
-  FadeIn,
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
+import {FadeIn, useAnimatedStyle, withTiming} from 'react-native-reanimated';
 
 import {RemoteBookDetailsScreenRouteProp} from '@/navigation/types';
 
@@ -35,8 +31,8 @@ import {
   Button,
   Image,
   Chip,
+  RenderHTML,
 } from '@/core';
-import RenderHTML from 'react-native-render-html';
 import {ScrollView as RNScrollView} from 'react-native';
 import {mergeStrings, notEmptyString} from '@/utils/strings';
 import {redirectToManageExternalStoragePermission} from '@/utils/permissions';
@@ -78,7 +74,7 @@ const RemoteBookDetailsScreen = () => {
   });
 
   const description = useMemo(() => {
-    return {html: `<p>${currentBook.description}</p>`};
+    return {html: `<span>${currentBook.description}</span>`};
   }, [currentBook.description]);
 
   const handleOnPressDownload = async () => {
@@ -121,7 +117,7 @@ const RemoteBookDetailsScreen = () => {
   return (
     <AnimatedBox flex={1} style={style}>
       <ScrollView paddingTop="l" showsVerticalScrollIndicator={false}>
-        <Box paddingHorizontal="m">
+        <Box paddingHorizontal="m" rowGap={'m'}>
           <Row>
             <Box
               height={sizes.book_poster_image_height}
@@ -142,9 +138,18 @@ const RemoteBookDetailsScreen = () => {
             </Box>
           </Row>
           {currentBook.description ? (
-            <Animated.View entering={FadeIn}>
-              <RenderHTML source={description} />
-            </Animated.View>
+            <AnimatedBox entering={FadeIn}>
+              <RenderHTML
+                defaultTextProps={{
+                  selectable: true,
+                  selectionColor: colors.primaryContainer,
+                  style: {
+                    color: colors.onSurface,
+                  },
+                }}
+                source={description}
+              />
+            </AnimatedBox>
           ) : null}
         </Box>
 
