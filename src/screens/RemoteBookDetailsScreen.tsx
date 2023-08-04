@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import {List, ProgressBar} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
@@ -72,10 +72,6 @@ const RemoteBookDetailsScreen = () => {
     },
   });
 
-  const description = useMemo(() => {
-    return {html: `<span>${currentBook.description}</span>`};
-  }, [currentBook.description]);
-
   const handleOnPressDownload = async () => {
     const isExternalStorageManager = await requestExternalStoragePermission();
 
@@ -139,7 +135,7 @@ const RemoteBookDetailsScreen = () => {
                     color: colors.onSurface,
                   },
                 }}
-                source={description}
+                source={{html: `<span>${currentBook.description}</span>`}}
               />
             </AnimatedBox>
           ) : null}
