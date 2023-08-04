@@ -8,13 +8,19 @@ import {
   Text,
   ProgressBar,
   IconButton,
+  AnimatedBox,
 } from '@/core';
 import {sizes} from '@/theme/layout';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Menu, Portal, Surface} from 'react-native-paper';
 
-import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
+import Animated, {
+  BounceIn,
+  BounceOut,
+  FadeIn,
+  FadeOut,
+} from 'react-native-reanimated';
 import BookStatusIcon from './BookStatusIcon';
 import {BookStatus} from '@/types/status';
 import {BookModel} from '@/database';
@@ -141,7 +147,9 @@ const BookItem = ({item}: Props) => {
               ) : null}
 
               {item.isRead ? (
-                <Box
+                <AnimatedBox
+                  entering={BounceIn}
+                  exiting={BounceOut}
                   alignSelf={'flex-start'}
                   position={'absolute'}
                   padding={'xxs'}
@@ -154,7 +162,7 @@ const BookItem = ({item}: Props) => {
                     fontWeight={'bold'}>
                     {t('common:read')}
                   </Text>
-                </Box>
+                </AnimatedBox>
               ) : null}
             </Surface>
 
