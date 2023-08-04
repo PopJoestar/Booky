@@ -1,4 +1,4 @@
-import {useBookDownloadInfoObject, useToggle} from '@/hooks';
+import {useBookDownloadInfoObject, useBookRepository, useToggle} from '@/hooks';
 import {useDownloadBook} from '@/hooks';
 import {
   Row,
@@ -23,8 +23,10 @@ type Props = {item: BookModel};
 
 const BookItem = ({item}: Props) => {
   const {t} = useTranslation('common');
+  const [isMenuVisible, toggleIsMenuVisible] = useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
+  const {updateBook} = useBookRepository();
   const {cancelDownload} = useDownloadBook();
 
   const getStatus = (): BookStatus | undefined => {
@@ -42,9 +44,12 @@ const BookItem = ({item}: Props) => {
     cancelDownload(item.md5!);
   };
 
-  const status = getStatus();
+  const toggleIsBookRead = () => {
+    updateBook(item.md5!, {isRead: !item.isRead});
+    toggleIsMenuVisible();
+  };
 
-  const [isMenuVisible, toggleIsMenuVisible] = useToggle();
+  const status = getStatus();
 
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut}>
@@ -145,8 +150,12 @@ const BookItem = ({item}: Props) => {
                     title={t('common:add_to_a_collection')}
                   />
                   <Menu.Item
-                    onPress={() => {}}
-                    title={t('common:mark_as_read')}
+                    onPress={toggleIsBookRead}
+                    title={
+                      item.isRead
+                        ? t('common:mark_as_unread')
+                        : t('common:mark_as_read')
+                    }
                   />
                   <Menu.Item
                     onPress={() => {}}

@@ -1,6 +1,7 @@
 import {useCallback} from 'react';
 import {Book} from '@/interfaces/Book';
 import {BookModel, useQuery, useRealm} from '@/database';
+import {NonFunctionObject} from '@/types/utils';
 
 const useBookRepository = () => {
   const realm = useRealm();
@@ -40,7 +41,7 @@ const useBookRepository = () => {
   );
 
   const updateBook = useCallback(
-    (bookMd5: string, newBook: Partial<Book>) => {
+    (bookMd5: string, newBook: Partial<NonFunctionObject<BookModel>>) => {
       const book = getBook(bookMd5);
 
       if (book == null) {
