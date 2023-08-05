@@ -85,7 +85,11 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
   };
 
   return (
-    <Dialog {...rest} dismissable dismissableBackButton onDismiss={onDismiss}>
+    <Dialog
+      {...rest}
+      dismissable={false}
+      dismissableBackButton
+      onDismiss={onDismiss}>
       <Dialog.Title>{book.title}</Dialog.Title>
       <Dialog.Content>
         <Box>
@@ -141,6 +145,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
         </Dialog.ScrollArea>
       )}
       <Dialog.Actions>
+        <Button onPress={onDismiss}>{t('common:dismiss')}</Button>
         <Button onPress={updateBookCollections}>{t('common:confirm')}</Button>
       </Dialog.Actions>
     </Dialog>
