@@ -1,18 +1,27 @@
 import {BookModel} from './BookModel';
 
+export class CollectionBook extends Realm.Object<CollectionBook> {
+  static schema = {
+    name: 'CollectionBook',
+    properties: {
+      id: 'string',
+      image: 'string?',
+    },
+  };
+}
 export class CollectionModel extends Realm.Object<CollectionModel> {
+  _id!: Realm.BSON.ObjectId;
   name!: string;
-  books!: Realm.Results<BookModel>;
+  books!: Realm.List<BookModel>;
+  createdAt!: Date;
 
   static schema = {
-    name: 'Collections',
+    name: 'Collection',
     properties: {
+      _id: 'objectId',
       name: 'string',
-      books: {
-        type: 'linkingObjects',
-        objectType: 'Book',
-        property: 'collections',
-      },
+      createdAt: 'date',
+      books: {type: 'list', default: [], objectType: 'CollectionBook'},
     },
   };
 }

@@ -1,5 +1,6 @@
 import {Book} from '@/interfaces/Book';
 import {Realm} from '@realm/react';
+import {CollectionModel} from './CollectionModel';
 
 export class DownloadLinkModel extends Realm.Object<DownloadLinkModel> {
   static schema = {
@@ -34,6 +35,7 @@ export class BookModel extends Realm.Object<BookModel> {
   description?: string;
   downloadLinks?: {host: string; link: string}[];
   details_url?: string;
+  collections!: Realm.List<CollectionModel>;
 
   static generate(book: Book) {
     return {
@@ -67,6 +69,7 @@ export class BookModel extends Realm.Object<BookModel> {
       description: 'string?',
       downloadLinks: {type: 'list', default: [], objectType: 'DownloadLink'},
       details_url: 'string?',
+      collections: {type: 'list', default: [], objectType: 'Collection'},
     },
     primaryKey: 'md5',
   };
