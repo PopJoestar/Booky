@@ -7,8 +7,9 @@ import {
 } from '@/components';
 import {Box} from '@/core';
 import {useAppTheme, useCollections, useToggle} from '@/hooks';
-import {FlatList, ListRenderItem, useWindowDimensions} from 'react-native';
+import {ListRenderItem, useWindowDimensions} from 'react-native';
 import {CollectionModel} from '@/database';
+import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 
 const CollectionsScreen = () => {
   const [
@@ -39,7 +40,10 @@ const CollectionsScreen = () => {
   return (
     <>
       <CollectionScreenHeader />
-      <FlatList
+
+      <Animated.FlatList
+        entering={FadeIn.duration(1000)}
+        exiting={FadeOut.duration(1000)}
         columnWrapperStyle={
           nbrOfColumns === 1
             ? undefined
