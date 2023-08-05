@@ -5,6 +5,7 @@ import Box from './Box';
 import Button from './Button';
 import Center from './Center';
 import Chip from './Chip';
+import ControlledTextInput from './ControlledTextInput';
 import FlashMessageSuccessIcon from './FlashMessageSuccessIcon';
 import Icon from './Icon';
 import IconButton from './IconButton';
@@ -46,4 +47,5 @@ export {
   ProgressBar,
   IconButton,
   Surface,
+  ControlledTextInput,
 };

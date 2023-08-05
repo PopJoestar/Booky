@@ -1,5 +1,6 @@
 import BookList from './BookList';
 import CollectionScreenHeader from './CollectionScreenHeader';
+import CreateCollectionDialog from './CreateCollectionDialog';
 import LibraryScreenHeader from './LibraryScreenHeader';
 import RemoteBookDetailsHeader from './RemoteBookDetailsHeader';
 import RemoteBookItem from './RemoteBookItem';
@@ -12,4 +13,5 @@ export {
   CollectionScreenHeader,
   LibraryScreenHeader,
   BookList,
+  CreateCollectionDialog,
 };

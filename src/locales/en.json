@@ -6,6 +6,7 @@
     "download": "Download",
     "cancel_download": "Cancel download",
     "open": "Open",
+    "create": "Create",
     "unkown_author": "Unknown author",
     "unkown": "Unknown",
     "mark_as_read": "Mark as read",
@@ -21,7 +22,12 @@
     "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?",
     "storage_access_required_delete_file": "Storage access is required to delete files",
     "settings": "Settings",
-    "choose_gateway": "Choose a gateway to download {{- title}}"
+    "choose_gateway": "Choose a gateway to download {{- title}}",
+    "create_collection": "Create collection",
+    "enter_collection_name": "Enter collection name",
+    "field_required": "This field is required",
+    "field_min_length_one": "Minimum {{count}} character",
+    "field_min_length_other": "Minimum {{count}} characters"
   },
   "library": {
     "books": "Books",
