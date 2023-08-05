@@ -35,6 +35,7 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
         <Box rowGap={'m'}>
           <ControlledTextInput
             control={control}
+            onSubmitEditing={_createCollection}
             rules={{
               required: {
                 value: true,
