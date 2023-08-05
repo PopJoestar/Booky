@@ -172,6 +172,7 @@ const BookItem = ({item}: Props) => {
         <TouchableRipple
           backgroundColor="surface"
           paddingLeft="m"
+          flex={1}
           paddingVertical={'m'}
           onPress={handleOnPressBook}
           paddingRight="m">
@@ -342,11 +343,14 @@ const BookItem = ({item}: Props) => {
           visible={isDownloadBookDialogVisible}
           onDismiss={toggleIsDownloadBookDialogVisible}
         />
-        <AddBookToCollectionModal
-          book={item}
-          visible={isAddBookToCollectionModalVisible}
-          onDismiss={toggleIsAddBookToCollectionModalVisible}
-        />
+        {/* Fix app crash List no longer valid */}
+        {item ? (
+          <AddBookToCollectionModal
+            book={item}
+            visible={isAddBookToCollectionModalVisible}
+            onDismiss={toggleIsAddBookToCollectionModalVisible}
+          />
+        ) : null}
       </Portal>
     </>
   );
