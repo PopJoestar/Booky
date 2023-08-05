@@ -14,9 +14,7 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
 
   const _createCollection = handleSubmit(({name}) => {
     createCollection(name);
-    if (onDismiss) {
-      onDismiss();
-    }
+    reset({name: ''});
   });
 
   useEffect(() => {
@@ -29,7 +27,7 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
     <Dialog
       {...rest}
       visible={visible}
-      dismissable
+      dismissable={false}
       dismissableBackButton
       onDismiss={onDismiss}>
       <Dialog.Title>{t('common:create_collection')}</Dialog.Title>
@@ -53,6 +51,7 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
         </Box>
       </Dialog.Content>
       <Dialog.Actions>
+        <Button onPress={onDismiss}>{t('common:dismiss')}</Button>
         <Button onPress={_createCollection}>{t('common:create')}</Button>
       </Dialog.Actions>
     </Dialog>
