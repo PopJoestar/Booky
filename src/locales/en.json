@@ -18,7 +18,9 @@
     "yes": "Yes",
     "no": "No",
     "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library ?",
-    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?"
+    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?",
+    "storage_access_required_delete_file": "Storage access is required to delete files",
+    "settings": "Settings"
   },
   "library": {
     "books": "Books",

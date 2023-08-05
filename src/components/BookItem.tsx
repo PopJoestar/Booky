@@ -27,6 +27,7 @@ import {BookModel} from '@/database';
 import ConfirmationDialog from './ConfirmationDialog';
 import {requestExternalStoragePermission} from '@/utils/permissions';
 import {deleteFile} from '@/utils/files';
+import StorageAccessSnackBar from './StorageAccessSnackBar';
 
 type Props = {item: BookModel};
 
@@ -38,11 +39,12 @@ const BookItem = ({item}: Props) => {
     isRemoveFromLibraryConfirmationDialogVisible,
     toggleIsRemoveFromLibraryConfirmationDialogVisible,
   ] = useToggle();
-
   const [
     isRemoveEverywhereConfirmationDialogVisible,
     toggleIsRemoveEverywhereConfirmationDialogVisible,
   ] = useToggle();
+  const [isStorageAccessSnackbarVisible, toggleIsStorageAccessSnackbarVisible] =
+    useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
   const {updateBook, removeBook} = useBookRepository();
@@ -94,6 +96,8 @@ const BookItem = ({item}: Props) => {
     const isExternalStorageManager = await requestExternalStoragePermission();
 
     if (!isExternalStorageManager) {
+      toggleIsRemoveEverywhereConfirmationDialogVisible();
+      toggleIsStorageAccessSnackbarVisible();
       return;
     }
 
@@ -272,6 +276,10 @@ const BookItem = ({item}: Props) => {
           onReject={toggleIsRemoveEverywhereConfirmationDialogVisible}
           visible={isRemoveEverywhereConfirmationDialogVisible}
           content={t('common:confirm_remove_everywhere', {title: item.title})}
+        />
+        <StorageAccessSnackBar
+          visible={isStorageAccessSnackbarVisible}
+          onDismiss={toggleIsStorageAccessSnackbarVisible}
         />
       </Portal>
     </>

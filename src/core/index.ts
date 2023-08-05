@@ -16,6 +16,7 @@ import Row from './Row';
 import SafeAreaView from './SafeAreaView';
 import ScrollView from './ScrollView';
 import Searchbar from './Searchbar';
+import Surface from './Surface';
 import Text from './Text';
 import TextInput from './TextInput';
 import TouchableOpacity from './TouchableOpacity';
@@ -44,4 +45,5 @@ export {
   FlashMessageSuccessIcon,
   ProgressBar,
   IconButton,
+  Surface,
 };
