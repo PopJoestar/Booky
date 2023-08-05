@@ -55,6 +55,7 @@ const DownloadBookDialog = ({book, onDismiss, ...rest}: Props) => {
                 )
                 .map((downloadLink, index) => (
                   <RadioButton.Item
+                    key={index}
                     label={downloadLink.host}
                     value={index.toString(10)}
                     position="leading"
