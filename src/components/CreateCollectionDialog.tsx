@@ -1,15 +1,15 @@
 import {Box, Button, ControlledTextInput} from '@/core';
 import {useCollectionRepository} from '@/hooks';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
 import {Dialog, DialogProps} from 'react-native-paper';
 
 type Props = {} & Omit<DialogProps, 'children'>;
 
-const CreateCollectionDialog = ({onDismiss, ...rest}: Props) => {
+const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
   const {t} = useTranslation();
-  const {control, handleSubmit} = useForm<{name: string}>();
+  const {control, handleSubmit, reset} = useForm<{name: string}>();
   const {createCollection} = useCollectionRepository();
 
   const _createCollection = handleSubmit(({name}) => {
@@ -19,8 +19,19 @@ const CreateCollectionDialog = ({onDismiss, ...rest}: Props) => {
     }
   });
 
+  useEffect(() => {
+    if (!visible) {
+      reset({name: ''});
+    }
+  }, [reset, visible]);
+
   return (
-    <Dialog {...rest} dismissable dismissableBackButton onDismiss={onDismiss}>
+    <Dialog
+      {...rest}
+      visible={visible}
+      dismissable
+      dismissableBackButton
+      onDismiss={onDismiss}>
       <Dialog.Title>{t('common:create_collection')}</Dialog.Title>
       <Dialog.Content>
         <Box rowGap={'m'}>
