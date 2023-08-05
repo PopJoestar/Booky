@@ -1,3 +1,4 @@
+import AddBookToCollectionModal from './AddBookToCollectionModal';
 import BookList from './BookList';
 import CollectionItem from './CollectionItem';
 import CollectionScreenHeader from './CollectionScreenHeader';
@@ -16,4 +17,5 @@ export {
   BookList,
   CreateCollectionDialog,
   CollectionItem,
+  AddBookToCollectionModal,
 };

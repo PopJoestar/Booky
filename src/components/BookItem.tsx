@@ -30,6 +30,7 @@ import {deleteFile} from '@/utils/files';
 import StorageAccessSnackBar from './StorageAccessSnackBar';
 import DownloadBookDialog from './DownloadBookDialog';
 import {BookService} from '@/services';
+import AddBookToCollectionModal from './AddBookToCollectionModal';
 
 type Props = {item: BookModel};
 
@@ -49,6 +50,10 @@ const BookItem = ({item}: Props) => {
     useToggle();
   const [isDownloadBookDialogVisible, toggleIsDownloadBookDialogVisible] =
     useToggle();
+  const [
+    isAddBookToCollectionModalVisible,
+    toggleIsAddBookToCollectionModalVisible,
+  ] = useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
   const {updateBook, removeBook} = useBookRepository();
@@ -79,6 +84,11 @@ const BookItem = ({item}: Props) => {
     setTimeout(() => {
       toggleIsRemoveFromLibraryConfirmationDialogVisible();
     }, 1);
+  };
+
+  const handleOnPressAddToCollection = () => {
+    toggleIsMenuVisible();
+    toggleIsAddBookToCollectionModalVisible();
   };
 
   const removeFromLibrary = () => {
@@ -247,7 +257,7 @@ const BookItem = ({item}: Props) => {
                       title={t('common:see_details')}
                     />
                     <Menu.Item
-                      onPress={() => {}}
+                      onPress={handleOnPressAddToCollection}
                       title={t('common:add_to_a_collection')}
                     />
                     <Menu.Item
@@ -310,6 +320,11 @@ const BookItem = ({item}: Props) => {
           book={item}
           visible={isDownloadBookDialogVisible}
           onDismiss={toggleIsDownloadBookDialogVisible}
+        />
+        <AddBookToCollectionModal
+          book={item}
+          visible={isAddBookToCollectionModalVisible}
+          onDismiss={toggleIsAddBookToCollectionModalVisible}
         />
       </Portal>
     </>
