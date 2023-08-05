@@ -10,7 +10,7 @@ export class CollectionBook extends Realm.Object<CollectionBook> {
   };
 }
 export class CollectionModel extends Realm.Object<CollectionModel> {
-  _id!: Realm.BSON.ObjectId;
+  id!: Realm.BSON.ObjectId;
   name!: string;
   books!: Realm.List<BookModel>;
   createdAt!: Date;
@@ -18,10 +18,11 @@ export class CollectionModel extends Realm.Object<CollectionModel> {
   static schema = {
     name: 'Collection',
     properties: {
-      _id: 'objectId',
+      id: 'objectId',
       name: 'string',
       createdAt: 'date',
       books: {type: 'list', default: [], objectType: 'CollectionBook'},
     },
+    primaryKey: 'id',
   };
 }

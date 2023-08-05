@@ -3,6 +3,7 @@ import useBookDownloadInfoObject from './useBookDownloadInfoObject';
 import useBookDownloadInfoRepository from './useBookDownloadInfoRepository';
 import useBookObject from './useBookObject';
 import useBookRepository from './useBookRepository';
+import useCollectionRepository from './useCollectionRepository';
 import useDownloadBook from './useDownloadBook';
 import useGetRemoteBookDetailsQuery from './useGetRemoteBookDetailsQuery';
 import useMessageDisplayer from './useMessageDisplayer';
@@ -22,4 +23,5 @@ export {
   useSettings,
   useBookDownloadInfoRepository,
   useToggle,
+  useCollectionRepository,
 };
