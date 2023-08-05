@@ -19,9 +19,9 @@ import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
-import {NavigationTheme} from 'react-native-paper/lib/typescript/src/types';
 import {Theme} from './types';
 import {borderRadii, breakpoints, sizes, spacing} from './layout';
+import {NavigationTheme} from 'react-native-paper/lib/typescript/types';
 
 type Material3ThemeProviderProps = {
   theme: Material3Theme;
