@@ -7,9 +7,13 @@ import {
   Text,
   TouchableRipple,
 } from '@/core';
-import {BookModel} from '@/database';
-import {useCollectionRepository, useCollections} from '@/hooks';
-import React from 'react';
+import {BookModel, useRealm} from '@/database';
+import {
+  useBookRepository,
+  useCollectionRepository,
+  useCollections,
+} from '@/hooks';
+import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
 import {Keyboard} from 'react-native';
@@ -21,18 +25,58 @@ type Props = {
 
 const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
   const {t} = useTranslation();
+  const realm = useRealm();
+  const collections = useCollections();
+  const {updateBook} = useBookRepository();
+  const [selectedCollectionIds, setSelectedCollectionIds] = useState(
+    book.collections,
+  );
   const {control, handleSubmit, setValue} = useForm<{
     newCollectionName: string;
   }>();
   const {createCollection} = useCollectionRepository();
 
-  const collections = useCollections();
+  const onSelectCollection = (collectionId: Realm.BSON.ObjectId) => {
+    const collectionIndex = selectedCollectionIds.findIndex(id =>
+      id.equals(collectionId),
+    );
+    const temp = [...selectedCollectionIds];
+
+    if (collectionIndex === -1) {
+      temp.push(collectionId);
+      setSelectedCollectionIds(temp);
+      return;
+    }
+
+    temp.splice(collectionIndex, 1);
+    setSelectedCollectionIds(temp);
+  };
 
   const _createCollection = handleSubmit(({newCollectionName}) => {
     createCollection(newCollectionName);
     setValue('newCollectionName', '');
     Keyboard.dismiss();
   });
+
+  const updateBookCollections = () => {
+    updateBook(book.md5!, {collections: selectedCollectionIds});
+
+    realm.write(() => {
+      collections.forEach(collection => {
+        if (
+          selectedCollectionIds.findIndex(selectedCollection =>
+            selectedCollection.equals(collection.id),
+          ) !== -1
+        ) {
+          collection.books.push(book);
+        }
+      });
+    });
+    if (onDismiss) {
+      onDismiss();
+    }
+  };
+
   return (
     <Dialog {...rest} dismissable dismissableBackButton onDismiss={onDismiss}>
       <Dialog.Title>{book.title}</Dialog.Title>
@@ -66,7 +110,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
             {collections.map(collection => (
               <TouchableRipple
                 key={collection.id.toHexString()}
-                onPress={() => {}}>
+                onPress={() => onSelectCollection(collection.id)}>
                 <Row
                   alignItems={'center'}
                   columnGap={'m'}
@@ -76,7 +120,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
                   </Box>
                   <Checkbox
                     status={
-                      book.collections.findIndex(c =>
+                      selectedCollectionIds.findIndex(c =>
                         c.equals(collection.id),
                       ) !== -1
                         ? 'checked'
@@ -90,7 +134,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
         </Dialog.ScrollArea>
       )}
       <Dialog.Actions>
-        <Button>{t('common:confirm')}</Button>
+        <Button onPress={updateBookCollections}>{t('common:confirm')}</Button>
       </Dialog.Actions>
     </Dialog>
   );

@@ -2,7 +2,7 @@ import {createRealmContext} from '@realm/react';
 import {BookModel, DownloadLinkModel} from './models/BookModel';
 import {SettingsModel} from './models/SettingsModel';
 import {BookDownloadInfoModel} from './models/BookDownloadInfoModel';
-import {CollectionBook, CollectionModel} from './models/CollectionModel';
+import {CollectionModel} from './models/CollectionModel';
 
 export const {useQuery, useRealm, useObject, RealmProvider} =
   createRealmContext({
@@ -12,6 +12,5 @@ export const {useQuery, useRealm, useObject, RealmProvider} =
       SettingsModel,
       BookDownloadInfoModel,
       CollectionModel,
-      CollectionBook,
     ],
   });
