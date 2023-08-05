@@ -20,7 +20,7 @@ const CreateCollectionDialog = ({onDismiss, ...rest}: Props) => {
   });
 
   return (
-    <Dialog {...rest} dismissable dismissableBackButton>
+    <Dialog {...rest} dismissable dismissableBackButton onDismiss={onDismiss}>
       <Dialog.Title>{t('common:create_collection')}</Dialog.Title>
       <Dialog.Content>
         <Box rowGap={'m'}>

@@ -1,4 +1,5 @@
 import BookList from './BookList';
+import CollectionItem from './CollectionItem';
 import CollectionScreenHeader from './CollectionScreenHeader';
 import CreateCollectionDialog from './CreateCollectionDialog';
 import LibraryScreenHeader from './LibraryScreenHeader';
@@ -14,4 +15,5 @@ export {
   LibraryScreenHeader,
   BookList,
   CreateCollectionDialog,
+  CollectionItem,
 };

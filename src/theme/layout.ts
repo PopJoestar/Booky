@@ -34,6 +34,9 @@ export const sizes = {
   book_poster_image_height: 165,
   book_poster_image_width: 120,
   book_card_estimated_height: 137,
+  collection_item_width: 178,
+  collection_item_height: 218,
+  FAB: 100,
 };
 
 export const breakpoints = {
