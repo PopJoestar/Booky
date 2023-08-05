@@ -29,7 +29,8 @@
     "field_required": "This field is required",
     "field_min_length_one": "Minimum {{count}} character",
     "field_min_length_other": "Minimum {{count}} characters",
-    "no_book": "No book"
+    "no_book": "No book",
+    "no_application_to_open_file": "No application found to open {{- file}}"
   },
   "library": {
     "books": "Books",

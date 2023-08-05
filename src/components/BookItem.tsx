@@ -1,4 +1,9 @@
-import {useBookDownloadInfoObject, useBookRepository, useToggle} from '@/hooks';
+import {
+  useBookDownloadInfoObject,
+  useBookRepository,
+  useMessageDisplayer,
+  useToggle,
+} from '@/hooks';
 import {useDownloadBook} from '@/hooks';
 import {
   Row,
@@ -31,12 +36,14 @@ import StorageAccessSnackBar from './StorageAccessSnackBar';
 import DownloadBookDialog from './DownloadBookDialog';
 import {BookService} from '@/services';
 import AddBookToCollectionModal from './AddBookToCollectionModal';
+import {BaseError} from '@/types/errors';
+import {ErrorConstant} from '@/constants';
 
 type Props = {item: BookModel};
 
 const BookItem = ({item}: Props) => {
   const {t} = useTranslation('common');
-
+  const {showMessage} = useMessageDisplayer();
   const [isMenuVisible, toggleIsMenuVisible] = useToggle();
   const [
     isRemoveFromLibraryConfirmationDialogVisible,
@@ -141,7 +148,21 @@ const BookItem = ({item}: Props) => {
     }
 
     if (status === 'downloaded') {
-      await BookService.openBook(item);
+      try {
+        await BookService.openBook(item);
+      } catch (error) {
+        if (
+          error instanceof BaseError &&
+          error.code === ErrorConstant.NO_ACTIVITY_FOUND_TO_OPEN_FILE
+        ) {
+          showMessage({
+            message: t('common:no_application_to_open_file', {
+              file: `${item.title}.${item.extension.toLowerCase()}`,
+            }),
+            position: {bottom: 70},
+          });
+        }
+      }
     }
   };
 

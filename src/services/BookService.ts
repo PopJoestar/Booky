@@ -1,10 +1,11 @@
-import {Constants} from '@/constants';
+import {Constants, ErrorConstant} from '@/constants';
 import {Book, DownloadLink} from '@/interfaces/Book';
 import * as FileSystem from 'expo-file-system';
 import NotificationService from './NotificationService';
 import {AndroidCategory} from '@notifee/react-native';
 import {openFileWithThirdPartyApp} from '@/utils/files';
 import {getFileNameFromDownloadLink} from '@/utils/request';
+import {BaseError} from '@/types/errors';
 
 export type DownloadBookOptions = {
   onProgress?: FileSystem.FileSystemNetworkTaskProgressCallback<FileSystem.DownloadProgressData>;
@@ -115,7 +116,7 @@ export const createDownloadLifecycleNotificationHooks = async (book: Book) => {
   return {init, onProgress, onSuccess, notificationId: book.md5};
 };
 
-const getDownloadLink = (downloadLinks: DownloadLink[]) => {
+export const getDownloadLink = (downloadLinks: DownloadLink[]) => {
   const index = getDefaultDownloadHostIndex(downloadLinks.length);
   if (index < 0) {
     return null;
@@ -123,7 +124,7 @@ const getDownloadLink = (downloadLinks: DownloadLink[]) => {
   return downloadLinks[index];
 };
 
-const getDefaultDownloadHostIndex = (downloadLinksLength: number) => {
+export const getDefaultDownloadHostIndex = (downloadLinksLength: number) => {
   if (downloadLinksLength > Constants.DEFAULT_DOWNLOAD_HOST_INDEX) {
     return Constants.DEFAULT_DOWNLOAD_HOST_INDEX;
   }
@@ -131,18 +132,29 @@ const getDefaultDownloadHostIndex = (downloadLinksLength: number) => {
   return downloadLinksLength - 1;
 };
 
-const openBook = async (book: Book) => {
+/**
+ * Opens a book using a third-party app.
+ * @param {Book} book - The book object containing information about the book and its file path.
+ * @throws {BaseError} Throws ErrorConstant.NO_ACTIVITY_FOUND_TO_OPEN_FILE if there's no activity found to handle the file intent.
+ * @returns {Promise<void>} Resolves when the book is opened successfully or rejects if an error occurs.
+ */
+export const openBook = async (book: Book) => {
   if (book.filePath === '') {
     return;
   }
-  await openFileWithThirdPartyApp(book.filePath);
+  try {
+    await openFileWithThirdPartyApp(book.filePath);
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.includes('No Activity found to handle Intent')
+    ) {
+      throw new BaseError(
+        ErrorConstant.NO_ACTIVITY_FOUND_TO_OPEN_FILE,
+        error.message,
+        error,
+      );
+    }
+    throw error;
+  }
 };
-
-const BookService = {
-  downloadBook,
-  createDownloadLifecycleNotificationHooks,
-  getDefaultDownloadHostIndex,
-  openBook,
-};
-
-export default BookService;

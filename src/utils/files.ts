@@ -25,7 +25,7 @@ export function getMimeType(filename: string) {
 export const openFileWithThirdPartyApp = async (fileUri: string) => {
   const fileSafUri = await FileSystem.getContentUriAsync(fileUri);
 
-  startActivityAsync('android.intent.action.VIEW', {
+  await startActivityAsync('android.intent.action.VIEW', {
     data: fileSafUri,
     flags: 1,
   });

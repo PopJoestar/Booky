@@ -1,4 +1,4 @@
-import BookService from './BookService';
+import * as BookService from './BookService';
 import BookFinder from './LibgenBookFinder';
 import NotificationService from './NotificationService';
 
