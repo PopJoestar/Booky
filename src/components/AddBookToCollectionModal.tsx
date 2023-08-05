@@ -99,6 +99,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
             <Box flex={1}>
               <ControlledTextInput
                 control={control}
+                onSubmitEditing={_createCollection}
                 name="newCollectionName"
                 label={t('common:enter_collection_name')}
                 rules={{
