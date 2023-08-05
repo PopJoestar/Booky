@@ -63,12 +63,19 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
 
     realm.write(() => {
       collections.forEach(collection => {
-        if (
+        const bookIndexInCollection = collection.books.findIndex(_book =>
+          _book._id.equals(book._id),
+        );
+
+        const isCollectionSelected =
           selectedCollectionIds.findIndex(selectedCollection =>
             selectedCollection.equals(collection.id),
-          ) !== -1
-        ) {
+          ) !== -1;
+
+        if (isCollectionSelected && bookIndexInCollection === -1) {
           collection.books.push(book);
+        } else if (!isCollectionSelected && bookIndexInCollection !== -1) {
+          collection.books.splice(bookIndexInCollection, 1);
         }
       });
     });
