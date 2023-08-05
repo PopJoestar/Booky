@@ -2,6 +2,7 @@ import {Box, Image, Row, Surface, Text} from '@/core';
 import {CollectionModel} from '@/database';
 import {useAppTheme} from '@/hooks';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {StyleSheet} from 'react-native';
 
 type Props = {
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const CollectionItem = ({item}: Props) => {
+  const {t} = useTranslation();
   const {sizes, spacing} = useAppTheme();
   const bookImages = item.books.map(book => book.image);
   const splicedBookImages = [...bookImages].splice(0, 3);
@@ -26,7 +28,7 @@ const CollectionItem = ({item}: Props) => {
       <Box flex={2} minHeight={112}>
         {item.books.length === 0 ? (
           <Box flex={1} alignItems={'center'} justifyContent={'center'}>
-            <Text variant={'bodySmall'}>No item</Text>
+            <Text variant={'bodySmall'}>{t('common:no_book')}</Text>
           </Box>
         ) : null}
         {item.books.length > 0 ? (

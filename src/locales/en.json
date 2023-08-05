@@ -28,7 +28,8 @@
     "enter_collection_name": "Enter collection name",
     "field_required": "This field is required",
     "field_min_length_one": "Minimum {{count}} character",
-    "field_min_length_other": "Minimum {{count}} characters"
+    "field_min_length_other": "Minimum {{count}} characters",
+    "no_book": "No book"
   },
   "library": {
     "books": "Books",
