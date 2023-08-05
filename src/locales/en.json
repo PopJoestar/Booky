@@ -20,7 +20,8 @@
     "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library ?",
     "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?",
     "storage_access_required_delete_file": "Storage access is required to delete files",
-    "settings": "Settings"
+    "settings": "Settings",
+    "choose_gateway": "Choose a gateway to download {{- title}}"
   },
   "library": {
     "books": "Books",

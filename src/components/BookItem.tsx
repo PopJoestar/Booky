@@ -28,6 +28,7 @@ import ConfirmationDialog from './ConfirmationDialog';
 import {requestExternalStoragePermission} from '@/utils/permissions';
 import {deleteFile} from '@/utils/files';
 import StorageAccessSnackBar from './StorageAccessSnackBar';
+import DownloadBookDialog from './DownloadBookDialog';
 
 type Props = {item: BookModel};
 
@@ -44,6 +45,8 @@ const BookItem = ({item}: Props) => {
     toggleIsRemoveEverywhereConfirmationDialogVisible,
   ] = useToggle();
   const [isStorageAccessSnackbarVisible, toggleIsStorageAccessSnackbarVisible] =
+    useToggle();
+  const [isDownloadBookDialogVisible, toggleIsDownloadBookDialogVisible] =
     useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
@@ -119,6 +122,14 @@ const BookItem = ({item}: Props) => {
 
   const status = getStatus();
 
+  const handleOnPressBook = () => {
+    // The book is not downloaded yet
+    if (status === undefined) {
+      toggleIsDownloadBookDialogVisible();
+      return;
+    }
+  };
+
   return (
     <>
       <Animated.View entering={FadeIn} exiting={FadeOut}>
@@ -126,7 +137,7 @@ const BookItem = ({item}: Props) => {
           backgroundColor="surface"
           paddingLeft="m"
           paddingVertical={'m'}
-          onPress={() => {}}
+          onPress={handleOnPressBook}
           paddingRight="m">
           <Row>
             <Surface
@@ -280,6 +291,11 @@ const BookItem = ({item}: Props) => {
         <StorageAccessSnackBar
           visible={isStorageAccessSnackbarVisible}
           onDismiss={toggleIsStorageAccessSnackbarVisible}
+        />
+        <DownloadBookDialog
+          book={item}
+          visible={isDownloadBookDialogVisible}
+          onDismiss={toggleIsDownloadBookDialogVisible}
         />
       </Portal>
     </>
