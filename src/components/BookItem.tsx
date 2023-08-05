@@ -233,6 +233,15 @@ const BookItem = ({item}: Props) => {
                         alignSelf={'flex-end'}
                       />
                     }>
+                    {status === undefined ? (
+                      <Menu.Item
+                        onPress={() => {
+                          toggleIsMenuVisible();
+                          toggleIsDownloadBookDialogVisible();
+                        }}
+                        title={t('common:download')}
+                      />
+                    ) : null}
                     <Menu.Item
                       onPress={() => {}}
                       title={t('common:see_details')}
