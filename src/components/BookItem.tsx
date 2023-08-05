@@ -29,6 +29,7 @@ import {requestExternalStoragePermission} from '@/utils/permissions';
 import {deleteFile} from '@/utils/files';
 import StorageAccessSnackBar from './StorageAccessSnackBar';
 import DownloadBookDialog from './DownloadBookDialog';
+import {BookService} from '@/services';
 
 type Props = {item: BookModel};
 
@@ -122,11 +123,15 @@ const BookItem = ({item}: Props) => {
 
   const status = getStatus();
 
-  const handleOnPressBook = () => {
+  const handleOnPressBook = async () => {
     // The book is not downloaded yet
     if (status === undefined) {
       toggleIsDownloadBookDialogVisible();
       return;
+    }
+
+    if (status === 'downloaded') {
+      await BookService.openBook(item);
     }
   };
 
