@@ -13,6 +13,7 @@ import {
   useCollectionRepository,
   useCollections,
 } from '@/hooks';
+import Styles from '@/utils/styles';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
@@ -89,6 +90,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
       {...rest}
       dismissable={false}
       dismissableBackButton
+      style={Styles.dialogWrapper}
       onDismiss={onDismiss}>
       <Dialog.Title>{book.title}</Dialog.Title>
       <Dialog.Content>
