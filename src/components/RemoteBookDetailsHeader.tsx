@@ -1,7 +1,7 @@
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {Appbar} from 'react-native-paper';
-import {useBookRepository} from '@/hooks';
+import {useBookRepository, useGetRemoteBookDetailsQuery} from '@/hooks';
 import {useTranslation} from 'react-i18next';
 import {useAppTheme, useMessageDisplayer} from '@/hooks';
 import {FlashMessageSuccessIcon} from '@/core';
@@ -13,6 +13,10 @@ const RemoteBookDetailsHeader = ({navigation}: NativeStackHeaderProps) => {
   const currentBook = useTempBookStore(state => state.tempBook);
   const {getBook, addBook, removeBook} = useBookRepository();
   const {t} = useTranslation();
+
+  const {isLoading, error} = useGetRemoteBookDetailsQuery({
+    bookDetailsUrl: currentBook.details_url!,
+  });
 
   const isBookInLibrary = () => {
     if (currentBook.md5 == null) {
@@ -51,11 +55,13 @@ const RemoteBookDetailsHeader = ({navigation}: NativeStackHeaderProps) => {
         <Appbar.BackAction onPress={navigation.goBack} />
       ) : null}
       <Appbar.Content title="" />
-      <Appbar.Action
-        icon={_isBookInLibrary ? 'bookmark' : 'bookmark-outline'}
-        color={_isBookInLibrary ? colors.tertiary : undefined}
-        onPress={_isBookInLibrary ? callRemoveBook : saveBook}
-      />
+      {isLoading || error ? null : (
+        <Appbar.Action
+          icon={_isBookInLibrary ? 'bookmark' : 'bookmark-outline'}
+          color={_isBookInLibrary ? colors.tertiary : undefined}
+          onPress={_isBookInLibrary ? callRemoveBook : saveBook}
+        />
+      )}
     </Appbar.Header>
   );
 };
