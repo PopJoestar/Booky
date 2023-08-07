@@ -275,10 +275,6 @@ const BookItem = ({item}: Props) => {
                       />
                     ) : null}
                     <Menu.Item
-                      onPress={() => {}}
-                      title={t('common:see_details')}
-                    />
-                    <Menu.Item
                       onPress={handleOnPressAddToCollection}
                       title={t('common:add_to_a_collection')}
                     />
