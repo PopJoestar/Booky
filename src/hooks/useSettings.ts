@@ -3,7 +3,7 @@ import {SettingsModel, useQuery, useRealm} from '@/database';
 
 type Settings = {
   downloadPath: string | null;
-  isDarkMode: boolean | null;
+  appearance: number;
   theme: string | null;
   language: string;
   showVPNWarning: boolean;
@@ -46,9 +46,9 @@ const useSettings = () => {
   );
 
   return {
-    downloadPath: setting ? setting.downloadPath : null,
-    isDarkMode: setting ? setting.isDarkMode : false,
-    theme: setting ? setting.theme : null,
+    downloadPath: setting ? setting.downloadPath : undefined,
+    appearance: setting ? setting.appearance : 2,
+    theme: setting ? setting.theme : undefined,
     language: setting ? setting.language : 'fr',
     updateSettings,
   };

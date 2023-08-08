@@ -1,7 +1,7 @@
 export class SettingsModel extends Realm.Object<SettingsModel> {
   theme?: string;
   downloadPath?: string;
-  isDarkMode!: boolean;
+  appearance!: number;
   language!: string;
   showVPNWarning!: boolean;
   hasDownloadedBook!: boolean;
@@ -11,7 +11,7 @@ export class SettingsModel extends Realm.Object<SettingsModel> {
     properties: {
       theme: 'string?',
       downloadPath: 'string?',
-      isDarkMode: {type: 'bool', default: false},
+      appearance: {type: 'int', default: 2},
       language: {type: 'string', default: 'fr'},
       showVPNWarning: {type: 'bool', default: true},
       hasDownloadedBook: {type: 'bool', default: true},
