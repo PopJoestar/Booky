@@ -21,8 +21,6 @@ const useSettings = () => {
         //@ts-ignore
         realm.create<SettingsModel>('Settings', {
           downloadPath: null,
-          isDarkMode: false,
-          theme: null,
           language: 'fr',
         });
       });

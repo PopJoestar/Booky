@@ -42,6 +42,7 @@
     "react-native-screens": "^3.22.1",
     "react-native-vector-icons": "^10.0.0",
     "realm": "^11.10.1",
+    "reanimated-color-picker": "^2.3.2",
     "swr": "^2.2.0",
     "zustand": "^4.3.9"
   },

@@ -5,7 +5,6 @@ import {
   createTheme,
 } from '@shopify/restyle';
 import {createContext, useContext} from 'react';
-import {useColorScheme} from 'react-native';
 import {
   MD3DarkTheme,
   MD3LightTheme,
@@ -22,7 +21,6 @@ import {
 import {Theme} from './types';
 import {borderRadii, breakpoints, sizes, spacing} from './layout';
 import {NavigationTheme} from 'react-native-paper/lib/typescript/types';
-import {useSettings} from '@/hooks';
 
 type Material3ThemeProviderProps = {
   theme: Material3Theme;
@@ -39,24 +37,17 @@ export const Material3ThemeProvider = ({
   children,
   sourceColor,
   fallbackSourceColor,
+  isDark,
   ...otherProps
-}: ProviderProps & {sourceColor?: string; fallbackSourceColor?: string}) => {
-  const colorScheme = useColorScheme();
-  const {appearance} = useSettings();
-
+}: ProviderProps & {
+  sourceColor?: string;
+  fallbackSourceColor?: string;
+  isDark: boolean;
+}) => {
   const {theme, updateTheme, resetTheme} = useMaterial3Theme({
     sourceColor,
     fallbackSourceColor,
   });
-
-  const isDark = (() => {
-    // System
-    if (appearance === 2) {
-      return colorScheme === 'dark';
-    }
-
-    return appearance === 1;
-  })();
 
   const paperTheme = isDark
     ? {...MD3DarkTheme, colors: theme.dark}

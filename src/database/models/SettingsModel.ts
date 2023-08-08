@@ -9,7 +9,7 @@ export class SettingsModel extends Realm.Object<SettingsModel> {
   static schema = {
     name: 'Settings',
     properties: {
-      theme: 'string?',
+      theme: {type: 'string', default: 'dynamic'},
       downloadPath: 'string?',
       appearance: {type: 'int', default: 2},
       language: {type: 'string', default: 'fr'},

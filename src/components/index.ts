@@ -9,6 +9,7 @@ import PlusScreenHeader from './PlusScreenHeader';
 import RemoteBookDetailsHeader from './RemoteBookDetailsHeader';
 import RemoteBookItem from './RemoteBookItem';
 import SearchBooksScreenHeader from './SearchBooksScreenHeader';
+import UpdateThemeDialog from './UpdateThemeDialog';
 
 export {
   RemoteBookItem,
@@ -22,4 +23,5 @@ export {
   AddBookToCollectionModal,
   PlusScreenHeader,
   DarkModeOptionsDialog,
+  UpdateThemeDialog,
 };

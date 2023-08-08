@@ -1,7 +1,7 @@
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {StatusBar, StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Navigations from './navigation/Navigations';
 
@@ -12,13 +12,12 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import FlashMessage from 'react-native-flash-message';
 import {RealmProvider} from './database';
+import {useSettings} from './hooks';
 
 const App = () => {
   return (
     <RealmProvider fallback={<></>}>
-      <Material3ThemeProvider>
-        <AppContent />
-      </Material3ThemeProvider>
+      <Main />
     </RealmProvider>
   );
 };
@@ -40,6 +39,26 @@ const AppContent = () => {
         <FlashMessageContainer />
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
+  );
+};
+
+const Main = () => {
+  const {appearance} = useSettings();
+  const colorScheme = useColorScheme();
+
+  const isDark = (() => {
+    // System
+    if (appearance === 2) {
+      return colorScheme === 'dark';
+    }
+
+    return appearance === 1;
+  })();
+
+  return (
+    <Material3ThemeProvider isDark={isDark}>
+      <AppContent />
+    </Material3ThemeProvider>
   );
 };
 

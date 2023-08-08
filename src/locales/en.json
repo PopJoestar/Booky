@@ -39,7 +39,12 @@
       "activated": "Activated",
       "system": "System"
     },
-    "appearance": "Appearance"
+    "appearance": "Appearance",
+    "theme": {
+      "title": "Theme",
+      "dynamic": "Dynamic",
+      "dynamic_theme_notice": "When dynamic color is enabled, Booky will take the color of your wallpaper and adjust its theme automatically"
+    }
   },
   "library": {
     "books": "Books",
