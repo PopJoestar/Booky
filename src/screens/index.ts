@@ -1,5 +1,6 @@
 import CollectionsScreen from './CollectionsScreen';
 import LibraryScreen from './LibraryScreen';
+import PlusScreen from './PlusScreen';
 import RemoteBookDetailsScreen from './RemoteBookDetailsScreen';
 import SearchBooksScreen from './SearchBooksScreen';
 
@@ -8,4 +9,5 @@ export {
   RemoteBookDetailsScreen,
   CollectionsScreen,
   LibraryScreen,
+  PlusScreen,
 };

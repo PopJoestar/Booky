@@ -2,7 +2,7 @@ import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {MainTabParamList} from './types';
 import {useTranslation} from 'react-i18next';
-import {CollectionsScreen, LibraryScreen} from '@/screens';
+import {CollectionsScreen, LibraryScreen, PlusScreen} from '@/screens';
 
 const Tab = createMaterialBottomTabNavigator<MainTabParamList>();
 
@@ -29,7 +29,7 @@ function MainTab() {
       />
       <Tab.Screen
         name="settings"
-        component={LibraryScreen}
+        component={PlusScreen}
         options={{
           tabBarIcon: 'dots-horizontal',
           title: t('more:title'),
