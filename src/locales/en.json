@@ -31,7 +31,15 @@
     "field_min_length_one": "Minimum {{count}} character",
     "field_min_length_other": "Minimum {{count}} characters",
     "no_book": "No book",
-    "no_application_to_open_file": "No application found to open {{- file}}"
+    "no_application_to_open_file": "No application found to open {{- file}}",
+    "dark_mode": "Dark mode",
+    "dark_mode_notice": "If you choose System, Booky will adjust its appearance based on system settings",
+    "dark_mode_options": {
+      "deactivated": "Deactivated",
+      "activated": "Activated",
+      "system": "System"
+    },
+    "appearance": "Appearance"
   },
   "library": {
     "books": "Books",

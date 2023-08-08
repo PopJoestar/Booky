@@ -22,6 +22,7 @@ import {
 import {Theme} from './types';
 import {borderRadii, breakpoints, sizes, spacing} from './layout';
 import {NavigationTheme} from 'react-native-paper/lib/typescript/types';
+import {useSettings} from '@/hooks';
 
 type Material3ThemeProviderProps = {
   theme: Material3Theme;
@@ -41,16 +42,25 @@ export const Material3ThemeProvider = ({
   ...otherProps
 }: ProviderProps & {sourceColor?: string; fallbackSourceColor?: string}) => {
   const colorScheme = useColorScheme();
+  const {appearance} = useSettings();
 
   const {theme, updateTheme, resetTheme} = useMaterial3Theme({
     sourceColor,
     fallbackSourceColor,
   });
 
-  const paperTheme =
-    colorScheme === 'dark'
-      ? {...MD3DarkTheme, colors: theme.dark}
-      : {...MD3LightTheme, colors: theme.light};
+  const isDark = (() => {
+    // System
+    if (appearance === 2) {
+      return colorScheme === 'dark';
+    }
+
+    return appearance === 1;
+  })();
+
+  const paperTheme = isDark
+    ? {...MD3DarkTheme, colors: theme.dark}
+    : {...MD3LightTheme, colors: theme.light};
 
   const restyleTheme: Theme = createTheme({
     colors: {...paperTheme.colors, elevation: 'transparent'},
@@ -65,12 +75,11 @@ export const Material3ThemeProvider = ({
     adaptNavigationTheme({
       reactNavigationLight: NavigationDefaultTheme,
       reactNavigationDark: NavigationDarkTheme,
-      materialLight: {...MD3LightTheme, colors: theme.light},
-      materialDark: {...MD3DarkTheme, colors: theme.dark},
+      materialLight: {...MD3LightTheme, colors: paperTheme.colors},
+      materialDark: {...MD3DarkTheme, colors: paperTheme.colors},
     });
 
-  const navigationTheme =
-    colorScheme === 'dark' ? navigationDarkTheme : navigationLightTheme;
+  const navigationTheme = isDark ? navigationDarkTheme : navigationLightTheme;
 
   return (
     <Material3ThemeProviderContext.Provider
@@ -79,7 +88,7 @@ export const Material3ThemeProvider = ({
         updateTheme,
         resetTheme,
         navigationTheme,
-        isDark: colorScheme === 'dark',
+        isDark,
       }}>
       <RestyleThemeProvider theme={restyleTheme}>
         <PaperProvider theme={paperTheme} {...otherProps}>

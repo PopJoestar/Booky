@@ -3,6 +3,7 @@ import BookList from './BookList';
 import CollectionItem from './CollectionItem';
 import CollectionScreenHeader from './CollectionScreenHeader';
 import CreateCollectionDialog from './CreateCollectionDialog';
+import DarkModeOptionsDialog from './DarkModeOptionsDialog';
 import LibraryScreenHeader from './LibraryScreenHeader';
 import PlusScreenHeader from './PlusScreenHeader';
 import RemoteBookDetailsHeader from './RemoteBookDetailsHeader';
@@ -20,4 +21,5 @@ export {
   CollectionItem,
   AddBookToCollectionModal,
   PlusScreenHeader,
+  DarkModeOptionsDialog,
 };
