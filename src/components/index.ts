@@ -1,7 +1,7 @@
 import AddBookToCollectionModal from './AddBookToCollectionModal';
 import BookList from './BookList';
 import CollectionItem from './CollectionItem';
-import CollectionScreenHeader from './CollectionScreenHeader';
+import CollectionsTabHeader from './CollectionsTabHeader';
 import CreateCollectionDialog from './CreateCollectionDialog';
 import DarkModeOptionsDialog from './DarkModeOptionsDialog';
 import LibraryScreenHeader from './LibraryScreenHeader';
@@ -15,7 +15,7 @@ export {
   RemoteBookItem,
   SearchBooksScreenHeader,
   RemoteBookDetailsHeader,
-  CollectionScreenHeader,
+  CollectionsTabHeader,
   LibraryScreenHeader,
   BookList,
   CreateCollectionDialog,

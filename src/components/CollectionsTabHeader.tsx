@@ -2,7 +2,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Appbar} from 'react-native-paper';
 
-const CollectionScreenHeader = () => {
+const CollectionsTabHeader = () => {
   const {t} = useTranslation();
 
   return (
@@ -12,4 +12,4 @@ const CollectionScreenHeader = () => {
   );
 };
 
-export default CollectionScreenHeader;
+export default CollectionsTabHeader;

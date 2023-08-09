@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {FAB, Portal} from 'react-native-paper';
 import {
   CollectionItem,
-  CollectionScreenHeader,
+  CollectionsTabHeader,
   CreateCollectionDialog,
 } from '@/components';
 import {Box} from '@/core';
@@ -39,7 +39,7 @@ const CollectionsScreen = () => {
 
   return (
     <>
-      <CollectionScreenHeader />
+      <CollectionsTabHeader />
 
       <Animated.FlatList
         entering={FadeIn.duration(1000)}
