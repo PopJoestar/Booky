@@ -8,6 +8,7 @@ import useCollections from './useCollections';
 import useDownloadBook from './useDownloadBook';
 import useGetRemoteBookDetailsQuery from './useGetRemoteBookDetailsQuery';
 import useMessageDisplayer from './useMessageDisplayer';
+import useNavigationOptions from './useNavigationOptions';
 import useSearchBooksQuery from './useSearchBooksQuery';
 import useSettings from './useSettings';
 import useToggle from './useToggle';
@@ -26,4 +27,5 @@ export {
   useToggle,
   useCollectionRepository,
   useCollections,
+  useNavigationOptions,
 };
