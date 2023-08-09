@@ -104,7 +104,8 @@
     "title": "Collections",
     "create_collection": "Create Collection",
     "enter_collection_name": "Enter Collection Name",
-    "add_to_a_collection": "Add to Collection"
+    "add_to_a_collection": "Add to Collection",
+    "remove_collection": "Are you certain you want to remove {{- name}}? (The contained books will remain unaffected.)"
   },
   "book_details": {
     "book_info_label": {

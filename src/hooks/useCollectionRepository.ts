@@ -1,5 +1,6 @@
 import {CollectionModel, useRealm} from '@/database';
 import {useCallback} from 'react';
+import {PrimaryKey} from 'realm';
 
 const useCollectionRepository = () => {
   const realm = useRealm();
@@ -19,7 +20,34 @@ const useCollectionRepository = () => {
     [realm],
   );
 
-  return {createCollection};
+  const getColletion = useCallback(
+    (collectionId: PrimaryKey) => {
+      const response = realm.objectForPrimaryKey(CollectionModel, collectionId);
+
+      if (response == null) {
+        return null;
+      }
+
+      return response;
+    },
+    [realm],
+  );
+
+  const removeCollection = useCallback(
+    (collectionId: PrimaryKey) => {
+      const collection = getColletion(collectionId);
+
+      if (collection == null) {
+        return;
+      }
+      realm.write(() => {
+        realm.delete(collection);
+      });
+    },
+    [getColletion, realm],
+  );
+
+  return {createCollection, removeCollection};
 };
 
 export default useCollectionRepository;

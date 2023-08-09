@@ -7,7 +7,7 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 
-import {RemoteBookDetailsHeader} from '@/components';
+import {CollectionScreenHeader, RemoteBookDetailsHeader} from '@/components';
 import {
   CollectionScreen,
   RemoteBookDetailsScreen,
@@ -41,7 +41,13 @@ const Navigations = () => {
           header: RemoteBookDetailsHeader,
         }}
       />
-      <Stack.Screen name="collection" component={CollectionScreen} />
+      <Stack.Screen
+        name="collection"
+        component={CollectionScreen}
+        options={{
+          header: CollectionScreenHeader,
+        }}
+      />
     </Stack.Navigator>
   );
 };
