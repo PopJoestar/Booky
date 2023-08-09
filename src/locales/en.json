@@ -1,21 +1,21 @@
 {
   "common": {
-    "search": "Search author, title, isbn, ...",
+    "search": "Search by author, title, ISBN...",
     "all": "All",
     "save": "Save",
     "download": "Download",
     "confirm": "Confirm",
-    "cancel_download": "Cancel download",
+    "cancel_download": "Cancel Download",
     "open": "Open",
     "dismiss": "Dismiss",
     "create": "Create",
-    "unkown_author": "Unknown author",
+    "unknown_author": "Unknown Author",
     "version": "Version",
     "general": "General",
-    "unkown": "Unknown",
-    "mark_as_read": "Mark as read",
-    "mark_as_unread": "Mark as unread",
-    "see_details": "See details",
+    "unknown": "Unknown",
+    "mark_as_read": "Mark as Read",
+    "mark_as_unread": "Mark as Unread",
+    "see_details": "See Details",
     "read": "Read",
     "yes": "Yes",
     "no": "No",
@@ -25,7 +25,7 @@
     "field_required": "This field is required",
     "field_min_length_one": "Minimum {{count}} character",
     "field_min_length_other": "Minimum {{count}} characters",
-    "no_book": "No book",
+    "no_book": "No Books",
     "no_application_to_open_file": "No application found to open {{- file}}",
     "more": "More",
     "language": "Language"
@@ -35,12 +35,12 @@
     "theme": {
       "title": "Theme",
       "dynamic": "Dynamic",
-      "dynamic_theme_notice": "When dynamic color is enabled, Booky will take the color of your wallpaper and adjust its theme automatically",
-      "dynamic_color": "Dynamic color"
+      "dynamic_theme_notice": "When dynamic color is enabled, Booky will adapt its theme automatically to match your wallpaper color.",
+      "dynamic_color": "Dynamic Color"
     },
     "dark_mode": {
-      "title": "Dark mode",
-      "notice": "If you choose System, Booky will adjust its appearance based on system settings",
+      "title": "Dark Mode",
+      "notice": "If you choose 'System', Booky will adjust its appearance based on your system settings.",
       "options": {
         "deactivated": "Deactivated",
         "activated": "Activated",
@@ -50,25 +50,24 @@
   },
   "library": {
     "title": "Library",
-    "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library ?",
-    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?",
-    "remove_from_library": "Remove from library",
-    "remove_everywhere": "Remove everywhere"
+    "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library?",
+    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and your files?",
+    "remove_from_library": "Remove from Library",
+    "remove_everywhere": "Remove Everywhere"
   },
   "search": {
     "filter": {
-      "category": "Categorie",
+      "category": "Category",
       "language": "Language",
       "extension": "Extension"
     },
     "languages": {
-      "all": "Language",
+      "all": "All Languages",
       "croatian": "Croatian",
       "romanian": "Romanian",
-      "français": "French",
+      "french": "French",
       "turkish": "Turkish",
       "english": "English",
-      "french": "French",
       "malagasy": "Malagasy",
       "swedish": "Swedish",
       "spanish": "Spanish",
@@ -87,29 +86,31 @@
       "polish": "Polish"
     },
     "categories": {
-      "all": "Category",
+      "all": "All Categories",
       "fiction": "Fiction",
-      "non_fiction": "Non-fiction"
+      "non_fiction": "Non-Fiction",
+      "non_fiction_description": "History, Sciences, Self-help, Biographies, Informative and more",
+      "fiction_description": "Romance,  Sci-fi, fantasy, Thriller and more"
     },
     "extensions": {
-      "all": "Extension",
+      "all": "All Extensions",
       "pdf": "PDF",
       "epub": "EPUB",
       "djvu": "DJVU"
     },
-    "no_result_found_for": "No result found for {{query}}",
-    "add_to_a_collection": "Add to a collection"
+    "no_result_found_for": "No results found for '{{query}}'"
   },
   "collection": {
-    "title": "Collection",
-    "create_collection": "Create collection",
-    "enter_collection_name": "Enter collection name"
+    "title": "Collections",
+    "create_collection": "Create Collection",
+    "enter_collection_name": "Enter Collection Name",
+    "add_to_a_collection": "Add to Collection"
   },
   "book_details": {
     "book_info_label": {
-      "publisher_publication_date": "Publisher and publication date",
-      "nbr_page": "Number of pages",
-      "isbn": "Isbn",
+      "publisher_publication_date": "Publisher and Publication Date",
+      "nbr_page": "Number of Pages",
+      "isbn": "ISBN",
       "file": "File",
       "language": "Language",
       "series": "Series"

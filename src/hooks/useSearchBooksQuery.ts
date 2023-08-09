@@ -5,6 +5,7 @@ import {BookFinder} from '@/services';
 import {SearchBooksParams, SearchBooksResponse} from '@/interfaces/Book';
 import {Alert} from 'react-native';
 import {useSearchBooksOptionsStore} from '@/stores';
+import {SEARCH_OPTIONS} from '@/constants/searchOptions';
 
 function useSearchBooksQuery() {
   const {query, category, extension, language} = useSearchBooksOptionsStore(
@@ -33,9 +34,9 @@ function useSearchBooksQuery() {
       return {
         page: pageIndex + 1,
         query: query.trim().toLowerCase(),
-        language,
-        extension,
-        category,
+        language: SEARCH_OPTIONS.language[language].value,
+        extension: SEARCH_OPTIONS.extension[extension].value,
+        category: SEARCH_OPTIONS.category[category].value,
       };
     },
     [category, extension, language, query],

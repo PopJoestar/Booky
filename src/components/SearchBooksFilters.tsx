@@ -9,15 +9,7 @@ import {Box, Chip, Picker} from '@/core';
 import {Theme} from '@/theme';
 import {useAppTheme} from '@/hooks';
 import {FilterType} from '@/types/searchOption';
-import {
-  CATEGORIES_OPTIONS,
-  CATEGORIES_OPTIONS_MAP,
-  EXTENSION_OPTIONS,
-  EXTENSION_OPTIONS_MAP,
-  FILTERS_TYPES,
-  LANGUAGES_OPTIONS,
-  LANGUAGES_OPTIONS_MAP,
-} from '@/constants/searchOptions';
+import {SEARCH_OPTIONS} from '@/constants/searchOptions';
 import {useSearchBooksOptionsStore} from '@/stores';
 
 const SearchBooksFilters = (props: BoxProps<Theme>) => {
@@ -43,94 +35,73 @@ const SearchBooksFilters = (props: BoxProps<Theme>) => {
   };
 
   const renderFilter = (filterType: FilterType, index: number) => {
-    if (filters.category === 'NON_FICTION' && filterType === 'extension') {
+    if (filters.category === 1 && filterType === 'extension') {
       return;
     }
 
+    const filterValue = filters[filterType];
+
     return (
       <FilterItem
-        data={filterType}
+        value={filterType}
         onPress={toggleBottomSheet}
         key={index}
-        value={mapFiltersValueLabel(filterType)}
+        label={t(SEARCH_OPTIONS[filterType][filterValue].title)}
       />
     );
   };
 
-  const mapFiltersValueLabel = (filterType: FilterType) => {
-    switch (filterType) {
-      case 'language':
-        if (filters.language === 'ALL') {
-          return t('search:languages.all');
-        }
-        return t(LANGUAGES_OPTIONS_MAP[filters.language]);
-      case 'extension':
-        if (filters.extension === 'ALL') {
-          return t('search:extensions.all');
-        }
-
-        return t(EXTENSION_OPTIONS_MAP[filters.extension]);
-      case 'category':
-        return t(CATEGORIES_OPTIONS_MAP[filters.category]);
-    }
-  };
-
-  const selectExtension = (item: (typeof EXTENSION_OPTIONS)[number]) => {
-    filters.updateExtension(item.value);
+  const selectExtension = (selectedExtensionOptionIndex: number) => {
+    filters.updateExtension(selectedExtensionOptionIndex);
     extensionOptionHandle.current?.dismiss();
   };
 
-  const selectLanguage = (item: (typeof LANGUAGES_OPTIONS)[number]) => {
-    filters.updateLanguage(item.value);
+  const selectLanguage = (selectedLanguageOptionIndex: number) => {
+    filters.updateLanguage(selectedLanguageOptionIndex);
     languageOptionsHandle.current?.dismiss();
   };
 
-  const selectCategory = (item: (typeof CATEGORIES_OPTIONS)[number]) => {
-    filters.updateCategory(item.value);
+  const selectCategory = (selectedCategoryOptionIndex: number) => {
+    filters.updateCategory(selectedCategoryOptionIndex);
     categoryOptionsHandle.current?.dismiss();
   };
+
+  const isFictionCategorySelected = filters.category === 0;
 
   return (
     <>
       <Box {...props} flexDirection={'row'} marginStart="m">
-        {FILTERS_TYPES.map(renderFilter)}
+        {/* @ts-ignore */}
+        {Object.keys(SEARCH_OPTIONS).map(renderFilter)}
       </Box>
       <Picker
         ref={languageOptionsHandle}
-        options={LANGUAGES_OPTIONS}
-        titleExtractor={item => t(item.label)}
-        keyExtractor={(_, index) => index.toString()}
+        options={SEARCH_OPTIONS.language.map(option => ({
+          title: t(option.title),
+        }))}
+        selectedIndex={filters.language}
         itemHeight={sizes.listItem_one_line}
-        selected={{
-          value: filters.language,
-          label: LANGUAGES_OPTIONS_MAP[filters.language],
-        }}
         onPick={selectLanguage}
       />
       <Picker
         ref={categoryOptionsHandle}
-        options={CATEGORIES_OPTIONS}
-        titleExtractor={item => t(item.label)}
-        keyExtractor={(_, index) => index.toString()}
-        itemHeight={sizes.listItem_one_line}
-        selected={{
-          value: filters.category,
-          label: CATEGORIES_OPTIONS_MAP[filters.category],
-        }}
+        options={SEARCH_OPTIONS.category.map(option => ({
+          title: t(option.title),
+          description: t(option.description),
+        }))}
+        itemHeight={sizes.listItem_one_line + 20}
+        selectedIndex={filters.category}
         onPick={selectCategory}
       />
-      {filters.category === 'FICTION' ? (
+      {isFictionCategorySelected ? (
         <Picker
           ref={extensionOptionHandle}
-          options={EXTENSION_OPTIONS}
-          titleExtractor={item => t(item.label)}
-          keyExtractor={(_, index) => index.toString()}
+          options={SEARCH_OPTIONS.extension.map(option => ({
+            title: t(option.title),
+          }))}
           itemHeight={sizes.listItem_one_line}
           onPick={selectExtension}
-          selected={{
-            value: filters.extension,
-            label: EXTENSION_OPTIONS_MAP[filters.extension],
-          }}
+          selectedIndex={filters.extension}
         />
       ) : null}
     </>
@@ -138,14 +109,13 @@ const SearchBooksFilters = (props: BoxProps<Theme>) => {
 };
 
 // Filter item
-
 type Props = {
-  data: FilterType;
+  value: FilterType;
   onPress?: (item: FilterType) => void;
-  value: string;
+  label: string;
 };
 
-const FilterItem = ({data, onPress, value}: Props) => {
+const FilterItem = ({value, onPress, label}: Props) => {
   const {sizes} = useAppTheme();
 
   const _onPress = () => {
@@ -153,7 +123,7 @@ const FilterItem = ({data, onPress, value}: Props) => {
       return;
     }
 
-    onPress(data);
+    onPress(value);
   };
 
   return (
@@ -164,7 +134,7 @@ const FilterItem = ({data, onPress, value}: Props) => {
       marginRight="s"
       onPress={_onPress}
       onClose={_onPress}>
-      {value}
+      {label}
     </Chip>
   );
 };

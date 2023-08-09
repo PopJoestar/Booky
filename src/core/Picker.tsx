@@ -2,56 +2,63 @@ import {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 import {BottomSheetFlatListProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/types';
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {createBox, useResponsiveProp} from '@shopify/restyle';
-import React, {Ref, useCallback, useMemo} from 'react';
+import React, {ReactNode, Ref, forwardRef, useMemo} from 'react';
 import {ListRenderItem, useWindowDimensions} from 'react-native';
-import {Theme} from '../theme';
-import ListItem from './ListItem';
 import BottomSheet from './BottomSheet';
-
-export type PickerProps<T> = {
-  options: readonly T[];
-  titleExtractor: (item: T) => string;
-  selected?: T;
-  keyExtractor: (item: T, index: number) => string;
-  onPick?: (item: T) => void;
-  ref?: Ref<BottomSheetModalMethods>;
-  itemHeight?: number;
-};
+import {List, ListItemProps} from 'react-native-paper';
+import {Theme} from '@/theme';
 
 const StyledBottomSheetFlatlist = createBox<
   Theme,
   BottomSheetFlatListProps<any>
 >(BottomSheetFlatList);
 
-const PickerItem = ({
-  title,
+export type Option = Pick<
+  ListItemProps,
+  'title' | 'description' | 'titleStyle'
+> & {
+  value?: any;
+};
+
+export type PickerProps = {
+  options: Option[];
+  selectedIndex?: number;
+  onPick?: (item: number) => void;
+  ref?: Ref<BottomSheetModalMethods>;
+  header?: ReactNode;
+  itemHeight: number;
+};
+
+function PickerItem({
   index,
   onPress,
-  isSelected,
+  selectedIndex,
+  item,
 }: {
-  title: string;
+  item: ListItemProps;
   index: number;
   onPress: (item: number) => void;
-  isSelected?: boolean;
-}) => {
+  selectedIndex?: number;
+}) {
   const _onPress = () => {
     onPress(index);
   };
-  return (
-    <ListItem
-      title={title}
-      trailingIcon={isSelected ? 'check' : undefined}
-      onPress={_onPress}
-    />
-  );
-};
 
-const Picker = React.forwardRef<BottomSheetModalMethods, PickerProps<any>>(
-  (
-    {options, titleExtractor, selected, keyExtractor, onPick, itemHeight},
-    ref,
-  ) => {
+  const renderTrailingIcon: ListItemProps['right'] = props => {
+    if (selectedIndex !== index) {
+      return undefined;
+    }
+
+    return <List.Icon icon={'check'} {...props} />;
+  };
+
+  return <List.Item onPress={_onPress} right={renderTrailingIcon} {...item} />;
+}
+
+const Picker = forwardRef<BottomSheetModalMethods, PickerProps>(
+  ({options, selectedIndex, onPick, header, itemHeight}, ref) => {
     const {height} = useWindowDimensions();
+
     const marginHorizontal = useResponsiveProp({
       base: 'none',
       sm: 'none',
@@ -63,20 +70,15 @@ const Picker = React.forwardRef<BottomSheetModalMethods, PickerProps<any>>(
 
     const _onPress = (index: number) => {
       if (onPick !== undefined) {
-        onPick(options[index]);
+        onPick(index);
       }
     };
-
-    const areEquals = useCallback(
-      (a: any, b: any) => JSON.stringify(a) === JSON.stringify(b),
-      [],
-    );
 
     const renderItem: ListRenderItem<any> = ({item, index}) => {
       return (
         <PickerItem
-          title={titleExtractor(item)}
-          isSelected={selected ? areEquals(item, selected) : false}
+          item={item}
+          selectedIndex={selectedIndex}
           onPress={_onPress}
           index={index}
         />
@@ -106,8 +108,9 @@ const Picker = React.forwardRef<BottomSheetModalMethods, PickerProps<any>>(
 
     return (
       <BottomSheet ref={ref} snapPoints={snapPoints}>
+        {header}
         <StyledBottomSheetFlatlist
-          keyExtractor={keyExtractor}
+          keyExtractor={keyExtract}
           data={options}
           renderItem={renderItem}
           marginHorizontal={marginHorizontal}
@@ -117,6 +120,6 @@ const Picker = React.forwardRef<BottomSheetModalMethods, PickerProps<any>>(
   },
 );
 
-export default Picker as <T>(
-  props: PickerProps<T>,
-) => ReturnType<typeof Picker>;
+const keyExtract = (_: any, index: number) => index.toString();
+
+export default Picker;

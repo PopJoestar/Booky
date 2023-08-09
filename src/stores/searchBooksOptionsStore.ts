@@ -1,25 +1,20 @@
-import {
-  CategoryOption,
-  LanguageOption,
-  ExtensionOption,
-} from '@/types/searchOption';
 import {create} from 'zustand';
 
 type SearchBooksOptionsStore = {
-  category: CategoryOption;
-  language: LanguageOption;
-  extension: ExtensionOption;
+  category: number;
+  language: number;
+  extension: number;
   query: string;
-  updateCategory: (value: CategoryOption) => void;
-  updateLanguage: (value: LanguageOption) => void;
-  updateExtension: (value: ExtensionOption) => void;
+  updateCategory: (value: number) => void;
+  updateLanguage: (value: number) => void;
+  updateExtension: (value: number) => void;
   updateQuery: (value: string) => void;
 };
 
 const useSearchBooksOptionsStore = create<SearchBooksOptionsStore>()(set => ({
-  category: 'NON_FICTION',
-  language: 'ALL',
-  extension: 'ALL',
+  category: 0,
+  language: 0,
+  extension: 0,
   query: '',
   updateCategory: value => set(state => ({...state, category: value})),
   updateExtension: value => set(state => ({...state, extension: value})),

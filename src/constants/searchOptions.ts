@@ -1,48 +1,60 @@
-import {
-  CategoryOption,
-  ExtensionOption,
-  LanguageOption,
-} from '@/types/searchOption';
+const CATEGORIES_OPTIONS = [
+  {
+    value: 'FICTION',
+    title: 'search:categories.fiction',
+    description: 'search:categories.fiction_description',
+  },
+  {
+    value: 'NON_FICTION',
+    title: 'search:categories.non_fiction',
+    description: 'search:categories.non_fiction_description',
+  },
+] as const;
 
-export const FILTERS_TYPES = ['category', 'language', 'extension'] as const;
+const LANGUAGES_OPTIONS = [
+  {
+    value: 'ALL',
+    title: 'common:all',
+  },
+  {
+    value: 'fr',
+    title: 'search:languages.french',
+  },
+  {
+    value: 'en',
+    title: 'search:languages.english',
+  },
+  {
+    value: 'de',
+    title: 'search:languages.german',
+  },
+  {
+    value: 'it',
+    title: 'search:languages.italian',
+  },
+] as const;
 
-export const CATEGORIES_OPTIONS_MAP = {
-  FICTION: 'search:categories.fiction',
-  NON_FICTION: 'search:categories.non_fiction',
+const EXTENSION_OPTIONS = [
+  {
+    value: 'ALL',
+    title: 'common:all',
+  },
+  {
+    value: 'pdf',
+    title: 'search:extensions.pdf',
+  },
+  {
+    value: 'epub',
+    title: 'search:extensions.epub',
+  },
+  {
+    value: 'djvu',
+    title: 'search:extensions.djvu',
+  },
+] as const;
+
+export const SEARCH_OPTIONS = {
+  category: CATEGORIES_OPTIONS,
+  language: LANGUAGES_OPTIONS,
+  extension: EXTENSION_OPTIONS,
 } as const;
-
-export const CATEGORIES_OPTIONS = Object.keys(CATEGORIES_OPTIONS_MAP).map(
-  opt => ({
-    value: opt as CategoryOption,
-    label: CATEGORIES_OPTIONS_MAP[opt as CategoryOption],
-  }),
-);
-
-export const LANGUAGES_OPTIONS_MAP = {
-  ALL: 'common:all',
-  fr: 'search:languages.french',
-  en: 'search:languages.english',
-  de: 'search:languages.french',
-  it: 'search:languages.italian',
-} as const;
-
-export const LANGUAGES_OPTIONS = Object.keys(LANGUAGES_OPTIONS_MAP).map(
-  opt => ({
-    value: opt as LanguageOption,
-    label: LANGUAGES_OPTIONS_MAP[opt as LanguageOption],
-  }),
-);
-
-export const EXTENSION_OPTIONS_MAP = {
-  ALL: 'common:all',
-  pdf: 'search:extensions.pdf',
-  epub: 'search:extensions.epub',
-  djvu: 'search:extensions.djvu',
-} as const;
-
-export const EXTENSION_OPTIONS = Object.keys(EXTENSION_OPTIONS_MAP).map(
-  opt => ({
-    value: opt as ExtensionOption,
-    label: EXTENSION_OPTIONS_MAP[opt as ExtensionOption],
-  }),
-);
