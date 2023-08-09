@@ -15,6 +15,7 @@ import {useTranslation} from 'react-i18next';
 import {StyleSheet} from 'react-native';
 import {Menu, Portal} from 'react-native-paper';
 import ConfirmationDialog from './ConfirmationDialog';
+import RenameCollectionDialog from './RenameCollectionDialog';
 
 type Props = {
   item: CollectionModel;
@@ -34,6 +35,10 @@ const CollectionItem = ({item}: Props) => {
     isRemoveConfirmationDialogVisible,
     toggleIsRemoveConfirmationDialogVisible,
   ] = useToggle();
+  const [
+    isRenameCollectionDialogVisible,
+    toggleIsRenameCollectionDialogVisible,
+  ] = useToggle();
 
   const goToCollectionScreen = () => {
     navigation.navigate('collection', {collectionId: item.id.toHexString()});
@@ -42,6 +47,11 @@ const CollectionItem = ({item}: Props) => {
   const handleOnPressRemoveCollection = () => {
     toggleIsMenuVisible();
     toggleIsRemoveConfirmationDialogVisible();
+  };
+
+  const handleOnPressRenameCollection = () => {
+    toggleIsMenuVisible();
+    toggleIsRenameCollectionDialogVisible();
   };
 
   const handleRemoveCollection = () => {
@@ -53,96 +63,99 @@ const CollectionItem = ({item}: Props) => {
 
   return (
     <>
-      <TouchableRipple onPress={goToCollectionScreen}>
-        <Surface
+      <Surface
+        borderRadius={'sm'}
+        borderWidth={1}
+        borderColor={'outlineVariant'}>
+        <TouchableRipple
+          onPress={goToCollectionScreen}
+          flex={1}
           padding={'s'}
           paddingTop={'m'}
-          rowGap={'s'}
-          borderWidth={1}
-          borderColor={'outlineVariant'}
-          borderRadius={'sm'}
           width={sizes.collection_item_width}
           height={sizes.collection_item_height}>
-          <Box flex={2} minHeight={112}>
-            {item.books.length === 0 ? (
-              <Box flex={1} alignItems={'center'} justifyContent={'center'}>
-                <Text variant={'bodySmall'}>{t('common:no_book')}</Text>
-              </Box>
-            ) : null}
-            {item.books.length > 0 ? (
-              <Row
-                flex={1}
-                flexShrink={0}
-                flexWrap={'wrap'}
-                rowGap={'s'}
-                justifyContent={'space-between'}>
-                {splicedBookImages.map((image, index) => (
-                  <Box key={index}>
-                    <Image
-                      source={{uri: image}}
-                      height={70}
+          <Box rowGap={'s'} flex={1}>
+            <Box flex={2} minHeight={112}>
+              {item.books.length === 0 ? (
+                <Box flex={1} alignItems={'center'} justifyContent={'center'}>
+                  <Text variant={'bodySmall'}>{t('common:no_book')}</Text>
+                </Box>
+              ) : null}
+              {item.books.length > 0 ? (
+                <Row
+                  flex={1}
+                  flexShrink={0}
+                  flexWrap={'wrap'}
+                  rowGap={'s'}
+                  justifyContent={'space-between'}>
+                  {splicedBookImages.map((image, index) => (
+                    <Box key={index}>
+                      <Image
+                        source={{uri: image}}
+                        height={70}
+                        width={
+                          (sizes.collection_item_width - 10 - spacing.s * 2) / 2
+                        }
+                        contentFit="contain"
+                        alignSelf={'flex-start'}
+                      />
+                    </Box>
+                  ))}
+                  {bookImages.length > 3 ? (
+                    <Box
                       width={
                         (sizes.collection_item_width - 10 - spacing.s * 2) / 2
                       }
-                      contentFit="contain"
-                      alignSelf={'flex-start'}
-                    />
-                  </Box>
-                ))}
-                {bookImages.length > 3 ? (
-                  <Box
-                    width={
-                      (sizes.collection_item_width - 10 - spacing.s * 2) / 2
-                    }
-                    style={styles.fakeImage}
-                    height={70}>
-                    <Box
-                      backgroundColor={'surfaceContainerHighest'}
-                      flex={1}
-                      alignItems={'center'}
-                      justifyContent={'center'}>
-                      <Text numberOfLines={1}>{`+${
-                        bookImages.length - 3
-                      }`}</Text>
+                      style={styles.fakeImage}
+                      height={70}>
+                      <Box
+                        backgroundColor={'surfaceContainerHighest'}
+                        flex={1}
+                        alignItems={'center'}
+                        justifyContent={'center'}>
+                        <Text numberOfLines={1}>{`+${
+                          bookImages.length - 3
+                        }`}</Text>
+                      </Box>
                     </Box>
-                  </Box>
-                ) : null}
-              </Row>
-            ) : null}
-          </Box>
-          <Box flex={1}>
-            <Row
-              alignItems={'center'}
-              flex={1}
-              justifyContent={'space-between'}>
-              <Text variant={'titleSmall'} numberOfLines={2}>
-                {item.name}
-              </Text>
-              <Menu
-                visible={isMenuVisible}
-                onDismiss={toggleIsMenuVisible}
-                anchor={
-                  <IconButton
-                    icon={'dots-horizontal'}
-                    onPress={toggleIsMenuVisible}
+                  ) : null}
+                </Row>
+              ) : null}
+            </Box>
+            <Box flex={1}>
+              <Row
+                alignItems={'center'}
+                flex={1}
+                justifyContent={'space-between'}>
+                <Text variant={'titleSmall'} numberOfLines={2}>
+                  {item.name}
+                </Text>
+                <Menu
+                  visible={isMenuVisible}
+                  onDismiss={toggleIsMenuVisible}
+                  anchor={
+                    <IconButton
+                      icon={'dots-horizontal'}
+                      onPress={toggleIsMenuVisible}
+                    />
+                  }>
+                  <Menu.Item
+                    onPress={handleOnPressRenameCollection}
+                    title={t('rename')}
+                    leadingIcon={'pencil-outline'}
                   />
-                }>
-                <Menu.Item
-                  onPress={() => {}}
-                  title={'Rename'}
-                  leadingIcon={'pencil-outline'}
-                />
 
-                <Menu.Item
-                  onPress={handleOnPressRemoveCollection}
-                  title={'Delete'}
-                  leadingIcon={'trash-can-outline'}
-                />
-              </Menu>
-            </Row>
+                  <Menu.Item
+                    onPress={handleOnPressRemoveCollection}
+                    title={t('remove')}
+                    leadingIcon={'trash-can-outline'}
+                  />
+                </Menu>
+              </Row>
+            </Box>
           </Box>
-        </Surface>
-      </TouchableRipple>
+        </TouchableRipple>
+      </Surface>
 
       <Portal>
         <ConfirmationDialog
@@ -151,6 +164,11 @@ const CollectionItem = ({item}: Props) => {
           onReject={toggleIsRemoveConfirmationDialogVisible}
           visible={isRemoveConfirmationDialogVisible}
           content={t('collection:remove_collection', {name: item.name})}
+        />
+        <RenameCollectionDialog
+          visible={isRenameCollectionDialogVisible}
+          onDismiss={toggleIsRenameCollectionDialogVisible}
+          collection={item}
         />
       </Portal>
     </>
