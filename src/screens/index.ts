@@ -1,3 +1,4 @@
+import CollectionScreen from './CollectionScreen';
 import CollectionsScreen from './CollectionsScreen';
 import LibraryScreen from './LibraryScreen';
 import PlusScreen from './PlusScreen';
@@ -10,4 +11,5 @@ export {
   CollectionsScreen,
   LibraryScreen,
   PlusScreen,
+  CollectionScreen,
 };

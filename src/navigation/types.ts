@@ -8,6 +8,7 @@ export type RootStackParamList = {
   remote_book_details: {
     details_url: string;
   };
+  collection: {collectionId: string};
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
@@ -18,6 +19,10 @@ export type RemoteBookDetailsScreenRouteProp = RouteProp<
   'remote_book_details'
 >;
 
+export type ColletionScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'collection'
+>;
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
