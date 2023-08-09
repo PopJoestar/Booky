@@ -30,7 +30,7 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
       dismissable={false}
       dismissableBackButton
       onDismiss={onDismiss}>
-      <Dialog.Title>{t('common:create_collection')}</Dialog.Title>
+      <Dialog.Title>{t('collection:create_collection')}</Dialog.Title>
       <Dialog.Content>
         <Box rowGap={'m'}>
           <ControlledTextInput
@@ -47,7 +47,7 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
               },
             }}
             name="name"
-            label={t('common:enter_collection_name')}
+            label={t('collection:enter_collection_name')}
           />
         </Box>
       </Dialog.Content>

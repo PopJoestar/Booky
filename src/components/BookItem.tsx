@@ -276,7 +276,7 @@ const BookItem = ({item}: Props) => {
                     ) : null}
                     <Menu.Item
                       onPress={handleOnPressAddToCollection}
-                      title={t('common:add_to_a_collection')}
+                      title={t('collection:add_to_a_collection')}
                     />
                     <Menu.Item
                       onPress={toggleIsBookRead}
@@ -288,11 +288,11 @@ const BookItem = ({item}: Props) => {
                     />
                     <Menu.Item
                       onPress={handleOnPressRemoveFromLibrary}
-                      title={t('common:remove_from_library')}
+                      title={t('library:remove_from_library')}
                     />
                     <Menu.Item
                       onPress={handleOnPressRemoveEverywhere}
-                      title={t('common:remove_everywhere')}
+                      title={t('library:remove_everywhere')}
                     />
                   </Menu>
                 </Box>
@@ -321,14 +321,16 @@ const BookItem = ({item}: Props) => {
           onConfirm={removeFromLibrary}
           onReject={toggleIsRemoveFromLibraryConfirmationDialogVisible}
           visible={isRemoveFromLibraryConfirmationDialogVisible}
-          content={t('common:confirm_remove_from_library', {title: item.title})}
+          content={t('library:confirm_remove_from_library', {
+            title: item.title,
+          })}
         />
         <ConfirmationDialog
           onDismiss={toggleIsRemoveEverywhereConfirmationDialogVisible}
           onConfirm={removeEverywhere}
           onReject={toggleIsRemoveEverywhereConfirmationDialogVisible}
           visible={isRemoveEverywhereConfirmationDialogVisible}
-          content={t('common:confirm_remove_everywhere', {title: item.title})}
+          content={t('library:confirm_remove_everywhere', {title: item.title})}
         />
         <StorageAccessSnackBar
           visible={isStorageAccessSnackbarVisible}

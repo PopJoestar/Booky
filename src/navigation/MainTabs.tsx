@@ -32,7 +32,7 @@ function MainTab() {
         component={PlusScreen}
         options={{
           tabBarIcon: 'dots-horizontal',
-          title: t('more:title'),
+          title: t('more'),
         }}
       />
     </Tab.Navigator>

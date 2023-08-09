@@ -3,9 +3,9 @@ const Constants = {
   VALID_HOSTS: ['get', 'cloudflare', 'ipfs.io', 'pinata'],
   DEFAULT_DOWNLOAD_HOST_INDEX: 2,
   DARK_MODE_OPTIONS: [
-    'common:dark_mode_options.deactivated',
-    'common:dark_mode_options.activated',
-    'common:dark_mode_options.system',
+    'appearance:dark_mode.options.deactivated',
+    'appearance:dark_mode.options.activated',
+    'appearance:dark_mode.options.system',
   ],
 };
 

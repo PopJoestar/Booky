@@ -101,7 +101,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
                 control={control}
                 onSubmitEditing={_createCollection}
                 name="newCollectionName"
-                label={t('common:enter_collection_name')}
+                label={t('collection:enter_collection_name')}
                 rules={{
                   required: {
                     value: true,

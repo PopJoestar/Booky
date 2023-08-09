@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Icon, Row, ScrollView, Text} from '@/core';
+import {Chip, ScrollView} from '@/core';
 import {
   DarkModeOptionsDialog,
   PlusScreenHeader,
@@ -9,54 +9,86 @@ import {List, Portal} from 'react-native-paper';
 import {useAppTheme, useSettings, useToggle} from '@/hooks';
 import {Constants} from '@/constants';
 import {useTranslation} from 'react-i18next';
+import {colorKit} from 'reanimated-color-picker';
+import {useMaterial3ThemeContext} from '@/theme';
+import {nativeApplicationVersion} from 'expo-application';
 
 const PlusScreen = () => {
-  const {sizes} = useAppTheme();
+  const {colors} = useAppTheme();
+  const {isDark} = useMaterial3ThemeContext();
   const {t} = useTranslation();
   const [isDarkModeOptionsVisible, toggleIsDarkModeOptionVisible] = useToggle();
   const [isUpdateThemeDialogVisible, toggleIsUpdateThemeDialogVisible] =
     useToggle();
 
   const {appearance, theme} = useSettings();
+
+  const getThemeTextColor = () => {
+    if (theme === 'dynamic' || theme === undefined) {
+      return colors.onSurface;
+    }
+
+    const isThemeColorDark = colorKit.isDark(theme);
+
+    if (isThemeColorDark && isDark) {
+      return colors.onSurface;
+    }
+
+    return colors.inverseOnSurface;
+  };
   return (
     <>
       <PlusScreenHeader />
       <ScrollView>
+        {/* Général */}
         <List.Section>
-          <List.Subheader>{t('common:appearance')}</List.Subheader>
+          <List.Subheader>{t('general')}</List.Subheader>
           <List.Item
-            title={t('common:dark_mode')}
-            onPress={toggleIsDarkModeOptionVisible}
+            title={t('language')}
             // eslint-disable-next-line react/no-unstable-nested-components
-            left={props => (
-              <Icon name="theme-light-dark" {...props} size={sizes.l} />
-            )}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            right={() => (
-              <Text>{t(Constants.DARK_MODE_OPTIONS[appearance])}</Text>
-            )}
+            left={props => <List.Icon icon="translate" {...props} />}
+            description={'English'}
           />
           <List.Item
-            title={t('common:theme.title')}
+            title={t('Version')}
+            description={nativeApplicationVersion}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            left={props => <List.Icon icon="alpha-v-box-outline" {...props} />}
+          />
+        </List.Section>
+
+        {/* Appearance */}
+        <List.Section>
+          <List.Subheader>{t('appearance:title')}</List.Subheader>
+          <List.Item
+            title={t('appearance:dark_mode.title')}
+            onPress={toggleIsDarkModeOptionVisible}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            left={props => <List.Icon icon="theme-light-dark" {...props} />}
+            description={t(Constants.DARK_MODE_OPTIONS[appearance])}
+          />
+          <List.Item
+            title={t('appearance:theme.title')}
             onPress={toggleIsUpdateThemeDialogVisible}
             // eslint-disable-next-line react/no-unstable-nested-components
-            left={props => (
-              <Icon name="palette-outline" {...props} size={sizes.l} />
-            )}
+            left={props => <List.Icon icon="palette-outline" {...props} />}
             // eslint-disable-next-line react/no-unstable-nested-components
             right={() => (
-              <Row alignItems={'center'}>
-                {theme !== 'dynamic' ? (
-                  <Box
-                    height={15}
-                    width={15}
-                    style={{backgroundColor: theme}}
-                  />
-                ) : null}
-                <Text marginLeft={'s'} textTransform={'capitalize'}>
-                  {theme}
-                </Text>
-              </Row>
+              <Chip
+                style={
+                  theme !== 'dynamic'
+                    ? {
+                        backgroundColor: theme,
+                      }
+                    : undefined
+                }
+                // eslint-disable-next-line react-native/no-inline-styles
+                textStyle={{
+                  color: getThemeTextColor(),
+                  textTransform: 'capitalize',
+                }}>
+                {theme}
+              </Chip>
             )}
           />
         </List.Section>

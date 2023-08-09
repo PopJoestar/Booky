@@ -31,9 +31,9 @@ const DarkModeOptionsDialog = ({onDismiss, visible, ...rest}: Props) => {
       dismissable
       dismissableBackButton
       {...rest}>
-      <Dialog.Title>{t('common:dark_mode')}</Dialog.Title>
+      <Dialog.Title>{t('appearance:dark_mode.title')}</Dialog.Title>
       <Dialog.Content>
-        <Text>{t('common:dark_mode_notice')}</Text>
+        <Text>{t('appearance:dark_mode.notice')}</Text>
       </Dialog.Content>
       <Dialog.ScrollArea>
         <ScrollView>

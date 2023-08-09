@@ -43,7 +43,7 @@ const AppContent = () => {
 };
 
 const Main = () => {
-  const {appearance} = useSettings();
+  const {appearance, theme} = useSettings();
   const colorScheme = useColorScheme();
 
   const isDark = (() => {
@@ -56,7 +56,9 @@ const Main = () => {
   })();
 
   return (
-    <Material3ThemeProvider isDark={isDark}>
+    <Material3ThemeProvider
+      sourceColor={theme === 'dynamic' ? undefined : theme}
+      isDark={isDark}>
       <AppContent />
     </Material3ThemeProvider>
   );

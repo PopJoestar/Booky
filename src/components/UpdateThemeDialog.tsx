@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Checkbox, Dialog, DialogProps} from 'react-native-paper';
 import {Box, Button, ScrollView, Text} from '@/core';
 import ColorPicker, {
@@ -7,7 +7,7 @@ import ColorPicker, {
   SaturationSlider,
 } from 'reanimated-color-picker';
 import {useTranslation} from 'react-i18next';
-import {useAppTheme, useSettings, useToggle} from '@/hooks';
+import {useAppTheme, useSettings} from '@/hooks';
 import {StyleSheet} from 'react-native';
 import {useMaterial3ThemeContext} from '@/theme';
 
@@ -16,10 +16,16 @@ type Props = {} & Omit<DialogProps, 'children'>;
 const UpdateThemeDialog = ({onDismiss, visible, ...rest}: Props) => {
   const {spacing} = useAppTheme();
   const {updateSettings, theme} = useSettings();
-  const [isDynamic, toggleIsDynamic] = useToggle(theme === 'dynamic');
+  const [isDynamic, setIsDynamic] = useState(theme === 'dynamic');
   const {resetTheme, updateTheme} = useMaterial3ThemeContext();
-  const [selectedColor, setSelectedColor] = useState('#AB47BC');
+  const [selectedColor, setSelectedColor] = useState(
+    theme === undefined || theme === 'dynamic' ? '#AB47BC' : theme,
+  );
   const {t} = useTranslation();
+
+  useEffect(() => {
+    setIsDynamic(theme === 'dynamic');
+  }, [theme]);
 
   const _updateTheme = () => {
     if (isDynamic && theme !== 'dynamic') {
@@ -43,17 +49,17 @@ const UpdateThemeDialog = ({onDismiss, visible, ...rest}: Props) => {
       style={styles.dialog}
       dismissableBackButton
       {...rest}>
-      <Dialog.Title>{t('common:theme.title')}</Dialog.Title>
+      <Dialog.Title>{t('appearance:theme.title')}</Dialog.Title>
       <Dialog.Content>
-        <Text>{t('common:theme.dynamic_theme_notice')}</Text>
+        <Text>{t('appearance:theme.dynamic_theme_notice')}</Text>
       </Dialog.Content>
       <Dialog.ScrollArea>
         <ScrollView>
           <Box rowGap={'s'} paddingBottom={'m'}>
             <Checkbox.Item
-              label="Dynamic color"
+              label={t('appearance:theme.dynamic_color')}
               status={isDynamic ? 'checked' : 'unchecked'}
-              onPress={toggleIsDynamic}
+              onPress={() => setIsDynamic(!isDynamic)}
             />
             <ColorPicker
               style={[{rowGap: spacing.m}, styles.colorPicker]}

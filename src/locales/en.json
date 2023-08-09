@@ -10,48 +10,51 @@
     "dismiss": "Dismiss",
     "create": "Create",
     "unkown_author": "Unknown author",
+    "version": "Version",
+    "general": "General",
     "unkown": "Unknown",
     "mark_as_read": "Mark as read",
     "mark_as_unread": "Mark as unread",
-    "remove_from_library": "Remove from library",
-    "remove_everywhere": "Remove everywhere",
     "see_details": "See details",
     "read": "Read",
-    "add_to_a_collection": "Add to a collection",
     "yes": "Yes",
     "no": "No",
-    "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library ?",
-    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?",
     "storage_access_required_delete_file": "Storage access is required to delete files",
     "settings": "Settings",
     "choose_gateway": "Choose a gateway to download {{- title}}",
-    "create_collection": "Create collection",
-    "enter_collection_name": "Enter collection name",
     "field_required": "This field is required",
     "field_min_length_one": "Minimum {{count}} character",
     "field_min_length_other": "Minimum {{count}} characters",
     "no_book": "No book",
     "no_application_to_open_file": "No application found to open {{- file}}",
-    "dark_mode": "Dark mode",
-    "dark_mode_notice": "If you choose System, Booky will adjust its appearance based on system settings",
-    "dark_mode_options": {
-      "deactivated": "Deactivated",
-      "activated": "Activated",
-      "system": "System"
-    },
-    "appearance": "Appearance",
+    "more": "More",
+    "language": "Language"
+  },
+  "appearance": {
+    "title": "Appearance",
     "theme": {
       "title": "Theme",
       "dynamic": "Dynamic",
-      "dynamic_theme_notice": "When dynamic color is enabled, Booky will take the color of your wallpaper and adjust its theme automatically"
+      "dynamic_theme_notice": "When dynamic color is enabled, Booky will take the color of your wallpaper and adjust its theme automatically",
+      "dynamic_color": "Dynamic color"
+    },
+    "dark_mode": {
+      "title": "Dark mode",
+      "notice": "If you choose System, Booky will adjust its appearance based on system settings",
+      "options": {
+        "deactivated": "Deactivated",
+        "activated": "Activated",
+        "system": "System"
+      }
     }
   },
   "library": {
-    "books": "Books",
-    "collections": "Collections",
-    "title": "Library"
+    "title": "Library",
+    "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library ?",
+    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and from your files?",
+    "remove_from_library": "Remove from library",
+    "remove_everywhere": "Remove everywhere"
   },
-
   "search": {
     "filter": {
       "category": "Categorie",
@@ -94,16 +97,13 @@
       "epub": "EPUB",
       "djvu": "DJVU"
     },
-    "no_result_found_for": "No result found for {{query}}"
+    "no_result_found_for": "No result found for {{query}}",
+    "add_to_a_collection": "Add to a collection"
   },
   "collection": {
-    "title": "Collection"
-  },
-  "more": {
-    "title": "More"
-  },
-  "label": {
-    "saved": "Saved"
+    "title": "Collection",
+    "create_collection": "Create collection",
+    "enter_collection_name": "Enter collection name"
   },
   "book_details": {
     "book_info_label": {
