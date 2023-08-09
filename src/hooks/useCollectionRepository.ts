@@ -1,4 +1,5 @@
 import {CollectionModel, useRealm} from '@/database';
+import {NonFunctionObject} from '@/types/utils';
 import {useCallback} from 'react';
 import {PrimaryKey} from 'realm';
 
@@ -33,6 +34,27 @@ const useCollectionRepository = () => {
     [realm],
   );
 
+  const updateCollection = useCallback(
+    (
+      collectionId: PrimaryKey,
+      changes: Partial<NonFunctionObject<CollectionModel>>,
+    ) => {
+      const collection = getColletion(collectionId);
+
+      if (collection == null) {
+        return;
+      }
+
+      realm.write(() => {
+        for (const key in changes) {
+          //@ts-ignore
+          collection[key] = changes[key];
+        }
+      });
+    },
+    [getColletion, realm],
+  );
+
   const removeCollection = useCallback(
     (collectionId: PrimaryKey) => {
       const collection = getColletion(collectionId);
@@ -47,7 +69,7 @@ const useCollectionRepository = () => {
     [getColletion, realm],
   );
 
-  return {createCollection, removeCollection};
+  return {createCollection, removeCollection, updateCollection};
 };
 
 export default useCollectionRepository;

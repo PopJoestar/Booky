@@ -9,6 +9,7 @@ import LibraryScreenHeader from './LibraryScreenHeader';
 import PlusScreenHeader from './PlusScreenHeader';
 import RemoteBookDetailsHeader from './RemoteBookDetailsHeader';
 import RemoteBookItem from './RemoteBookItem';
+import RenameCollectionDialog from './RenameCollectionDialog';
 import SearchBooksScreenHeader from './SearchBooksScreenHeader';
 import UpdateThemeDialog from './UpdateThemeDialog';
 
@@ -26,4 +27,5 @@ export {
   DarkModeOptionsDialog,
   UpdateThemeDialog,
   CollectionScreenHeader,
+  RenameCollectionDialog,
 };

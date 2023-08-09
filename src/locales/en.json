@@ -9,6 +9,8 @@
     "open": "Open",
     "dismiss": "Dismiss",
     "create": "Create",
+    "remove": "Remove",
+    "rename": "Rename",
     "unknown_author": "Unknown Author",
     "version": "Version",
     "general": "General",
@@ -105,7 +107,8 @@
     "create_collection": "Create Collection",
     "enter_collection_name": "Enter Collection Name",
     "add_to_a_collection": "Add to Collection",
-    "remove_collection": "Are you certain you want to remove {{- name}}? (The contained books will remain unaffected.)"
+    "remove_collection": "Are you certain you want to remove {{- name}}? (The contained books will remain unaffected.)",
+    "rename_collection": "Rename {{- name}}"
   },
   "book_details": {
     "book_info_label": {
