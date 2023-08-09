@@ -16,7 +16,6 @@ const LibraryScreenHeader = () => {
     <Appbar.Header>
       <Appbar.Content title={t('library:title')} />
       <Appbar.Action icon="magnify" onPress={goToSearchScreen} />
-      <Appbar.Action icon="filter-variant" onPress={() => {}} />
     </Appbar.Header>
   );
 };

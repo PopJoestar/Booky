@@ -8,7 +8,6 @@ const CollectionScreenHeader = () => {
   return (
     <Appbar.Header>
       <Appbar.Content title={t('collection:title')} />
-      <Appbar.Action icon="filter-variant" onPress={() => {}} />
     </Appbar.Header>
   );
 };
