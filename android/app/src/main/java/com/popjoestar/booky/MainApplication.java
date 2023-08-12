@@ -1,4 +1,4 @@
-package com.booky;
+package com.popjoestar.booky;
 import android.content.res.Configuration;
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;

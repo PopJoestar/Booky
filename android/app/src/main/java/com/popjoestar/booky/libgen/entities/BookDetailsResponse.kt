@@ -1,4 +1,4 @@
-package com.booky.libgen.entities
+package com.popjoestar.booky.libgen.entities
 
 import entities.DownloadLink
 

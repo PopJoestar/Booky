@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.booky",
+    package = "com.popjoestar.booky",
 )
 
 android_resource(
     name = "res",
-    package = "com.booky",
+    package = "com.popjoestar.booky",
     res = "src/main/res",
 )
 
