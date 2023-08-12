@@ -71,3 +71,8 @@ buck-out/
 .expo
 dist/
 web-build/
+
+# build
+booky-release
+output-metadata.json
+*.apk
