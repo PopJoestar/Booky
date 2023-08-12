@@ -88,7 +88,7 @@ const SearchBooksScreen = () => {
       return (
         <Center paddingVertical="m">
           <Button onPress={refetchCurrent} mode="contained">
-            {t('reload')}
+            {t('common:reload')}
           </Button>
         </Center>
       );
@@ -110,7 +110,7 @@ const SearchBooksScreen = () => {
       value: error,
       actions: [
         {
-          label: t('retry'),
+          label: t('common:retry'),
           action: refetchCurrent,
         },
       ],
