@@ -12,7 +12,7 @@ type SearchBooksOptionsStore = {
 };
 
 const useSearchBooksOptionsStore = create<SearchBooksOptionsStore>()(set => ({
-  category: 0,
+  category: 1,
   language: 0,
   extension: 0,
   query: '',

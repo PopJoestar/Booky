@@ -3,11 +3,14 @@ import useSWRInfinite from 'swr/infinite';
 import {useCallback, useEffect} from 'react';
 import {BookFinder} from '@/services';
 import {SearchBooksParams, SearchBooksResponse} from '@/interfaces/Book';
-import {Alert} from 'react-native';
 import {useSearchBooksOptionsStore} from '@/stores';
 import {SEARCH_OPTIONS} from '@/constants/searchOptions';
 
-function useSearchBooksQuery() {
+type Options = {
+  onError: (error: unknown) => void;
+};
+
+function useSearchBooksQuery(options?: Options) {
   const {query, category, extension, language} = useSearchBooksOptionsStore(
     state => ({
       category: state.category,
@@ -42,23 +45,27 @@ function useSearchBooksQuery() {
     [category, extension, language, query],
   );
 
-  const {data, size, isLoading, setSize, error, isValidating} = useSWRInfinite(
-    getKey,
-    arg =>
-      BookFinder.search({
-        query: arg.query.trim().toLowerCase(),
-        category: arg.category,
-        language: arg.language,
-        extension: arg.extension,
-        page: arg.page ?? 1,
-      }),
-    {
-      shouldRetryOnError: false,
-      onError: e => Alert.alert('error', JSON.stringify(e)),
-    },
-  );
+  const {data, size, isLoading, setSize, error, isValidating, mutate} =
+    useSWRInfinite(
+      getKey,
+      arg =>
+        BookFinder.search({
+          query: arg.query.trim().toLowerCase(),
+          category: arg.category,
+          language: arg.language,
+          extension: arg.extension,
+          page: arg.page ?? 1,
+        }),
+      {
+        shouldRetryOnError: false,
+        onError: options?.onError,
+      },
+    );
 
   const next = () => {
+    if (error || isLoading || isValidating) {
+      return;
+    }
     if (data && data.length > 0 && data[0].totalPages === size) {
       return;
     }
@@ -71,6 +78,9 @@ function useSearchBooksQuery() {
     };
   }, [updateQuery]);
 
+  const refetchCurrent = () => {
+    mutate(data, {revalidate: true, rollbackOnError: true});
+  };
   return {
     data: data === undefined ? [] : data.flatMap(d => d.items),
     isLoading: isValidating && size > 1,
@@ -84,6 +94,10 @@ function useSearchBooksQuery() {
     isNoResult:
       data !== undefined && data.length === 1 && data[0].totalItem === 0,
     query,
+    mutate,
+    refetchCurrent,
+    isValidating,
+    page: size,
   };
 }
 

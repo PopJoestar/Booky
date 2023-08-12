@@ -6,6 +6,7 @@ import useBookRepository from './useBookRepository';
 import useCollectionRepository from './useCollectionRepository';
 import useCollections from './useCollections';
 import useDownloadBook from './useDownloadBook';
+import useGetErrorMessage from './useGetErrorMessage';
 import useGetRemoteBookDetailsQuery from './useGetRemoteBookDetailsQuery';
 import useMessageDisplayer from './useMessageDisplayer';
 import useNavigationOptions from './useNavigationOptions';
@@ -28,4 +29,5 @@ export {
   useCollectionRepository,
   useCollections,
   useNavigationOptions,
+  useGetErrorMessage,
 };

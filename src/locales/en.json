@@ -2,6 +2,9 @@
   "common": {
     "search": "Search by author, title, ISBN...",
     "all": "All",
+    "reload": "Reload",
+    "retry": "Retry",
+    "end_result": "End of result",
     "save": "Save",
     "download": "Download",
     "confirm": "Confirm",
@@ -121,5 +124,19 @@
     },
     "gateways": "Gateways",
     "book_saved": "{{- title}} has been added to your library"
+  },
+  "error": {
+    "host": {
+      "title": "Host error",
+      "body": "An error occured on {{hostname}}. Try again later"
+    },
+    "connection_error": {
+      "title": "No internet connexion",
+      "body": "Please check your internet connection, then retry."
+    },
+    "timeout_error": {
+      "title": "Timeout error",
+      "body": "The server did not respond in time, check your internet connection or try again later"
+    }
   }
 }
