@@ -1,16 +1,23 @@
 import {startActivityAsync} from 'expo-intent-launcher';
 import ExternalStorage from 'externalStorage';
-import {PermissionsAndroid, Platform} from 'react-native';
+import {Linking, PermissionsAndroid, Platform} from 'react-native';
+
+const isAndroid11Plus = parseInt(Platform.Version.toString(), 10) >= 30;
 
 export const redirectToManageExternalStoragePermission = async () => {
-  await startActivityAsync(
-    'android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION',
-  );
+  if (isAndroid11Plus) {
+    await startActivityAsync(
+      'android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION',
+    );
+    return;
+  }
+
+  await Linking.openSettings();
 };
 
 export const requestExternalStoragePermission = async () => {
   //  android 11+
-  if (parseInt(Platform.Version.toString(), 10) >= 30) {
+  if (isAndroid11Plus) {
     let isExternalStorageManager =
       await ExternalStorage.isExternalStorageManager();
 

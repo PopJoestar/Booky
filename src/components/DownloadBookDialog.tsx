@@ -11,9 +11,15 @@ import {requestExternalStoragePermission} from '@/utils/permissions';
 
 type Props = {
   book: BookModel;
+  onStoragePermissionDenied?: () => void;
 } & Omit<DialogProps, 'children'>;
 
-const DownloadBookDialog = ({book, onDismiss, ...rest}: Props) => {
+const DownloadBookDialog = ({
+  book,
+  onDismiss,
+  onStoragePermissionDenied,
+  ...rest
+}: Props) => {
   const {spacing} = useAppTheme();
   const {t} = useTranslation();
 
@@ -27,7 +33,14 @@ const DownloadBookDialog = ({book, onDismiss, ...rest}: Props) => {
     const isExternalStorageManager = await requestExternalStoragePermission();
 
     if (!isExternalStorageManager) {
-      // TODO: Universal snackbar
+      if (onStoragePermissionDenied) {
+        if (onDismiss) {
+          onDismiss();
+        }
+        setTimeout(() => {
+          onStoragePermissionDenied();
+        }, 1);
+      }
       return;
     }
     if (onDismiss) {

@@ -340,6 +340,7 @@ const BookItem = ({item}: Props) => {
           book={item}
           visible={isDownloadBookDialogVisible}
           onDismiss={toggleIsDownloadBookDialogVisible}
+          onStoragePermissionDenied={toggleIsStorageAccessSnackbarVisible}
         />
         {/* Fix app crash List no longer valid */}
         {item ? (
