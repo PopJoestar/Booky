@@ -1,4 +1,4 @@
-import com.booky.libgen.entities.BookDetailsResponse
+import com.popjoestar.booky.libgen.entities.BookDetailsResponse
 import entities.Book
 import entities.DownloadLink
 import org.jsoup.Connection

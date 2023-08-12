@@ -1,4 +1,4 @@
-package com.booky
+package com.popjoestar.booky
 
 import android.view.View
 import com.facebook.react.ReactPackage

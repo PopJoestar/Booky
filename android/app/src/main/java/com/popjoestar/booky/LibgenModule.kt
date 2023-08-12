@@ -1,4 +1,4 @@
-package com.booky
+package com.popjoestar.booky
 
 import DownloadLinksScraper
 import FictionScraper

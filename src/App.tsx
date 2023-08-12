@@ -16,6 +16,10 @@ import {useSettings} from './hooks';
 import {useTranslation} from 'react-i18next';
 import {Constants} from './constants';
 
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
+
 const App = () => {
   return (
     <RealmProvider fallback={<></>}>
@@ -30,7 +34,11 @@ const AppContent = () => {
   return (
     <GestureHandlerRootView style={styles.ghRoot}>
       <BottomSheetModalProvider>
-        <NavigationContainer theme={navigationTheme}>
+        <NavigationContainer
+          theme={navigationTheme}
+          onReady={async () => {
+            await SplashScreen.hideAsync();
+          }}>
           <StatusBar
             backgroundColor={'transparent'}
             barStyle={isDark ? 'light-content' : 'dark-content'}

@@ -1,4 +1,4 @@
-package com.booky;
+package com.popjoestar.booky;
 import expo.modules.ReactActivityDelegateWrapper;
 
 import com.facebook.react.ReactActivity;
