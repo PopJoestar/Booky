@@ -7,6 +7,10 @@ const Constants = {
     'appearance:dark_mode.options.activated',
     'appearance:dark_mode.options.system',
   ],
+  AVAILABLE_LANGUAGE: [
+    {label: 'search:languages.english', value: 'en'},
+    {label: 'search:languages.french', value: 'fr'},
+  ],
 };
 
 export default Constants;

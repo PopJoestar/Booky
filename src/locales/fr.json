@@ -1,0 +1,142 @@
+{
+  "common": {
+    "search": "Rechercher par auteur, titre, ISBN...",
+    "all": "Tous",
+    "reload": "Recharger",
+    "retry": "Réessayer",
+    "end_result": "Fin des résultats",
+    "save": "Enregistrer",
+    "download": "Télécharger",
+    "confirm": "Confirmer",
+    "cancel_download": "Annuler le téléchargement",
+    "open": "Ouvrir",
+    "dismiss": "Fermer",
+    "create": "Créer",
+    "remove": "Supprimer",
+    "rename": "Renommer",
+    "unknown_author": "Auteur inconnu",
+    "version": "Version",
+    "general": "Général",
+    "unknown": "Inconnu",
+    "mark_as_read": "Marquer comme lu",
+    "mark_as_unread": "Marquer comme non lu",
+    "see_details": "Voir les détails",
+    "read": "Lire",
+    "yes": "Oui",
+    "no": "Non",
+    "storage_access_required_delete_file": "L'accès au stockage est requis pour supprimer les fichiers",
+    "settings": "Paramètres",
+    "choose_gateway": "Choisissez une passerelle pour télécharger '{{- title}}'",
+    "field_required": "Ce champ est requis",
+    "field_min_length_one": "Minimum {{count}} caractère",
+    "field_min_length_other": "Minimum {{count}} caractères",
+    "no_book": "Aucun livre",
+    "no_application_to_open_file": "Aucune application trouvée pour ouvrir '{{- file}}'",
+    "more": "Plus",
+    "language": "Langue"
+  },
+  "appearance": {
+    "title": "Apparence",
+    "theme": {
+      "title": "Thème",
+      "dynamic": "Dynamique",
+      "dynamic_theme_notice": "Lorsque la couleur dynamique est activée, Booky adaptera automatiquement son thème à la couleur de votre papier peint.",
+      "dynamic_color": "Couleur dynamique"
+    },
+    "dark_mode": {
+      "title": "Mode sombre",
+      "notice": "Si vous choisissez 'Système', Booky ajustera son apparence en fonction des paramètres de votre système.",
+      "options": {
+        "deactivated": "Désactivé",
+        "activated": "Activé",
+        "system": "Système"
+      }
+    }
+  },
+  "library": {
+    "title": "Bibliothèque",
+    "confirm_remove_from_library": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque ?",
+    "confirm_remove_everywhere": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque et de vos fichiers ?",
+    "remove_from_library": "Retirer de la bibliothèque",
+    "remove_everywhere": "Supprimer partout"
+  },
+  "search": {
+    "filter": {
+      "category": "Catégorie",
+      "language": "Langue",
+      "extension": "Extension"
+    },
+    "languages": {
+      "all": "Toutes les langues",
+      "croatian": "Croate",
+      "romanian": "Roumain",
+      "french": "Français",
+      "turkish": "Turc",
+      "english": "Anglais",
+      "malagasy": "Malgache",
+      "swedish": "Suédois",
+      "spanish": "Espagnol",
+      "german": "Allemand",
+      "italian": "Italien",
+      "dutch": "Néerlandais",
+      "russian": "Russe",
+      "portuguese": "Portugais",
+      "lithuanian": "Lituanien",
+      "slovak": "Slovaque",
+      "czech": "Tchèque",
+      "chinese": "Chinois",
+      "japanese": "Japonais",
+      "bengali": "Bengali",
+      "greek": "Grec",
+      "polish": "Polonais"
+    },
+    "categories": {
+      "all": "Toutes les catégories",
+      "fiction": "Fiction",
+      "non_fiction": "Non-Fiction",
+      "non_fiction_description": "Histoire, Sciences, Développement personnel, Biographies, Informatif et plus",
+      "fiction_description": "Romance, Science-fiction, Fantaisie, Thriller et plus"
+    },
+    "extensions": {
+      "all": "Toutes les extensions",
+      "pdf": "PDF",
+      "epub": "EPUB",
+      "djvu": "DJVU"
+    },
+    "no_result_found_for": "Aucun résultat trouvé pour '{{query}}'"
+  },
+  "collection": {
+    "title": "Collections",
+    "create_collection": "Créer une collection",
+    "enter_collection_name": "Entrez le nom de la collection",
+    "add_to_a_collection": "Ajouter à la collection",
+    "remove_collection": "Êtes-vous sûr de vouloir supprimer '{{- name}}' ? (Les livres qu'elle contient ne seront pas affectés.)",
+    "rename_collection": "Renommer '{{- name}}'"
+  },
+  "book_details": {
+    "book_info_label": {
+      "publisher_publication_date": "Éditeur et date de publication",
+      "nbr_page": "Nombre de pages",
+      "isbn": "ISBN",
+      "file": "Fichier",
+      "language": "Langue",
+      "series": "Série"
+    },
+    "gateways": "Passerelles",
+    "book_saved": "'{{- title}}' a été ajouté à votre bibliothèque"
+  },
+  "error": {
+    "host": {
+      "title": "Erreur d'hôte",
+      "body": "Une erreur s'est produite sur {{hostname}}. Veuillez réessayer ultérieurement."
+    },
+    "connection_error": {
+      "title": "Pas de connexion Internet",
+      "body": "Veuillez vérifier votre connexion Internet, puis réessayer."
+    },
+    "timeout_error": {
+      "title": "Erreur de délai d'attente",
+      "body": "Le serveur n'a pas répondu à temps. Vérifiez votre connexion Internet ou réessayez ultérieurement."
+    }
+  }
+}

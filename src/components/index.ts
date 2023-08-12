@@ -11,6 +11,7 @@ import RemoteBookDetailsHeader from './RemoteBookDetailsHeader';
 import RemoteBookItem from './RemoteBookItem';
 import RenameCollectionDialog from './RenameCollectionDialog';
 import SearchBooksScreenHeader from './SearchBooksScreenHeader';
+import UpdateLanguageDialog from './UpdateLanguageDialog';
 import UpdateThemeDialog from './UpdateThemeDialog';
 
 export {
@@ -28,4 +29,5 @@ export {
   UpdateThemeDialog,
   CollectionScreenHeader,
   RenameCollectionDialog,
+  UpdateLanguageDialog,
 };

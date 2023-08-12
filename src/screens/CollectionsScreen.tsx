@@ -10,8 +10,10 @@ import {useAppTheme, useCollections, useToggle} from '@/hooks';
 import {ListRenderItem, useWindowDimensions} from 'react-native';
 import {CollectionModel} from '@/database';
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 const CollectionsScreen = () => {
+  const {t} = useTranslation();
   const [
     isCreateCollectionDialogVisible,
     toggleIsCreateCollectionDialogVisible,
@@ -70,7 +72,7 @@ const CollectionsScreen = () => {
         marginRight="m">
         <FAB
           icon="plus"
-          label={'Add'}
+          label={t('common:add')}
           onPress={toggleIsCreateCollectionDialogVisible}
         />
       </Box>

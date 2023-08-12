@@ -11,7 +11,7 @@ import {useAppTheme, useSettings} from '@/hooks';
 import {StyleSheet} from 'react-native';
 import {useMaterial3ThemeContext} from '@/theme';
 
-type Props = {} & Omit<DialogProps, 'children'>;
+type Props = Omit<DialogProps, 'children'>;
 
 const UpdateThemeDialog = ({onDismiss, visible, ...rest}: Props) => {
   const {spacing} = useAppTheme();

@@ -3,6 +3,7 @@ import {Chip, ScrollView} from '@/core';
 import {
   DarkModeOptionsDialog,
   PlusScreenHeader,
+  UpdateLanguageDialog,
   UpdateThemeDialog,
 } from '@/components';
 import {List, Portal} from 'react-native-paper';
@@ -18,10 +19,12 @@ const PlusScreen = () => {
   const {isDark} = useMaterial3ThemeContext();
   const {t} = useTranslation();
   const [isDarkModeOptionsVisible, toggleIsDarkModeOptionVisible] = useToggle();
+  const [isUpdateLanguageVisible, toggleIsUpdateLanguageVisible] = useToggle();
+
   const [isUpdateThemeDialogVisible, toggleIsUpdateThemeDialogVisible] =
     useToggle();
 
-  const {appearance, theme} = useSettings();
+  const {appearance, theme, language} = useSettings();
 
   const getThemeTextColor = () => {
     if (theme === 'dynamic' || theme === undefined) {
@@ -44,13 +47,17 @@ const PlusScreen = () => {
         <List.Section>
           <List.Subheader>{t('general')}</List.Subheader>
           <List.Item
-            title={t('language')}
+            title={t('common:language')}
             // eslint-disable-next-line react/no-unstable-nested-components
             left={props => <List.Icon icon="translate" {...props} />}
-            description={'English'}
+            description={t(
+              Constants.AVAILABLE_LANGUAGE.find(lng => lng.value === language)!
+                .label,
+            )}
+            onPress={toggleIsUpdateLanguageVisible}
           />
           <List.Item
-            title={t('Version')}
+            title={t('common:version')}
             description={nativeApplicationVersion}
             // eslint-disable-next-line react/no-unstable-nested-components
             left={props => <List.Icon icon="alpha-v-box-outline" {...props} />}
@@ -102,6 +109,10 @@ const PlusScreen = () => {
         <UpdateThemeDialog
           visible={isUpdateThemeDialogVisible}
           onDismiss={toggleIsUpdateThemeDialogVisible}
+        />
+        <UpdateLanguageDialog
+          visible={isUpdateLanguageVisible}
+          onDismiss={toggleIsUpdateLanguageVisible}
         />
       </Portal>
     </>

@@ -6,7 +6,7 @@ import {getLocales} from 'react-native-localize';
 import {Locales} from './src/locales';
 
 const DEFAULT_LANGUAGE = 'en';
-const SUPPORTED_LANGUAGES = ['en'];
+const SUPPORTED_LANGUAGES = ['en', 'fr'];
 export const DEFAULT_NS = 'common';
 
 const languageDetector = {
