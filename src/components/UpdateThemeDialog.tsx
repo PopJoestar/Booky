@@ -10,6 +10,7 @@ import {useTranslation} from 'react-i18next';
 import {useAppTheme, useSettings} from '@/hooks';
 import {StyleSheet} from 'react-native';
 import {useMaterial3ThemeContext} from '@/theme';
+import {Constants} from '@/constants';
 
 type Props = Omit<DialogProps, 'children'>;
 
@@ -19,7 +20,9 @@ const UpdateThemeDialog = ({onDismiss, visible, ...rest}: Props) => {
   const [isDynamic, setIsDynamic] = useState(theme === 'dynamic');
   const {resetTheme, updateTheme} = useMaterial3ThemeContext();
   const [selectedColor, setSelectedColor] = useState(
-    theme === undefined || theme === 'dynamic' ? '#AB47BC' : theme,
+    theme === undefined || theme === 'dynamic'
+      ? Constants.DEFAULT_COLOR
+      : theme,
   );
   const {t} = useTranslation();
 

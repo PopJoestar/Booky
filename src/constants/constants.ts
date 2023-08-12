@@ -11,6 +11,7 @@ const Constants = {
     {label: 'search:languages.english', value: 'en'},
     {label: 'search:languages.french', value: 'fr'},
   ],
+  DEFAULT_COLOR: '#C88769',
 };
 
 export default Constants;

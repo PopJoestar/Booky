@@ -14,6 +14,7 @@ import FlashMessage from 'react-native-flash-message';
 import {RealmProvider} from './database';
 import {useSettings} from './hooks';
 import {useTranslation} from 'react-i18next';
+import {Constants} from './constants';
 
 const App = () => {
   return (
@@ -64,6 +65,7 @@ const Main = () => {
   return (
     <Material3ThemeProvider
       sourceColor={theme === 'dynamic' ? undefined : theme}
+      fallbackSourceColor={Constants.DEFAULT_COLOR}
       isDark={isDark}>
       <AppContent />
     </Material3ThemeProvider>
