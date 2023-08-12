@@ -2,7 +2,6 @@ package com.popjoestar.booky
 
 import android.os.Build
 import android.os.Environment
-import androidx.annotation.RequiresApi
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -13,9 +12,9 @@ class ExternalStorageModule(reactContext: ReactApplicationContext):
     ReactContextBaseJavaModule(reactContext) {
     override fun getName() = "ExternalStorageModule"
 
-    @RequiresApi(Build.VERSION_CODES.R)
     @ReactMethod
     fun isExternalStorageManager(promise: Promise) {
-        promise.resolve(Environment.isExternalStorageManager())
+        val isStorageManagerSupported = Build.VERSION.SDK_INT < Build.VERSION_CODES.R || Environment.isExternalStorageManager()
+        promise.resolve(isStorageManagerSupported)
     }
 }
