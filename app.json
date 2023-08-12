@@ -5,7 +5,8 @@
     "slug": "booky",
     "name": "Booky",
     "splash": {
-      "image": "./assets//splash.png"
+      "image": "./assets//splash.png",
+      "backgroundColor": "#fff"
     },
     "android": {
       "package": "com.popjoestar.booky",
