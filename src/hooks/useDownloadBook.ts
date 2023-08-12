@@ -57,18 +57,18 @@ const useDownloadBook = () => {
         },
       });
 
-      if (downloadResult == null || displaySuccessNotification == null) {
+      if (downloadResult == null) {
         await NotificationService.cancelNotification(book.md5!);
         return;
       }
 
       updateBook(book.md5!, {filePath: downloadResult.uri});
-
-      await displaySuccessNotification(downloadResult.uri);
+      if (displaySuccessNotification) {
+        await displaySuccessNotification(downloadResult.uri);
+      }
 
       removeBookDownloadInfo(book.md5!);
     } catch (e) {
-      console.log(e);
       removeBookDownloadInfo(book.md5!);
       await NotificationService.cancelNotification(book.md5!);
     }
