@@ -4,7 +4,7 @@
     "all": "All",
     "reload": "Reload",
     "retry": "Retry",
-    "end_result": "End of result",
+    "end_result": "End of results",
     "save": "Save",
     "download": "Download",
     "confirm": "Confirm",
@@ -26,12 +26,12 @@
     "no": "No",
     "storage_access_required_delete_file": "Storage access is required to delete files",
     "settings": "Settings",
-    "choose_gateway": "Choose a gateway to download {{- title}}",
+    "choose_gateway": "Choose a gateway to download '{{- title}}'",
     "field_required": "This field is required",
     "field_min_length_one": "Minimum {{count}} character",
     "field_min_length_other": "Minimum {{count}} characters",
-    "no_book": "No Books",
-    "no_application_to_open_file": "No application found to open {{- file}}",
+    "no_book": "No books",
+    "no_application_to_open_file": "No application found to open '{{- file}}'",
     "more": "More",
     "language": "Language"
   },
@@ -40,7 +40,7 @@
     "theme": {
       "title": "Theme",
       "dynamic": "Dynamic",
-      "dynamic_theme_notice": "When dynamic color is enabled, Booky will adapt its theme automatically to match your wallpaper color.",
+      "dynamic_theme_notice": "When dynamic color is enabled, Booky will automatically adapt its theme to match your wallpaper color. (Android 12+ only)",
       "dynamic_color": "Dynamic Color"
     },
     "dark_mode": {
@@ -55,8 +55,8 @@
   },
   "library": {
     "title": "Library",
-    "confirm_remove_from_library": "Do you really want to remove {{- title}} from your library?",
-    "confirm_remove_everywhere": "Do you really want to remove {{- title}} from your library and your files?",
+    "confirm_remove_from_library": "Are you sure you want to remove '{{- title}}' from your library?",
+    "confirm_remove_everywhere": "Are you sure you want to remove '{{- title}}' from your library and your files?",
     "remove_from_library": "Remove from Library",
     "remove_everywhere": "Remove Everywhere"
   },
@@ -94,8 +94,8 @@
       "all": "All Categories",
       "fiction": "Fiction",
       "non_fiction": "Non-Fiction",
-      "non_fiction_description": "History, Sciences, Self-help, Biographies, Informative and more",
-      "fiction_description": "Romance,  Sci-fi, fantasy, Thriller and more"
+      "non_fiction_description": "History, Sciences, Self-help, Biographies, Informative, and more",
+      "fiction_description": "Romance, Sci-fi, Fantasy, Thriller, and more"
     },
     "extensions": {
       "all": "All Extensions",
@@ -110,8 +110,8 @@
     "create_collection": "Create Collection",
     "enter_collection_name": "Enter Collection Name",
     "add_to_a_collection": "Add to Collection",
-    "remove_collection": "Are you certain you want to remove {{- name}}? (The contained books will remain unaffected.)",
-    "rename_collection": "Rename {{- name}}"
+    "remove_collection": "Are you sure you want to remove '{{- name}}'? (The contained books will remain unaffected.)",
+    "rename_collection": "Rename '{{- name}}'"
   },
   "book_details": {
     "book_info_label": {
@@ -123,20 +123,20 @@
       "series": "Series"
     },
     "gateways": "Gateways",
-    "book_saved": "{{- title}} has been added to your library"
+    "book_saved": "'{{- title}}' has been added to your library"
   },
   "error": {
     "host": {
-      "title": "Host error",
-      "body": "An error occured on {{hostname}}. Try again later"
+      "title": "Host Error",
+      "body": "An error occurred on {{hostname}}. Please try again later."
     },
     "connection_error": {
-      "title": "No internet connexion",
-      "body": "Please check your internet connection, then retry."
+      "title": "No Internet Connection",
+      "body": "Please check your internet connection and then retry."
     },
     "timeout_error": {
-      "title": "Timeout error",
-      "body": "The server did not respond in time, check your internet connection or try again later"
+      "title": "Timeout Error",
+      "body": "The server did not respond in time. Check your internet connection or try again later."
     }
   }
 }
