@@ -13,6 +13,7 @@ import {useTranslation} from 'react-i18next';
 import {colorKit} from 'reanimated-color-picker';
 import {useMaterial3ThemeContext} from '@/theme';
 import {nativeApplicationVersion} from 'expo-application';
+import {Linking} from 'react-native';
 
 const PlusScreen = () => {
   const {colors} = useAppTheme();
@@ -39,6 +40,11 @@ const PlusScreen = () => {
 
     return colors.inverseOnSurface;
   };
+
+  const goToCodeRepo = async () => {
+    await Linking.openURL(Constants.CODE_REPOSITORY);
+  };
+
   return (
     <>
       <PlusScreenHeader />
@@ -61,6 +67,13 @@ const PlusScreen = () => {
                 .label,
             )}
             onPress={toggleIsUpdateLanguageVisible}
+          />
+          <List.Item
+            title={t('common:code_repo')}
+            onPress={goToCodeRepo}
+            description={Constants.CODE_REPOSITORY}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            left={props => <List.Icon icon="source-repository" {...props} />}
           />
           <List.Item
             title={t('common:version')}

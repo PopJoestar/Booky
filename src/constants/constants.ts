@@ -12,6 +12,7 @@ const Constants = {
     {label: 'search:languages.french', value: 'fr'},
   ],
   DEFAULT_COLOR: '#B726C3',
+  CODE_REPOSITORY: 'https://github.com/PopJoestar/Booky',
 };
 
 export default Constants;
