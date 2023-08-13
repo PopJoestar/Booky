@@ -1,5 +1,5 @@
 import React from 'react';
-import {Chip, ScrollView} from '@/core';
+import {Chip, Image, ScrollView} from '@/core';
 import {
   DarkModeOptionsDialog,
   PlusScreenHeader,
@@ -43,6 +43,12 @@ const PlusScreen = () => {
     <>
       <PlusScreenHeader />
       <ScrollView>
+        <Image
+          source={require('../../assets/Booky.png')}
+          height={75}
+          width={75}
+          alignSelf={'center'}
+        />
         {/* Général */}
         <List.Section>
           <List.Subheader>{t('general')}</List.Subheader>
