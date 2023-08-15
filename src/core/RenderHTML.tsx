@@ -26,7 +26,7 @@ const RenderHTML = ({source, ...rest}: RenderHTMLProps) => {
       label: textVariants.bodyMedium,
       p: textVariants.bodyMedium,
     };
-  }, []);
+  }, [textVariants.bodyMedium]);
 
   return (
     <RNRenderHTML
