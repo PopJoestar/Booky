@@ -7,7 +7,7 @@ import {
 } from '@/components';
 import {Box} from '@/core';
 import {useAppTheme, useCollections, useToggle} from '@/hooks';
-import {ListRenderItem, useWindowDimensions} from 'react-native';
+import {ListRenderItem} from 'react-native';
 import {CollectionModel} from '@/database';
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
@@ -20,11 +20,6 @@ const CollectionsScreen = () => {
   ] = useToggle();
   const {sizes, spacing} = useAppTheme();
   const collections = useCollections();
-
-  const {width} = useWindowDimensions();
-  const nbrOfColumns = Math.floor(
-    width / (sizes.collection_item_width + spacing.m),
-  );
 
   const renderItem: ListRenderItem<CollectionModel> = ({item}) => {
     return <CollectionItem item={item} />;
@@ -46,21 +41,12 @@ const CollectionsScreen = () => {
       <Animated.FlatList
         entering={FadeIn.duration(1000)}
         exiting={FadeOut.duration(1000)}
-        columnWrapperStyle={
-          nbrOfColumns === 1
-            ? undefined
-            : {
-                columnGap: spacing.m,
-              }
-        }
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<Box height={sizes.FAB} />}
         contentContainerStyle={{paddingHorizontal: spacing.m}}
         ItemSeparatorComponent={ItemDivider}
         getItemLayout={getItemLayout}
         data={collections}
-        key={nbrOfColumns}
-        numColumns={nbrOfColumns}
         renderItem={renderItem}
       />
 

@@ -21,6 +21,8 @@ type Props = {
   item: CollectionModel;
 };
 
+const MAX_COVERS = 7;
+
 const CollectionItem = ({item}: Props) => {
   const {t} = useTranslation();
   const {sizes, spacing} = useAppTheme();
@@ -28,7 +30,7 @@ const CollectionItem = ({item}: Props) => {
   const {removeCollection} = useCollectionRepository();
 
   const bookImages = item.books.map(book => book.image);
-  const splicedBookImages = [...bookImages].splice(0, 3);
+  const splicedBookImages = [...bookImages].splice(0, MAX_COVERS);
 
   const [isMenuVisible, toggleIsMenuVisible] = useToggle();
   const [
@@ -72,7 +74,6 @@ const CollectionItem = ({item}: Props) => {
           flex={1}
           padding={'s'}
           paddingTop={'m'}
-          width={sizes.collection_item_width}
           height={sizes.collection_item_height}>
           <Box rowGap={'s'} flex={1}>
             <Box flex={2} minHeight={112}>
@@ -84,10 +85,9 @@ const CollectionItem = ({item}: Props) => {
               {item.books.length > 0 ? (
                 <Row
                   flex={1}
-                  flexShrink={0}
                   flexWrap={'wrap'}
                   rowGap={'s'}
-                  justifyContent={'space-between'}>
+                  justifyContent={'center'}>
                   {splicedBookImages.map((image, index) => (
                     <Box key={index}>
                       <Image
@@ -101,7 +101,7 @@ const CollectionItem = ({item}: Props) => {
                       />
                     </Box>
                   ))}
-                  {bookImages.length > 3 ? (
+                  {bookImages.length > MAX_COVERS ? (
                     <Box
                       width={
                         (sizes.collection_item_width - 10 - spacing.s * 2) / 2
@@ -114,7 +114,7 @@ const CollectionItem = ({item}: Props) => {
                         alignItems={'center'}
                         justifyContent={'center'}>
                         <Text numberOfLines={1}>{`+${
-                          bookImages.length - 3
+                          bookImages.length - MAX_COVERS
                         }`}</Text>
                       </Box>
                     </Box>
