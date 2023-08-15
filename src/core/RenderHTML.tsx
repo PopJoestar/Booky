@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {useWindowDimensions} from 'react-native';
 import RNRenderHTML, {
   CSSPropertyNameList,
@@ -17,6 +17,17 @@ const RenderHTML = ({source, ...rest}: RenderHTMLProps) => {
   const {width} = useWindowDimensions();
 
   const {textVariants, colors} = useAppTheme();
+
+  const tagsStyles = useMemo(() => {
+    return {
+      div: textVariants.bodyMedium,
+      span: textVariants.bodyMedium,
+      li: textVariants.bodyMedium,
+      label: textVariants.bodyMedium,
+      p: textVariants.bodyMedium,
+    };
+  }, []);
+
   return (
     <RNRenderHTML
       source={source}
@@ -26,13 +37,7 @@ const RenderHTML = ({source, ...rest}: RenderHTMLProps) => {
         },
       }}
       contentWidth={width}
-      tagsStyles={{
-        div: textVariants.bodyMedium,
-        span: textVariants.bodyMedium,
-        li: textVariants.bodyMedium,
-        label: textVariants.bodyMedium,
-        p: textVariants.bodyMedium,
-      }}
+      tagsStyles={tagsStyles}
       ignoredStyles={ignoredStyles}
       {...rest}
     />
