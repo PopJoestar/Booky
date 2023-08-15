@@ -2,7 +2,6 @@ import React from 'react';
 import {Chip, Image, ScrollView} from '@/core';
 import {
   DarkModeOptionsDialog,
-  PlusScreenHeader,
   UpdateLanguageDialog,
   UpdateThemeDialog,
 } from '@/components';
@@ -47,13 +46,13 @@ const PlusScreen = () => {
 
   return (
     <>
-      <PlusScreenHeader />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Image
           source={require('../../assets/Booky.png')}
           height={75}
           width={75}
           alignSelf={'center'}
+          marginTop={'tabsHeader'}
         />
         {/* Général */}
         <List.Section>

@@ -11,6 +11,7 @@ import RemoteBookDetailsHeader from './RemoteBookDetailsHeader';
 import RemoteBookItem from './RemoteBookItem';
 import RenameCollectionDialog from './RenameCollectionDialog';
 import SearchBooksScreenHeader from './SearchBooksScreenHeader';
+import StorageAccessSnackBar from './StorageAccessSnackBar';
 import UpdateLanguageDialog from './UpdateLanguageDialog';
 import UpdateThemeDialog from './UpdateThemeDialog';
 
@@ -30,4 +31,5 @@ export {
   CollectionScreenHeader,
   RenameCollectionDialog,
   UpdateLanguageDialog,
+  StorageAccessSnackBar,
 };

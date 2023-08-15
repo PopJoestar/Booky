@@ -12,6 +12,7 @@ export const spacing = {
   bottomSheetLargeScreenMargin: 56,
   scaffoldBottom: 48,
   searchbarHeader: (StatusBar.currentHeight ?? 0) + 8,
+  tabsHeader: 88,
 };
 
 export const sizes = {
