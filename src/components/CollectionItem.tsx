@@ -16,6 +16,7 @@ import {StyleSheet} from 'react-native';
 import {Menu} from 'react-native-paper';
 import {useModal} from '@/stores';
 import {Modals} from '@/types/modal';
+import {OpenModalFunction} from '@/stores/modalStore';
 
 type Props = {
   item: CollectionModel;
@@ -28,8 +29,9 @@ const CollectionItem = ({item}: Props) => {
   const {sizes, spacing} = useAppTheme();
 
   const navigation = useNavigation();
-  const {openModal} = useModal<Modals>();
-
+  const openModal = useModal<Modals, OpenModalFunction<Modals>>(
+    state => state.openModal,
+  );
   const bookImages = item.books.map(book => book.image);
   const splicedBookImages = [...bookImages].splice(0, MAX_COVERS);
 
