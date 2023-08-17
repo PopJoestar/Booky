@@ -13,6 +13,14 @@ export type ModalStore<T> = {
   closeModal: (modalName: keyof T) => void;
 };
 
+export type OpenModalFunction<T> = <K extends keyof T>(
+  ...args: K extends unknown
+    ? undefined extends T[K]
+      ? [screen: K] | [screen: K, params: T[K]]
+      : [screen: K, params: T[K]]
+    : never
+) => void;
+
 const useModalImpl = create<ModalStore<any>>()(set => ({
   params: {},
   modals: [],

@@ -19,6 +19,7 @@ import {Constants} from './constants';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   ConfirmationDialogRemoveCollection,
+  CreateCollectionDialog,
   RenameCollectionDialog,
 } from './components';
 import {useModal} from './stores';
@@ -56,6 +57,9 @@ const AppContent = () => {
           ) : null}
           {modals.includes('remove_collection') ? (
             <ConfirmationDialogRemoveCollection />
+          ) : null}
+          {modals.includes('create_collection') ? (
+            <CreateCollectionDialog />
           ) : null}
         </NavigationContainer>
         <FlashMessageContainer />

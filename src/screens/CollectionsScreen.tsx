@@ -1,31 +1,34 @@
 import React from 'react';
-import {FAB, Portal} from 'react-native-paper';
-import {
-  CollectionItem,
-  CollectionsTabHeader,
-  CreateCollectionDialog,
-} from '@/components';
+import {FAB} from 'react-native-paper';
+import {CollectionItem, CollectionsTabHeader} from '@/components';
 import {Box} from '@/core';
-import {useAppTheme, useCollections, useToggle} from '@/hooks';
+import {useAppTheme, useCollections} from '@/hooks';
 import {CollectionModel} from '@/database';
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import {FlashList, FlashListProps, ListRenderItem} from '@shopify/flash-list';
+import {useModal} from '@/stores';
+import {Modals} from '@/types/modal';
+import {OpenModalFunction} from '@/stores/modalStore';
 
 const AnimatedFlashList =
   Animated.createAnimatedComponent<FlashListProps<CollectionModel>>(FlashList);
 
 const CollectionsScreen = () => {
   const {t} = useTranslation();
-  const [
-    isCreateCollectionDialogVisible,
-    toggleIsCreateCollectionDialogVisible,
-  ] = useToggle();
+  const openModal = useModal<Modals, OpenModalFunction<Modals>>(
+    state => state.openModal,
+  );
+
   const {sizes, spacing} = useAppTheme();
   const collections = useCollections();
 
   const renderItem: ListRenderItem<CollectionModel> = ({item}) => {
     return <CollectionItem item={item} />;
+  };
+
+  const showCreateCollectionDialog = () => {
+    openModal('create_collection');
   };
 
   return (
@@ -53,15 +56,9 @@ const CollectionsScreen = () => {
         <FAB
           icon="plus"
           label={t('common:add')}
-          onPress={toggleIsCreateCollectionDialogVisible}
+          onPress={showCreateCollectionDialog}
         />
       </Box>
-      <Portal>
-        <CreateCollectionDialog
-          visible={isCreateCollectionDialogVisible}
-          onDismiss={toggleIsCreateCollectionDialogVisible}
-        />
-      </Portal>
     </>
   );
 };

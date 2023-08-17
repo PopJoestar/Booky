@@ -1,13 +1,14 @@
 import {Box, Button, ControlledTextInput} from '@/core';
 import {useCollectionRepository} from '@/hooks';
-import React, {useEffect} from 'react';
+import {useModal} from '@/stores';
+import {Modals} from '@/types/modal';
+import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
-import {Dialog, DialogProps} from 'react-native-paper';
+import {Dialog} from 'react-native-paper';
 
-type Props = {} & Omit<DialogProps, 'children'>;
-
-const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
+const CreateCollectionDialog = () => {
+  const {closeModal, modals} = useModal<Modals>();
   const {t} = useTranslation();
   const {control, handleSubmit, reset} = useForm<{name: string}>();
   const {createCollection} = useCollectionRepository();
@@ -17,19 +18,14 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
     reset({name: ''});
   });
 
-  useEffect(() => {
-    if (!visible) {
-      reset({name: ''});
-    }
-  }, [reset, visible]);
+  const close = () => closeModal('create_collection');
 
   return (
     <Dialog
-      {...rest}
-      visible={visible}
+      visible={modals.includes('create_collection')}
       dismissable={false}
       dismissableBackButton
-      onDismiss={onDismiss}>
+      onDismiss={close}>
       <Dialog.Title>{t('collection:create_collection')}</Dialog.Title>
       <Dialog.Content>
         <Box rowGap={'m'}>
@@ -52,7 +48,7 @@ const CreateCollectionDialog = ({onDismiss, visible, ...rest}: Props) => {
         </Box>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>{t('common:dismiss')}</Button>
+        <Button onPress={close}>{t('common:dismiss')}</Button>
         <Button onPress={_createCollection}>{t('common:create')}</Button>
       </Dialog.Actions>
     </Dialog>
