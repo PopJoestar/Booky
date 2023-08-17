@@ -26,6 +26,7 @@ import {
 } from './components';
 import {useModal} from './stores';
 import {Modals} from './types/modal';
+import DownloadBookDialog from './components/DownloadBookDialog';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -69,6 +70,7 @@ const AppContent = () => {
           {modals.includes('remove_book_everywhere') ? (
             <ConfirmationDialogRemoveBookEverywhere />
           ) : null}
+          {modals.includes('download_book') ? <DownloadBookDialog /> : null}
         </NavigationContainer>
         <FlashMessageContainer />
       </BottomSheetModalProvider>

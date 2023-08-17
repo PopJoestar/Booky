@@ -1,60 +1,60 @@
 import React, {useState} from 'react';
-import {Dialog, DialogProps, RadioButton} from 'react-native-paper';
+import {Dialog, RadioButton} from 'react-native-paper';
 import {Box, Button, Text} from '@/core';
 import {useTranslation} from 'react-i18next';
-import {BookModel} from '@/database';
+import {BookModel, useObject} from '@/database';
 import {Constants} from '@/constants';
 import {StyleSheet} from 'react-native';
 import {useAppTheme, useDownloadBook} from '@/hooks';
 import {BookService} from '@/services';
 import {requestExternalStoragePermission} from '@/utils/permissions';
+import {useModal} from '@/stores';
+import {Modals} from '@/types/modal';
 
-type Props = {
-  book: BookModel;
-  onStoragePermissionDenied?: () => void;
-} & Omit<DialogProps, 'children'>;
-
-const DownloadBookDialog = ({
-  book,
-  onDismiss,
-  onStoragePermissionDenied,
-  ...rest
-}: Props) => {
+const DownloadBookDialog = () => {
   const {spacing} = useAppTheme();
+
+  const {closeModal, modals, params} = useModal<Modals>();
+
+  const bookId = params.download_book.bookId;
+
+  const book = useObject(BookModel, bookId as Realm.BSON.ObjectId);
+
   const {t} = useTranslation();
 
   const {downloadBook} = useDownloadBook();
 
   const [selectedDownloadLinkIndex, setSelectedDownloadLinkIndex] = useState(
-    BookService.getDefaultDownloadHostIndex(book.downloadLinks!.length),
+    BookService.getDefaultDownloadHostIndex(book!.downloadLinks!.length),
   );
 
+  const close = () => closeModal('download_book');
+
   const _downloadBook = async () => {
+    if (book == null) {
+      return;
+    }
     const isExternalStorageManager = await requestExternalStoragePermission();
 
     if (!isExternalStorageManager) {
-      if (onStoragePermissionDenied) {
-        if (onDismiss) {
-          onDismiss();
-        }
-        setTimeout(() => {
-          onStoragePermissionDenied();
-        }, 1);
-      }
+      close();
+      // TODO: storage permission snackbar
       return;
     }
-    if (onDismiss) {
-      onDismiss();
-    }
+    close();
     downloadBook(book, selectedDownloadLinkIndex);
   };
 
   return (
-    <Dialog {...rest} onDismiss={onDismiss} dismissableBackButton dismissable>
-      <Dialog.Title numberOfLines={2}>{book.title}</Dialog.Title>
+    <Dialog
+      visible={modals.includes('download_book')}
+      onDismiss={close}
+      dismissableBackButton
+      dismissable>
+      <Dialog.Title numberOfLines={2}>{book?.title}</Dialog.Title>
       <Dialog.Content>
         <Box rowGap={'l'}>
-          <Text>{t('common:choose_gateway', {title: book.title})}</Text>
+          <Text>{t('common:choose_gateway', {title: book?.title})}</Text>
 
           <RadioButton.Group
             value={selectedDownloadLinkIndex.toString(10)}
@@ -62,7 +62,7 @@ const DownloadBookDialog = ({
               setSelectedDownloadLinkIndex(parseInt(selected, 10));
             }}>
             <Box>
-              {book.downloadLinks
+              {book?.downloadLinks
                 ?.filter(({host}) =>
                   Constants.VALID_HOSTS.includes(host.trim().toLowerCase()),
                 )
@@ -83,7 +83,7 @@ const DownloadBookDialog = ({
         </Box>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>{t('common:no')}</Button>
+        <Button onPress={close}>{t('common:no')}</Button>
         <Button onPress={_downloadBook}>{t('common:yes')}</Button>
       </Dialog.Actions>
     </Dialog>
