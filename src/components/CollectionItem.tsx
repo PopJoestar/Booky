@@ -8,13 +8,12 @@ import {
   TouchableRipple,
 } from '@/core';
 import {CollectionModel} from '@/database';
-import {useAppTheme, useCollectionRepository, useToggle} from '@/hooks';
+import {useAppTheme, useToggle} from '@/hooks';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet} from 'react-native';
-import {Menu, Portal} from 'react-native-paper';
-import ConfirmationDialog from './ConfirmationDialog';
+import {Menu} from 'react-native-paper';
 import {useModal} from '@/stores';
 import {Modals} from '@/types/modal';
 
@@ -31,16 +30,10 @@ const CollectionItem = ({item}: Props) => {
   const navigation = useNavigation();
   const {openModal} = useModal<Modals>();
 
-  const {removeCollection} = useCollectionRepository();
-
   const bookImages = item.books.map(book => book.image);
   const splicedBookImages = [...bookImages].splice(0, MAX_COVERS);
 
   const [isMenuVisible, toggleIsMenuVisible] = useToggle();
-  const [
-    isRemoveConfirmationDialogVisible,
-    toggleIsRemoveConfirmationDialogVisible,
-  ] = useToggle();
 
   const goToCollectionScreen = () => {
     navigation.navigate('collection', {collectionId: item.id.toHexString()});
@@ -48,7 +41,7 @@ const CollectionItem = ({item}: Props) => {
 
   const handleOnPressRemoveCollection = () => {
     toggleIsMenuVisible();
-    toggleIsRemoveConfirmationDialogVisible();
+    openModal('remove_collection', {collectionId: item.id});
   };
 
   const handleOnPressRenameCollection = () => {
@@ -56,117 +49,95 @@ const CollectionItem = ({item}: Props) => {
     openModal('rename_collection', {collectionId: item.id});
   };
 
-  const handleRemoveCollection = () => {
-    toggleIsRemoveConfirmationDialogVisible();
-    setTimeout(() => {
-      removeCollection(item.id);
-    }, 1);
-  };
-
   return (
-    <>
-      <Surface
-        borderRadius={'sm'}
-        borderWidth={1}
-        borderColor={'outlineVariant'}>
-        <TouchableRipple
-          onPress={goToCollectionScreen}
-          flex={1}
-          padding={'s'}
-          paddingTop={'m'}
-          height={sizes.collection_item_height}>
-          <Box rowGap={'s'} flex={1}>
-            <Box flex={2} minHeight={112}>
-              {item.books.length === 0 ? (
-                <Box flex={1} alignItems={'center'} justifyContent={'center'}>
-                  <Text variant={'bodySmall'}>{t('common:no_book')}</Text>
-                </Box>
-              ) : null}
-              {item.books.length > 0 ? (
-                <Row
-                  flex={1}
-                  flexWrap={'wrap'}
-                  rowGap={'s'}
-                  justifyContent={'center'}>
-                  {splicedBookImages.map((image, index) => (
-                    <Box key={index}>
-                      <Image
-                        source={{uri: image}}
-                        height={70}
-                        width={
-                          (sizes.collection_item_width - 10 - spacing.s * 2) / 2
-                        }
-                        contentFit="contain"
-                        alignSelf={'flex-start'}
-                      />
-                    </Box>
-                  ))}
-                  {bookImages.length > MAX_COVERS ? (
-                    <Box
+    <Surface borderRadius={'sm'} borderWidth={1} borderColor={'outlineVariant'}>
+      <TouchableRipple
+        onPress={goToCollectionScreen}
+        flex={1}
+        padding={'s'}
+        paddingTop={'m'}
+        height={sizes.collection_item_height}>
+        <Box rowGap={'s'} flex={1}>
+          <Box flex={2} minHeight={112}>
+            {item.books.length === 0 ? (
+              <Box flex={1} alignItems={'center'} justifyContent={'center'}>
+                <Text variant={'bodySmall'}>{t('common:no_book')}</Text>
+              </Box>
+            ) : null}
+            {item.books.length > 0 ? (
+              <Row
+                flex={1}
+                flexWrap={'wrap'}
+                rowGap={'s'}
+                justifyContent={'center'}>
+                {splicedBookImages.map((image, index) => (
+                  <Box key={index}>
+                    <Image
+                      source={{uri: image}}
+                      height={70}
                       width={
                         (sizes.collection_item_width - 10 - spacing.s * 2) / 2
                       }
-                      style={styles.fakeImage}
-                      height={70}>
-                      <Box
-                        backgroundColor={'surfaceContainerHighest'}
-                        flex={1}
-                        alignItems={'center'}
-                        justifyContent={'center'}>
-                        <Text numberOfLines={1}>{`+${
-                          bookImages.length - MAX_COVERS
-                        }`}</Text>
-                      </Box>
-                    </Box>
-                  ) : null}
-                </Row>
-              ) : null}
-            </Box>
-            <Box flex={1}>
-              <Row
-                alignItems={'center'}
-                flex={1}
-                justifyContent={'space-between'}>
-                <Text variant={'titleSmall'} numberOfLines={2}>
-                  {item.name}
-                </Text>
-                <Menu
-                  visible={isMenuVisible}
-                  onDismiss={toggleIsMenuVisible}
-                  anchor={
-                    <IconButton
-                      icon={'dots-horizontal'}
-                      onPress={toggleIsMenuVisible}
+                      contentFit="contain"
+                      alignSelf={'flex-start'}
                     />
-                  }>
-                  <Menu.Item
-                    onPress={handleOnPressRenameCollection}
-                    title={t('rename')}
-                    leadingIcon={'pencil-outline'}
-                  />
-
-                  <Menu.Item
-                    onPress={handleOnPressRemoveCollection}
-                    title={t('remove')}
-                    leadingIcon={'trash-can-outline'}
-                  />
-                </Menu>
+                  </Box>
+                ))}
+                {bookImages.length > MAX_COVERS ? (
+                  <Box
+                    width={
+                      (sizes.collection_item_width - 10 - spacing.s * 2) / 2
+                    }
+                    style={styles.fakeImage}
+                    height={70}>
+                    <Box
+                      backgroundColor={'surfaceContainerHighest'}
+                      flex={1}
+                      alignItems={'center'}
+                      justifyContent={'center'}>
+                      <Text numberOfLines={1}>{`+${
+                        bookImages.length - MAX_COVERS
+                      }`}</Text>
+                    </Box>
+                  </Box>
+                ) : null}
               </Row>
-            </Box>
+            ) : null}
           </Box>
-        </TouchableRipple>
-      </Surface>
+          <Box flex={1}>
+            <Row
+              alignItems={'center'}
+              flex={1}
+              justifyContent={'space-between'}>
+              <Text variant={'titleSmall'} numberOfLines={2}>
+                {item.name}
+              </Text>
+              <Menu
+                visible={isMenuVisible}
+                onDismiss={toggleIsMenuVisible}
+                anchor={
+                  <IconButton
+                    icon={'dots-horizontal'}
+                    onPress={toggleIsMenuVisible}
+                  />
+                }>
+                <Menu.Item
+                  onPress={handleOnPressRenameCollection}
+                  title={t('rename')}
+                  leadingIcon={'pencil-outline'}
+                />
 
-      <Portal>
-        <ConfirmationDialog
-          onDismiss={toggleIsRemoveConfirmationDialogVisible}
-          onConfirm={handleRemoveCollection}
-          onReject={toggleIsRemoveConfirmationDialogVisible}
-          visible={isRemoveConfirmationDialogVisible}
-          content={t('collection:remove_collection', {name: item.name})}
-        />
-      </Portal>
-    </>
+                <Menu.Item
+                  onPress={handleOnPressRemoveCollection}
+                  title={t('remove')}
+                  leadingIcon={'trash-can-outline'}
+                />
+              </Menu>
+            </Row>
+          </Box>
+        </Box>
+      </TouchableRipple>
+    </Surface>
   );
 };
 

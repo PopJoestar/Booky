@@ -3,6 +3,7 @@ import BookList from './BookList';
 import CollectionItem from './CollectionItem';
 import CollectionScreenHeader from './CollectionScreenHeader';
 import CollectionsTabHeader from './CollectionsTabHeader';
+import ConfirmationDialogRemoveCollection from './ConfirmationDialogRemoveCollection';
 import CreateCollectionDialog from './CreateCollectionDialog';
 import DarkModeOptionsDialog from './DarkModeOptionsDialog';
 import LibraryScreenHeader from './LibraryScreenHeader';
@@ -32,4 +33,5 @@ export {
   RenameCollectionDialog,
   UpdateLanguageDialog,
   StorageAccessSnackBar,
+  ConfirmationDialogRemoveCollection,
 };

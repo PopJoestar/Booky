@@ -8,4 +8,5 @@ export type Modals = {
   test: undefined;
   caca: {be: string};
   rename_collection: {collectionId: PrimaryKey};
+  remove_collection: {collectionId: PrimaryKey};
 };

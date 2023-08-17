@@ -17,7 +17,10 @@ import {useTranslation} from 'react-i18next';
 import {Constants} from './constants';
 
 import * as SplashScreen from 'expo-splash-screen';
-import {RenameCollectionDialog} from './components';
+import {
+  ConfirmationDialogRemoveCollection,
+  RenameCollectionDialog,
+} from './components';
 import {useModal} from './stores';
 import {Modals} from './types/modal';
 
@@ -50,6 +53,9 @@ const AppContent = () => {
           <Navigations />
           {modals.includes('rename_collection') ? (
             <RenameCollectionDialog />
+          ) : null}
+          {modals.includes('remove_collection') ? (
+            <ConfirmationDialogRemoveCollection />
           ) : null}
         </NavigationContainer>
         <FlashMessageContainer />
