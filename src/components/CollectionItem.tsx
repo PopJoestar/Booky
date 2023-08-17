@@ -15,7 +15,8 @@ import {useTranslation} from 'react-i18next';
 import {StyleSheet} from 'react-native';
 import {Menu, Portal} from 'react-native-paper';
 import ConfirmationDialog from './ConfirmationDialog';
-import RenameCollectionDialog from './RenameCollectionDialog';
+import {useModal} from '@/stores';
+import {Modals} from '@/types/modal';
 
 type Props = {
   item: CollectionModel;
@@ -26,7 +27,10 @@ const MAX_COVERS = 7;
 const CollectionItem = ({item}: Props) => {
   const {t} = useTranslation();
   const {sizes, spacing} = useAppTheme();
+
   const navigation = useNavigation();
+  const {openModal} = useModal<Modals>();
+
   const {removeCollection} = useCollectionRepository();
 
   const bookImages = item.books.map(book => book.image);
@@ -36,10 +40,6 @@ const CollectionItem = ({item}: Props) => {
   const [
     isRemoveConfirmationDialogVisible,
     toggleIsRemoveConfirmationDialogVisible,
-  ] = useToggle();
-  const [
-    isRenameCollectionDialogVisible,
-    toggleIsRenameCollectionDialogVisible,
   ] = useToggle();
 
   const goToCollectionScreen = () => {
@@ -53,7 +53,7 @@ const CollectionItem = ({item}: Props) => {
 
   const handleOnPressRenameCollection = () => {
     toggleIsMenuVisible();
-    toggleIsRenameCollectionDialogVisible();
+    openModal('rename_collection', {collectionId: item.id});
   };
 
   const handleRemoveCollection = () => {
@@ -164,11 +164,6 @@ const CollectionItem = ({item}: Props) => {
           onReject={toggleIsRemoveConfirmationDialogVisible}
           visible={isRemoveConfirmationDialogVisible}
           content={t('collection:remove_collection', {name: item.name})}
-        />
-        <RenameCollectionDialog
-          visible={isRenameCollectionDialogVisible}
-          onDismiss={toggleIsRenameCollectionDialogVisible}
-          collection={item}
         />
       </Portal>
     </>

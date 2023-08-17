@@ -1,42 +1,41 @@
 import {Box, Button, ControlledTextInput} from '@/core';
-import {CollectionModel} from '@/database';
+import {CollectionModel, useObject} from '@/database';
 import {useCollectionRepository} from '@/hooks';
+import {useModal} from '@/stores';
+import {Modals} from '@/types/modal';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
-import {Dialog, DialogProps} from 'react-native-paper';
+import {Dialog} from 'react-native-paper';
 
-type Props = {
-  collection: CollectionModel;
-  onDismiss: () => void;
-} & Omit<DialogProps, 'children' | 'onDismiss'>;
-
-const RenameCollectionDialog = ({
-  onDismiss,
-  visible,
-  collection,
-  ...rest
-}: Props) => {
+const RenameCollectionDialog = () => {
+  const {modals, closeModal, params} = useModal<Modals>();
+  const collectionId = params.rename_collection.collectionId;
   const {t} = useTranslation();
+
+  const collection = useObject(
+    CollectionModel,
+    collectionId as Realm.BSON.ObjectId,
+  );
+
   const {control, handleSubmit} = useForm<{name: string}>({
-    defaultValues: {name: collection.name},
+    defaultValues: {name: collection?.name},
   });
   const {updateCollection} = useCollectionRepository();
 
   const renameCollection = handleSubmit(({name}) => {
-    updateCollection(collection.id, {name});
-    onDismiss();
+    updateCollection(collection!.id, {name});
+    closeModal('rename_collection');
   });
 
   return (
     <Dialog
-      {...rest}
-      visible={visible}
+      visible={modals.includes('rename_collection')}
       dismissable={false}
       dismissableBackButton
-      onDismiss={onDismiss}>
+      onDismiss={() => closeModal('rename_collection')}>
       <Dialog.Title numberOfLines={2}>
-        {t('collection:rename_collection', {name: collection.name})}
+        {t('collection:rename_collection', {name: collection?.name})}
       </Dialog.Title>
       <Dialog.Content>
         <Box rowGap={'m'}>
@@ -59,7 +58,9 @@ const RenameCollectionDialog = ({
         </Box>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={onDismiss}>{t('common:dismiss')}</Button>
+        <Button onPress={() => closeModal('rename_collection')}>
+          {t('common:dismiss')}
+        </Button>
         <Button onPress={renameCollection}>{t('common:confirm')}</Button>
       </Dialog.Actions>
     </Dialog>

@@ -17,6 +17,9 @@ import {useTranslation} from 'react-i18next';
 import {Constants} from './constants';
 
 import * as SplashScreen from 'expo-splash-screen';
+import {RenameCollectionDialog} from './components';
+import {useModal} from './stores';
+import {Modals} from './types/modal';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,7 +33,7 @@ const App = () => {
 
 const AppContent = () => {
   const {navigationTheme, isDark} = useMaterial3ThemeContext();
-
+  const {modals} = useModal<Modals>();
   return (
     <GestureHandlerRootView style={styles.ghRoot}>
       <BottomSheetModalProvider>
@@ -45,6 +48,9 @@ const AppContent = () => {
             translucent={true}
           />
           <Navigations />
+          {modals.includes('rename_collection') ? (
+            <RenameCollectionDialog />
+          ) : null}
         </NavigationContainer>
         <FlashMessageContainer />
       </BottomSheetModalProvider>
