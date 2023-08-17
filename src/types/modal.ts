@@ -13,4 +13,5 @@ export type Modals = {
   remove_book_from_library: {bookId: PrimaryKey};
   remove_book_everywhere: {bookId: PrimaryKey};
   download_book: {bookId: PrimaryKey};
+  add_book_to_collection: {bookId: PrimaryKey};
 };

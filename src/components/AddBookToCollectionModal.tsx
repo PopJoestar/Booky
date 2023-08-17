@@ -7,35 +7,44 @@ import {
   Text,
   TouchableRipple,
 } from '@/core';
-import {BookModel, useRealm} from '@/database';
+import {BookModel, useObject, useRealm} from '@/database';
 import {
   useBookRepository,
   useCollectionRepository,
   useCollections,
 } from '@/hooks';
+import {useModal} from '@/stores';
+import {Modals} from '@/types/modal';
 import Styles from '@/utils/styles';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
 import {Keyboard} from 'react-native';
-import {Checkbox, Dialog, DialogProps} from 'react-native-paper';
+import {Checkbox, Dialog} from 'react-native-paper';
 
-type Props = {
-  book: BookModel;
-} & Omit<DialogProps, 'children'>;
-
-const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
+//TODO: clean
+const AddBookToCollectionModal = () => {
   const {t} = useTranslation();
   const realm = useRealm();
   const collections = useCollections();
   const {updateBook} = useBookRepository();
+
+  const {closeModal, modals, params} = useModal<Modals>();
+
+  const bookId = params.add_book_to_collection.bookId;
+
+  const book = useObject(BookModel, bookId as Realm.BSON.ObjectId);
+
   const [selectedCollectionIds, setSelectedCollectionIds] = useState(
-    book.collections,
+    book ? book.collections : [],
   );
+
   const {control, handleSubmit, setValue} = useForm<{
     newCollectionName: string;
   }>();
   const {createCollection} = useCollectionRepository();
+
+  const close = () => closeModal('add_book_to_collection');
 
   const onSelectCollection = (collectionId: Realm.BSON.ObjectId) => {
     const collectionIndex = selectedCollectionIds.findIndex(id =>
@@ -60,6 +69,9 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
   });
 
   const updateBookCollections = () => {
+    if (book == null) {
+      return;
+    }
     updateBook(book.md5!, {collections: selectedCollectionIds});
 
     realm.write(() => {
@@ -80,19 +92,17 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
         }
       });
     });
-    if (onDismiss) {
-      onDismiss();
-    }
+    close();
   };
 
   return (
     <Dialog
-      {...rest}
       dismissable={false}
       dismissableBackButton
+      visible={modals.includes('add_book_to_collection')}
       style={Styles.dialogWrapper}
-      onDismiss={onDismiss}>
-      <Dialog.Title>{book.title}</Dialog.Title>
+      onDismiss={close}>
+      <Dialog.Title>{book?.title}</Dialog.Title>
       <Dialog.Content>
         <Box>
           <Row alignItems={'center'} columnGap={'s'}>
@@ -148,7 +158,7 @@ const AddBookToCollectionModal = ({book, onDismiss, ...rest}: Props) => {
         </Dialog.ScrollArea>
       )}
       <Dialog.Actions>
-        <Button onPress={onDismiss}>{t('common:dismiss')}</Button>
+        <Button onPress={close}>{t('common:dismiss')}</Button>
         <Button onPress={updateBookCollections}>{t('common:confirm')}</Button>
       </Dialog.Actions>
     </Dialog>

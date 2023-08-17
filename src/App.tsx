@@ -18,6 +18,7 @@ import {Constants} from './constants';
 
 import * as SplashScreen from 'expo-splash-screen';
 import {
+  AddBookToCollectionModal,
   ConfirmationDialogRemoveBookEverywhere,
   ConfirmationDialogRemoveBookFromLibrary,
   ConfirmationDialogRemoveCollection,
@@ -71,6 +72,9 @@ const AppContent = () => {
             <ConfirmationDialogRemoveBookEverywhere />
           ) : null}
           {modals.includes('download_book') ? <DownloadBookDialog /> : null}
+          {modals.includes('add_book_to_collection') ? (
+            <AddBookToCollectionModal />
+          ) : null}
         </NavigationContainer>
         <FlashMessageContainer />
       </BottomSheetModalProvider>

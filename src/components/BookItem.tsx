@@ -18,7 +18,7 @@ import {
 import {sizes} from '@/theme/layout';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Menu, Portal, Surface} from 'react-native-paper';
+import {Menu, Surface} from 'react-native-paper';
 
 import Animated, {
   BounceIn,
@@ -29,8 +29,6 @@ import Animated, {
 import BookStatusIcon from './BookStatusIcon';
 import {BookStatus} from '@/types/status';
 import {BookModel} from '@/database';
-import StorageAccessSnackBar from './StorageAccessSnackBar';
-import DownloadBookDialog from './DownloadBookDialog';
 import {BookService} from '@/services';
 import {BaseError} from '@/types/errors';
 import {ErrorConstant} from '@/constants';
@@ -50,15 +48,6 @@ const BookItem = ({item}: Props) => {
   );
   const {showMessage} = useMessageDisplayer();
   const [isMenuVisible, toggleIsMenuVisible] = useToggle();
-
-  const [isStorageAccessSnackbarVisible, toggleIsStorageAccessSnackbarVisible] =
-    useToggle();
-  const [isDownloadBookDialogVisible, toggleIsDownloadBookDialogVisible] =
-    useToggle();
-  const [
-    isAddBookToCollectionModalVisible,
-    toggleIsAddBookToCollectionModalVisible,
-  ] = useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
   const {updateBook} = useBookRepository();
@@ -84,11 +73,6 @@ const BookItem = ({item}: Props) => {
     toggleIsMenuVisible();
   };
 
-  const handleOnPressAddToCollection = () => {
-    toggleIsMenuVisible();
-    toggleIsAddBookToCollectionModalVisible();
-  };
-
   const handleOnPressRemoveFromLibrary = () => {
     toggleIsMenuVisible();
     setTimeout(() => {
@@ -101,13 +85,25 @@ const BookItem = ({item}: Props) => {
       openModal('remove_book_everywhere', {bookId: item.md5!});
     }, 1);
   };
+  const handleOnPressDownload = () => {
+    toggleIsMenuVisible();
+    setTimeout(() => {
+      openModal('download_book', {bookId: item.md5!});
+    }, 1);
+  };
+  const handleOnPressAddToCollection = () => {
+    toggleIsMenuVisible();
+    setTimeout(() => {
+      openModal('add_book_to_collection', {bookId: item.md5!});
+    }, 1);
+  };
 
   const status = getStatus();
 
   const handleOnPressBook = async () => {
     // The book is not downloaded yet
     if (status === undefined) {
-      toggleIsDownloadBookDialogVisible();
+      openModal('download_book', {bookId: item.md5!});
       return;
     }
 
@@ -131,175 +127,147 @@ const BookItem = ({item}: Props) => {
   };
 
   return (
-    <>
-      <Animated.View entering={FadeIn} exiting={FadeOut}>
-        <TouchableRipple
-          backgroundColor="surface"
-          paddingLeft="m"
-          flex={1}
-          paddingVertical={'m'}
-          onPress={handleOnPressBook}
-          paddingRight="m">
-          <Row>
-            <Surface
-              elevation={2}
-              style={{
-                height: sizes.book_card_image_height,
-                width: sizes.book_card_image_width,
-              }}>
-              {item.image ? (
-                <Image
-                  source={{uri: item.image}}
-                  height={sizes.book_card_image_height}
-                  width={sizes.book_card_image_width}
-                />
-              ) : null}
+    <Animated.View entering={FadeIn} exiting={FadeOut}>
+      <TouchableRipple
+        backgroundColor="surface"
+        paddingLeft="m"
+        flex={1}
+        paddingVertical={'m'}
+        onPress={handleOnPressBook}
+        paddingRight="m">
+        <Row>
+          <Surface
+            elevation={2}
+            style={{
+              height: sizes.book_card_image_height,
+              width: sizes.book_card_image_width,
+            }}>
+            {item.image ? (
+              <Image
+                source={{uri: item.image}}
+                height={sizes.book_card_image_height}
+                width={sizes.book_card_image_width}
+              />
+            ) : null}
 
-              {item.isRead ? (
-                <AnimatedBox
-                  entering={BounceIn}
-                  exiting={BounceOut}
-                  alignSelf={'flex-start'}
-                  position={'absolute'}
-                  padding={'xxs'}
-                  backgroundColor={'inverseSurface'}
-                  borderRadius={'xs'}>
-                  <Text
-                    color={'inverseOnSurface'}
-                    variant={'labelSmall'}
-                    textTransform={'uppercase'}
-                    fontWeight={'bold'}>
-                    {t('common:read')}
+            {item.isRead ? (
+              <AnimatedBox
+                entering={BounceIn}
+                exiting={BounceOut}
+                alignSelf={'flex-start'}
+                position={'absolute'}
+                padding={'xxs'}
+                backgroundColor={'inverseSurface'}
+                borderRadius={'xs'}>
+                <Text
+                  color={'inverseOnSurface'}
+                  variant={'labelSmall'}
+                  textTransform={'uppercase'}
+                  fontWeight={'bold'}>
+                  {t('common:read')}
+                </Text>
+              </AnimatedBox>
+            ) : null}
+          </Surface>
+
+          <Box flex={1} paddingLeft="m">
+            <Box flex={1}>
+              <Row alignItems={'center'}>
+                <Box flex={1}>
+                  <Text variant="bodyLarge" color="onSurface" numberOfLines={2}>
+                    {item.title}
                   </Text>
-                </AnimatedBox>
-              ) : null}
-            </Surface>
-
-            <Box flex={1} paddingLeft="m">
-              <Box flex={1}>
-                <Row alignItems={'center'}>
-                  <Box flex={1}>
-                    <Text
-                      variant="bodyLarge"
-                      color="onSurface"
-                      numberOfLines={2}>
-                      {item.title}
-                    </Text>
-                  </Box>
-
-                  <BookStatusIcon
-                    status={status}
-                    alignSelf="flex-start"
-                    marginRight={'m'}
-                  />
-                </Row>
-
-                <Text
-                  variant="bodySmall"
-                  color="onSurfaceVariant"
-                  numberOfLines={1}>
-                  {item.authors.length > 0
-                    ? item.authors.join(', ')
-                    : t('unkown_author')}
-                </Text>
-                <Text
-                  variant="bodySmall"
-                  color="onSurface"
-                  numberOfLines={1}
-                  opacity={0.6}>
-                  {[
-                    item.size.trim().split(' ').splice(0, 2).join(' '),
-                    item.extension,
-                    item.language,
-                  ].join(' \u2022 ')}
-                </Text>
-              </Box>
-
-              {status !== 'downloading' ? (
-                <Box alignSelf={'flex-end'}>
-                  <Menu
-                    // Force the menu to disappear when the item is removed
-                    key={item.md5!}
-                    visible={isMenuVisible && !!item.md5}
-                    onDismiss={toggleIsMenuVisible}
-                    anchor={
-                      <IconButton
-                        icon={'dots-horizontal'}
-                        onPress={toggleIsMenuVisible}
-                        alignSelf={'flex-end'}
-                      />
-                    }>
-                    {status === undefined ? (
-                      <Menu.Item
-                        onPress={() => {
-                          toggleIsMenuVisible();
-                          toggleIsDownloadBookDialogVisible();
-                        }}
-                        title={t('common:download')}
-                      />
-                    ) : null}
-                    <Menu.Item
-                      onPress={handleOnPressAddToCollection}
-                      title={t('collection:add_to_a_collection')}
-                    />
-                    <Menu.Item
-                      onPress={toggleIsBookRead}
-                      title={
-                        item.isRead
-                          ? t('common:mark_as_unread')
-                          : t('common:mark_as_read')
-                      }
-                    />
-                    <Menu.Item
-                      onPress={handleOnPressRemoveFromLibrary}
-                      title={t('library:remove_from_library')}
-                    />
-                    <Menu.Item
-                      onPress={handleOnPressRemoveEverywhere}
-                      title={t('library:remove_everywhere')}
-                    />
-                  </Menu>
                 </Box>
-              ) : null}
 
-              {status === 'downloading' ? (
-                <Row alignItems={'center'}>
-                  <Box flex={1} marginRight={'s'}>
-                    <ProgressBar indeterminate />
-                  </Box>
-                  <IconButton
-                    icon={'close'}
-                    mode="contained-tonal"
-                    onPress={callCancelDownload}
-                    size={sizes.m}
-                  />
-                </Row>
-              ) : null}
+                <BookStatusIcon
+                  status={status}
+                  alignSelf="flex-start"
+                  marginRight={'m'}
+                />
+              </Row>
+
+              <Text
+                variant="bodySmall"
+                color="onSurfaceVariant"
+                numberOfLines={1}>
+                {item.authors.length > 0
+                  ? item.authors.join(', ')
+                  : t('unkown_author')}
+              </Text>
+              <Text
+                variant="bodySmall"
+                color="onSurface"
+                numberOfLines={1}
+                opacity={0.6}>
+                {[
+                  item.size.trim().split(' ').splice(0, 2).join(' '),
+                  item.extension,
+                  item.language,
+                ].join(' \u2022 ')}
+              </Text>
             </Box>
-          </Row>
-        </TouchableRipple>
-      </Animated.View>
-      <Portal>
-        <StorageAccessSnackBar
-          visible={isStorageAccessSnackbarVisible}
-          onDismiss={toggleIsStorageAccessSnackbarVisible}
-        />
-        <DownloadBookDialog
-          book={item}
-          visible={isDownloadBookDialogVisible}
-          onDismiss={toggleIsDownloadBookDialogVisible}
-          onStoragePermissionDenied={toggleIsStorageAccessSnackbarVisible}
-        />
-        {/* Fix app crash List no longer valid */}
-        {/* {item ? (
-          <AddBookToCollectionModal
-            book={item}
-            visible={isAddBookToCollectionModalVisible}
-            onDismiss={toggleIsAddBookToCollectionModalVisible}
-          />
-        ) : null} */}
-      </Portal>
-    </>
+
+            {status !== 'downloading' ? (
+              <Box alignSelf={'flex-end'}>
+                <Menu
+                  // Force the menu to disappear when the item is removed
+                  key={item.md5!}
+                  visible={isMenuVisible && !!item.md5}
+                  onDismiss={toggleIsMenuVisible}
+                  anchor={
+                    <IconButton
+                      icon={'dots-horizontal'}
+                      onPress={toggleIsMenuVisible}
+                      alignSelf={'flex-end'}
+                    />
+                  }>
+                  {status === undefined ? (
+                    <Menu.Item
+                      onPress={handleOnPressDownload}
+                      title={t('common:download')}
+                    />
+                  ) : null}
+                  <Menu.Item
+                    onPress={handleOnPressAddToCollection}
+                    title={t('collection:add_to_a_collection')}
+                  />
+                  <Menu.Item
+                    onPress={toggleIsBookRead}
+                    title={
+                      item.isRead
+                        ? t('common:mark_as_unread')
+                        : t('common:mark_as_read')
+                    }
+                  />
+                  <Menu.Item
+                    onPress={handleOnPressRemoveFromLibrary}
+                    title={t('library:remove_from_library')}
+                  />
+                  <Menu.Item
+                    onPress={handleOnPressRemoveEverywhere}
+                    title={t('library:remove_everywhere')}
+                  />
+                </Menu>
+              </Box>
+            ) : null}
+
+            {status === 'downloading' ? (
+              <Row alignItems={'center'}>
+                <Box flex={1} marginRight={'s'}>
+                  <ProgressBar indeterminate />
+                </Box>
+                <IconButton
+                  icon={'close'}
+                  mode="contained-tonal"
+                  onPress={callCancelDownload}
+                  size={sizes.m}
+                />
+              </Row>
+            ) : null}
+          </Box>
+        </Row>
+      </TouchableRipple>
+    </Animated.View>
   );
 };
 
