@@ -59,6 +59,8 @@ const useModalImpl = create<ModalStore<any>>()(set => ({
     }),
 }));
 
+export const selectOpenModal = <T>(state: ModalStore<T>) => state.openModal;
+
 export const useModal = useModalImpl as {
   <T>(): ModalStore<T>;
   <T, U>(selector: (s: ModalStore<T>) => U): U;

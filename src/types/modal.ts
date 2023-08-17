@@ -10,4 +10,6 @@ export type Modals = {
   rename_collection: {collectionId: PrimaryKey};
   remove_collection: {collectionId: PrimaryKey};
   create_collection: undefined;
+  remove_book_from_library: {bookId: PrimaryKey};
+  remove_book_everywhere: {bookId: PrimaryKey};
 };

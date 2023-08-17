@@ -3,7 +3,9 @@ import BookList from './BookList';
 import CollectionItem from './CollectionItem';
 import CollectionScreenHeader from './CollectionScreenHeader';
 import CollectionsTabHeader from './CollectionsTabHeader';
+import ConfirmationDialogRemoveBookFromLibrary from './ConfirmationDialogRemoveBookFromLibrary';
 import ConfirmationDialogRemoveCollection from './ConfirmationDialogRemoveCollection';
+import ConfirmationDialogRemoveBookEverywhere from './ConfirmationDialogRemoveBookEverywhere';
 import CreateCollectionDialog from './CreateCollectionDialog';
 import DarkModeOptionsDialog from './DarkModeOptionsDialog';
 import LibraryScreenHeader from './LibraryScreenHeader';
@@ -34,4 +36,6 @@ export {
   UpdateLanguageDialog,
   StorageAccessSnackBar,
   ConfirmationDialogRemoveCollection,
+  ConfirmationDialogRemoveBookFromLibrary,
+  ConfirmationDialogRemoveBookEverywhere,
 };

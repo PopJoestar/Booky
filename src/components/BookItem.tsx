@@ -29,30 +29,28 @@ import Animated, {
 import BookStatusIcon from './BookStatusIcon';
 import {BookStatus} from '@/types/status';
 import {BookModel} from '@/database';
-import ConfirmationDialog from './ConfirmationDialog';
-import {requestExternalStoragePermission} from '@/utils/permissions';
-import {deleteFile} from '@/utils/files';
 import StorageAccessSnackBar from './StorageAccessSnackBar';
 import DownloadBookDialog from './DownloadBookDialog';
 import {BookService} from '@/services';
-import AddBookToCollectionModal from './AddBookToCollectionModal';
 import {BaseError} from '@/types/errors';
 import {ErrorConstant} from '@/constants';
+import {Modals} from '@/types/modal';
+import {
+  OpenModalFunction,
+  selectOpenModal,
+  useModal,
+} from '@/stores/modalStore';
 
 type Props = {item: BookModel};
 
 const BookItem = ({item}: Props) => {
   const {t} = useTranslation('common');
+  const openModal = useModal<Modals, OpenModalFunction<Modals>>(
+    selectOpenModal,
+  );
   const {showMessage} = useMessageDisplayer();
   const [isMenuVisible, toggleIsMenuVisible] = useToggle();
-  const [
-    isRemoveFromLibraryConfirmationDialogVisible,
-    toggleIsRemoveFromLibraryConfirmationDialogVisible,
-  ] = useToggle();
-  const [
-    isRemoveEverywhereConfirmationDialogVisible,
-    toggleIsRemoveEverywhereConfirmationDialogVisible,
-  ] = useToggle();
+
   const [isStorageAccessSnackbarVisible, toggleIsStorageAccessSnackbarVisible] =
     useToggle();
   const [isDownloadBookDialogVisible, toggleIsDownloadBookDialogVisible] =
@@ -63,7 +61,7 @@ const BookItem = ({item}: Props) => {
   ] = useToggle();
 
   const downloadInfo = useBookDownloadInfoObject(item.md5 ?? '');
-  const {updateBook, removeBook} = useBookRepository();
+  const {updateBook} = useBookRepository();
   const {cancelDownload} = useDownloadBook();
 
   const getStatus = (): BookStatus | undefined => {
@@ -86,55 +84,21 @@ const BookItem = ({item}: Props) => {
     toggleIsMenuVisible();
   };
 
-  const handleOnPressRemoveFromLibrary = () => {
-    toggleIsMenuVisible();
-    setTimeout(() => {
-      toggleIsRemoveFromLibraryConfirmationDialogVisible();
-    }, 1);
-  };
-
   const handleOnPressAddToCollection = () => {
     toggleIsMenuVisible();
     toggleIsAddBookToCollectionModalVisible();
   };
 
-  const removeFromLibrary = () => {
-    toggleIsRemoveFromLibraryConfirmationDialogVisible();
+  const handleOnPressRemoveFromLibrary = () => {
+    toggleIsMenuVisible();
     setTimeout(() => {
-      removeBook(item);
+      openModal('remove_book_from_library', {bookId: item.md5!});
     }, 1);
   };
-
-  const removeEverywhere = async () => {
-    if (item.filePath === '') {
-      toggleIsRemoveEverywhereConfirmationDialogVisible();
-      setTimeout(() => {
-        removeBook(item);
-      }, 1);
-      return;
-    }
-
-    const isExternalStorageManager = await requestExternalStoragePermission();
-
-    if (!isExternalStorageManager) {
-      toggleIsRemoveEverywhereConfirmationDialogVisible();
-      toggleIsStorageAccessSnackbarVisible();
-      return;
-    }
-
-    await deleteFile(item.filePath);
-
-    toggleIsRemoveEverywhereConfirmationDialogVisible();
-
-    setTimeout(() => {
-      removeBook(item);
-    }, 1);
-  };
-
   const handleOnPressRemoveEverywhere = () => {
     toggleIsMenuVisible();
     setTimeout(() => {
-      toggleIsRemoveEverywhereConfirmationDialogVisible();
+      openModal('remove_book_everywhere', {bookId: item.md5!});
     }, 1);
   };
 
@@ -316,22 +280,6 @@ const BookItem = ({item}: Props) => {
         </TouchableRipple>
       </Animated.View>
       <Portal>
-        <ConfirmationDialog
-          onDismiss={toggleIsRemoveFromLibraryConfirmationDialogVisible}
-          onConfirm={removeFromLibrary}
-          onReject={toggleIsRemoveFromLibraryConfirmationDialogVisible}
-          visible={isRemoveFromLibraryConfirmationDialogVisible}
-          content={t('library:confirm_remove_from_library', {
-            title: item.title,
-          })}
-        />
-        <ConfirmationDialog
-          onDismiss={toggleIsRemoveEverywhereConfirmationDialogVisible}
-          onConfirm={removeEverywhere}
-          onReject={toggleIsRemoveEverywhereConfirmationDialogVisible}
-          visible={isRemoveEverywhereConfirmationDialogVisible}
-          content={t('library:confirm_remove_everywhere', {title: item.title})}
-        />
         <StorageAccessSnackBar
           visible={isStorageAccessSnackbarVisible}
           onDismiss={toggleIsStorageAccessSnackbarVisible}
@@ -343,13 +291,13 @@ const BookItem = ({item}: Props) => {
           onStoragePermissionDenied={toggleIsStorageAccessSnackbarVisible}
         />
         {/* Fix app crash List no longer valid */}
-        {item ? (
+        {/* {item ? (
           <AddBookToCollectionModal
             book={item}
             visible={isAddBookToCollectionModalVisible}
             onDismiss={toggleIsAddBookToCollectionModalVisible}
           />
-        ) : null}
+        ) : null} */}
       </Portal>
     </>
   );

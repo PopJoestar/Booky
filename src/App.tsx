@@ -18,6 +18,8 @@ import {Constants} from './constants';
 
 import * as SplashScreen from 'expo-splash-screen';
 import {
+  ConfirmationDialogRemoveBookEverywhere,
+  ConfirmationDialogRemoveBookFromLibrary,
   ConfirmationDialogRemoveCollection,
   CreateCollectionDialog,
   RenameCollectionDialog,
@@ -60,6 +62,12 @@ const AppContent = () => {
           ) : null}
           {modals.includes('create_collection') ? (
             <CreateCollectionDialog />
+          ) : null}
+          {modals.includes('remove_book_from_library') ? (
+            <ConfirmationDialogRemoveBookFromLibrary />
+          ) : null}
+          {modals.includes('remove_book_everywhere') ? (
+            <ConfirmationDialogRemoveBookEverywhere />
           ) : null}
         </NavigationContainer>
         <FlashMessageContainer />
