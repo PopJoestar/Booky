@@ -184,7 +184,7 @@ const BookItem = ({item}: Props) => {
                 numberOfLines={1}>
                 {item.authors.length > 0
                   ? item.authors.join(', ')
-                  : t('common:unkown_author')}
+                  : t('common:unknown_author')}
               </Text>
               <Text
                 variant="bodySmall"
