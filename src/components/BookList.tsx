@@ -21,8 +21,11 @@ const BookList = ({data}: Props) => {
       renderItem={renderBook}
       estimatedItemSize={sizes.book_card_estimated_height}
       ItemSeparatorComponent={Divider}
+      keyExtractor={keyExtractor}
     />
   );
 };
+
+const keyExtractor = (item: BookModel) => item.md5!;
 
 export default BookList;
