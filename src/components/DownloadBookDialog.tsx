@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Dialog, RadioButton} from 'react-native-paper';
-import {Box, Button, Text} from '@/core';
+import {Box, Button, ScrollView, Text} from '@/core';
 import {useTranslation} from 'react-i18next';
 import {BookModel, useObject} from '@/database';
 import {Constants} from '@/constants';
@@ -53,9 +53,10 @@ const DownloadBookDialog = () => {
       dismissable>
       <Dialog.Title numberOfLines={2}>{book?.title}</Dialog.Title>
       <Dialog.Content>
-        <Box rowGap={'l'}>
-          <Text>{t('common:choose_gateway', {title: book?.title})}</Text>
-
+        <Text>{t('common:choose_gateway', {title: book?.title})}</Text>
+      </Dialog.Content>
+      <Dialog.ScrollArea>
+        <ScrollView>
           <RadioButton.Group
             value={selectedDownloadLinkIndex.toString(10)}
             onValueChange={selected => {
@@ -80,8 +81,8 @@ const DownloadBookDialog = () => {
                 ))}
             </Box>
           </RadioButton.Group>
-        </Box>
-      </Dialog.Content>
+        </ScrollView>
+      </Dialog.ScrollArea>
       <Dialog.Actions>
         <Button onPress={close}>{t('common:no')}</Button>
         <Button onPress={_downloadBook}>{t('common:yes')}</Button>
