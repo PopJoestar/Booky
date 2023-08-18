@@ -23,7 +23,7 @@
     "mark_as_read": "Marquer comme lu",
     "mark_as_unread": "Marquer comme non lu",
     "see_details": "Voir les détails",
-    "read": "Lire",
+    "read": "Lu",
     "yes": "Oui",
     "no": "Non",
     "storage_access_required_delete_file": "L'accès au stockage est requis pour supprimer les fichiers",
@@ -59,7 +59,7 @@
     "title": "Bibliothèque",
     "confirm_remove_from_library": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque ?",
     "confirm_remove_everywhere": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque et de vos fichiers ?",
-    "remove_from_library": "Retirer de la bibliothèque",
+    "remove_from_library": "Supprimer de la bibliothèque",
     "remove_everywhere": "Supprimer partout"
   },
   "search": {
