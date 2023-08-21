@@ -1,6 +1,38 @@
-# Booky
+<h1 align="center"> Booky </h1> <br>
+<p align="center">
+    <img alt="GitPoint" title="GitPoint" src="https://i.imgur.com/ddp8k8M.png" width="450">
+</p>
 
-Booky is an application to get book from [Library Genesis](https://libgen.rs/) and to manage books. Booky is built with React Native Expo, fully written in Typescript, and uses [Material 3](https://m3.material.io) design. This project is to illustrate some React Native patterns and good practice that I gained from my experience and is an educationnal purpose project.
+<p align="center">
+  Built with React Native.
+</p>
+
+<p align="center">
+  <a href="https://github.com/PopJoestar/Booky/releases/new">
+    <img alt="Get it on GitHub releases" title="GitHub releases" src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png" width="140">
+  </a>
+</p>
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Feedback](#feedback)
+- [Contributors](#contributors)
+- [Build Process](#build-process)
+- [Backers](#backers-)
+- [Sponsors](#sponsors-)
+- [Acknowledgments](#acknowledgments)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Introduction
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+Download books from [Library Genesis](https://libgen.rs/) and manage books. Built with React Native Expo, and uses [Material 3](https://m3.material.io) design. Booky is to illustrate some React Native patterns and good practice that I gained from my experience and is an educationnal purpose project.
 
 This is a non-official [Library Genesis](https://libgen.rs/) mobile client.
 
