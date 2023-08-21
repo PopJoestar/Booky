@@ -34,7 +34,7 @@
 
 Booky is a non-official [Library Genesis](https://libgen.rs/) mobile client to download and manage books. Built with React Native Expo, and uses [Material 3](https://m3.material.io) design. Booky is an educationnal purpose project to illustrate some React Native patterns and good practice that I gained from my experience as a React Native Developer
 
-**Available for Android only.**
+**Available for Android 6.0 and above only.**
 
 This is a non-official [Library Genesis](https://libgen.rs/) mobile client.
 
