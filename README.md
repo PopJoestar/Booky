@@ -31,3 +31,12 @@ Make sure your [React native development environment](https://reactnative.dev/do
 yarn install // install node JS dependencies
 yarn android // run on android
 ```
+
+## TODO
+- [ ] Write unit tests
+- [ ] Write E2E tests
+- [ ] Add add many books in a collection feature.
+- [ ] Add edit book details to illustrate form management [React Hooks Form](https://www.react-hook-form.com) in React Native 
+- Migrate to Turbo modules and New architecture
+- Add sort and filters options in Library
+
