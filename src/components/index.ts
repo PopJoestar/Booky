@@ -17,6 +17,7 @@ import SearchBooksScreenHeader from './SearchBooksScreenHeader';
 import StorageAccessSnackBar from './StorageAccessSnackBar';
 import UpdateLanguageDialog from './UpdateLanguageDialog';
 import UpdateThemeDialog from './UpdateThemeDialog';
+import ConfirmationDialogRemoveFile from './ConfirmationDialogRemoveFile';
 
 export {
   RemoteBookItem,
@@ -38,4 +39,5 @@ export {
   ConfirmationDialogRemoveCollection,
   ConfirmationDialogRemoveBookFromLibrary,
   ConfirmationDialogRemoveBookEverywhere,
+  ConfirmationDialogRemoveFile,
 };

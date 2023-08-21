@@ -28,12 +28,12 @@
     "no": "Non",
     "storage_access_required_delete_file": "L'accès au stockage est requis pour supprimer les fichiers",
     "settings": "Paramètres",
-    "choose_gateway": "Choisissez une passerelle pour télécharger '{{- title}}'",
+    "choose_gateway": "Choisissez une passerelle pour télécharger {{- title}}",
     "field_required": "Ce champ est requis",
     "field_min_length_one": "Minimum {{count}} caractère",
     "field_min_length_other": "Minimum {{count}} caractères",
     "no_book": "Aucun livre",
-    "no_application_to_open_file": "Aucune application trouvée pour ouvrir '{{- file}}'",
+    "no_application_to_open_file": "Aucune application trouvée pour ouvrir {{- file}}",
     "more": "Plus",
     "language": "Langue"
   },
@@ -57,8 +57,9 @@
   },
   "library": {
     "title": "Bibliothèque",
-    "confirm_remove_from_library": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque ?",
-    "confirm_remove_everywhere": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque et de vos fichiers ?",
+    "confirm_remove_from_library": "Voulez-vous vraiment supprimer {{- title}} de votre bibliothèque ?",
+    "confirm_remove_everywhere": "Voulez-vous vraiment supprimer {{- title}} de votre bibliothèque et de vos fichiers ?",
+    "confirm_remove_file": "Voulez-vous vraiment supprimer {{- path}} de vos fichiers ?",
     "remove_from_library": "Supprimer de la bibliothèque",
     "remove_everywhere": "Supprimer partout",
     "remove_file": "Supprimer le fichier"
@@ -113,8 +114,8 @@
     "create_collection": "Créer une collection",
     "enter_collection_name": "Entrez le nom de la collection",
     "add_to_a_collection": "Ajouter à la collection",
-    "remove_collection": "Êtes-vous sûr de vouloir supprimer '{{- name}}' ? (Les livres qu'elle contient ne seront pas affectés.)",
-    "rename_collection": "Renommer '{{- name}}'"
+    "remove_collection": "Êtes-vous sûr de vouloir supprimer {{- name}} ? (Les livres qu'elle contient ne seront pas affectés.)",
+    "rename_collection": "Renommer {{- name}}"
   },
   "book_details": {
     "book_info_label": {
@@ -126,7 +127,7 @@
       "series": "Série"
     },
     "gateways": "Passerelles",
-    "book_saved": "'{{- title}}' a été ajouté à votre bibliothèque"
+    "book_saved": "{{- title}} a été ajouté à votre bibliothèque"
   },
   "error": {
     "host": {

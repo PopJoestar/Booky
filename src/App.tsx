@@ -22,6 +22,7 @@ import {
   ConfirmationDialogRemoveBookEverywhere,
   ConfirmationDialogRemoveBookFromLibrary,
   ConfirmationDialogRemoveCollection,
+  ConfirmationDialogRemoveFile,
   CreateCollectionDialog,
   RenameCollectionDialog,
 } from './components';
@@ -74,6 +75,9 @@ const AppContent = () => {
           {modals.includes('download_book') ? <DownloadBookDialog /> : null}
           {modals.includes('add_book_to_collection') ? (
             <AddBookToCollectionModal />
+          ) : null}
+          {modals.includes('remove_file') ? (
+            <ConfirmationDialogRemoveFile />
           ) : null}
         </NavigationContainer>
         <FlashMessageContainer />
