@@ -73,6 +73,12 @@ const BookItem = ({item}: Props) => {
       openModal('remove_book_from_library', {bookId: item.md5!});
     }, 1);
   };
+  const handleOnPressRemoveFile = () => {
+    toggleIsMenuVisible();
+    setTimeout(() => {
+      openModal('remove_file', {bookId: item.md5!});
+    }, 1);
+  };
   const handleOnPressRemoveEverywhere = () => {
     toggleIsMenuVisible();
     setTimeout(() => {
@@ -236,7 +242,10 @@ const BookItem = ({item}: Props) => {
                     title={t('library:remove_from_library')}
                   />
                   {item.filePath !== '' ? (
-                    <Menu.Item title={t('library:remove_file')} />
+                    <Menu.Item
+                      onPress={handleOnPressRemoveFile}
+                      title={t('library:remove_file')}
+                    />
                   ) : null}
                   <Menu.Item
                     onPress={handleOnPressRemoveEverywhere}
