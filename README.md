@@ -51,10 +51,6 @@ Publishing a copy of this application on the Play Store will only get your accou
 - French and English translations
 - Dark mode/light mode
 
-## Download
-
-[![Get it on GitHub releases](https://i.ibb.co/q0mdc4Z/get-it-on-github.png)](https://github.com/FunkyMuse/Aurora/releases/latest)
-
 ## Installation
 
 Make sure your [React native development environment](https://reactnative.dev/docs/environment-setup) is set up and you have [Expo CLI](https://docs.expo.dev/get-started/installation/) installed.
