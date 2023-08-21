@@ -32,14 +32,14 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-Download books from [Library Genesis](https://libgen.rs/) and manage books. Built with React Native Expo, and uses [Material 3](https://m3.material.io) design. Booky is an educationnal purpose project to illustrate some React Native patterns and good practice that I gained from my experience as a React Native Developer 
+Download books from [Library Genesis](https://libgen.rs/) and manage books. Built with React Native Expo, and uses [Material 3](https://m3.material.io) design. Booky is an educationnal purpose project to illustrate some React Native patterns and good practice that I gained from my experience as a React Native Developer
+
+**Available for Android only.**
 
 This is a non-official [Library Genesis](https://libgen.rs/) mobile client.
 
 The project is completely independent and Open Source. 
 The developer has no relation with [Library Genesis](https://libgen.rs/).
-
-Publishing a copy of this application on the Play Store will only get your account banned.
 
 ## Features
 
