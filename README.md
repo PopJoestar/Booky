@@ -36,9 +36,6 @@ Booky is a non-official [Library Genesis](https://libgen.rs/) mobile client to d
 
 **Available for Android 6.0 and above only.**
 
-This is a non-official [Library Genesis](https://libgen.rs/) mobile client.
-
-The project is completely independent and Open Source. 
 The developer has no relation with [Library Genesis](https://libgen.rs/).
 
 ## Features
