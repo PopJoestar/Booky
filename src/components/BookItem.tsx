@@ -235,6 +235,9 @@ const BookItem = ({item}: Props) => {
                     onPress={handleOnPressRemoveFromLibrary}
                     title={t('library:remove_from_library')}
                   />
+                  {item.filePath !== '' ? (
+                    <Menu.Item title={t('library:remove_file')} />
+                  ) : null}
                   <Menu.Item
                     onPress={handleOnPressRemoveEverywhere}
                     title={t('library:remove_everywhere')}

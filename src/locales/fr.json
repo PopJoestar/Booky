@@ -60,7 +60,8 @@
     "confirm_remove_from_library": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque ?",
     "confirm_remove_everywhere": "Voulez-vous vraiment supprimer '{{- title}}' de votre bibliothèque et de vos fichiers ?",
     "remove_from_library": "Supprimer de la bibliothèque",
-    "remove_everywhere": "Supprimer partout"
+    "remove_everywhere": "Supprimer partout",
+    "remove_file": "Supprimer le fichier"
   },
   "search": {
     "filter": {

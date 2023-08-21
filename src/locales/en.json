@@ -60,7 +60,8 @@
     "confirm_remove_from_library": "Are you sure you want to remove '{{- title}}' from your library?",
     "confirm_remove_everywhere": "Are you sure you want to remove '{{- title}}' from your library and your files?",
     "remove_from_library": "Remove from Library",
-    "remove_everywhere": "Remove Everywhere"
+    "remove_everywhere": "Remove Everywhere",
+    "remove_file": "Remove file"
   },
   "search": {
     "filter": {
