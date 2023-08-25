@@ -21,6 +21,7 @@
   - [Features](#features)
   - [Installation](#installation)
   - [TODO](#todo)
+  - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -62,3 +63,7 @@ yarn android // run on android
 - [ ] Migrate to Turbo modules and New architecture
 - [ ] Add sort and filters options in Library
 
+
+## License
+
+Booky is licensed under [The MIT License](LICENSE).
