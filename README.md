@@ -72,8 +72,17 @@ Make sure your [React native development environment](https://reactnative.dev/do
 
 1. **Fork** the repository.
 2. **Clone** the forked repository to your local machine.
+```bash
+git clone https://github.com/PopJoestar/Booky.git
+```
 3. Create a new **branch** for your feature or fix.
+```bash
+git checkout -b my-branch
+```
 4. Make your changes and perform necessary **testing** by running the application;
+```bash
+yarn android
+```
 5. **Commit** your changes with clear messages.
 6. **Push** your branch to your forked repository.
 7. Open a **Pull Request** (PR) from your branch to ours.
